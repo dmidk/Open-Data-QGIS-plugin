@@ -1,0 +1,3 @@
+[submodule "settings/qgissettingmanager"]
+	path = settings/qgissettingmanager
+	url = https://github.com/opengisch/qgissettingmanager.git

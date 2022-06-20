@@ -1,0 +1,54 @@
+# This file contains metadata for your plugin.
+
+# This file should be included when you package your plugin.# Mandatory items:
+
+[general]
+name=DMI Open Data
+qgisMinimumVersion=3.0
+description=This plugin lets you import data from DMIs Open Data
+version=0.1
+author=Danish Meteorological Institute
+email=Use the contact form at https://www.dmi.dk/kontakt/frie-data/
+
+about=This plugin lets you import data from DMIs Open Data in an easy manner. The only requirements is an API-key, which you can freely create <a href="https://confluence.govcloud.dk/display/FDAPI/User+Creation">here</a>.
+
+    With this plugin you can import meteorological observations, climate data, lightning data, radar data and oceanographic observations. Furthermore it is possible to download the data as .csv files, pull multiple parameters and stations at a time and get an overview of all DMIs stations, what they measure and where they are located.
+    
+    To read more about DMIs Open Data go <a href="https://confluence.govcloud.dk/display/FDAPI/Danish+Meteorological+Institute+-+Open+Data">here.</a> 
+    <a href="https://www.dmi.dk/">Visit DMI.</a>
+    <a href="https://www.dmi.dk/kontakt/">Contact us.</a>
+    <img src="https://www.dmi.dk/fileadmin/assets/img/logoer/DMI_RGB_UK.jpg" alt="DMI" width="200" height=auto>
+
+tracker=https://github.com/dmidk/Open-Data-QGIS-plugin/issues
+repository=https://github.com/dmidk/Open-Data-QGIS-plugin
+# End of mandatory metadata
+
+# Recommended items:
+
+hasProcessingProvider=no
+# Uncomment the following line and add your changelog:
+# changelog=
+
+# Tags are comma separated with spaces allowed
+tags=Open Data, DMI Open Data, Climate, Climate Change, Climate Data, DMI, Danmarks Meteorologiske Institut
+
+homepage=http://homepage
+category=Plugins
+icon=icon.png
+# experimental flag
+experimental=True
+
+# deprecated flag (applies to the whole plugin, not just a single version)
+deprecated=False
+
+# Since QGIS 3.8, a comma separated list of plugins to be installed
+# (or upgraded) can be specified.
+# Check the documentation for more information.
+# plugin_dependencies=
+
+Category of the plugin: Raster, Vector, Database or Web
+# category=Database
+
+# If the plugin can run on QGIS Server.
+server=False
+
