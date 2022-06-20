@@ -1,0 +1,1392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>box_DMI</class>
+ <widget class="QDialog" name="box_DMI">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>947</width>
+    <height>499</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="baseSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>DMI Open Data</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_31">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_22"/>
+   </item>
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="currentIndex">
+      <number>5</number>
+     </property>
+     <property name="documentMode">
+      <bool>false</bool>
+     </property>
+     <property name="tabsClosable">
+      <bool>false</bool>
+     </property>
+     <property name="tabBarAutoHide">
+      <bool>false</bool>
+     </property>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Meteorological Observations</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_15">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_10">
+         <item>
+          <widget class="QGroupBox" name="start_time">
+           <property name="title">
+            <string>Start date and time</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <widget class="QDateTimeEdit" name="start_date">
+              <property name="dateTime">
+               <datetime>
+                <hour>0</hour>
+                <minute>0</minute>
+                <second>0</second>
+                <year>2020</year>
+                <month>1</month>
+                <day>1</day>
+               </datetime>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="end_time">
+           <property name="title">
+            <string>End date and time</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QDateTimeEdit" name="end_date">
+              <property name="dateTime">
+               <datetime>
+                <hour>0</hour>
+                <minute>0</minute>
+                <second>0</second>
+                <year>2020</year>
+                <month>1</month>
+                <day>2</day>
+               </datetime>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_6">
+           <item>
+            <widget class="QGroupBox" name="parameters_metObs">
+             <property name="title">
+              <string>Parameters</string>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_21">
+              <item>
+               <widget class="QScrollArea" name="scrollArea">
+                <property name="widgetResizable">
+                 <bool>true</bool>
+                </property>
+                <widget class="QWidget" name="scrollAreaWidgetContents_2">
+                 <property name="geometry">
+                  <rect>
+                   <x>0</x>
+                   <y>0</y>
+                   <width>422</width>
+                   <height>175</height>
+                  </rect>
+                 </property>
+                 <layout class="QVBoxLayout" name="verticalLayout_10"/>
+                </widget>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_19">
+           <item>
+            <widget class="QGroupBox" name="stat">
+             <property name="title">
+              <string>Stations</string>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_3">
+              <item>
+               <widget class="QScrollArea" name="scrollArea_2">
+                <property name="widgetResizable">
+                 <bool>true</bool>
+                </property>
+                <widget class="QWidget" name="scrollAreaWidgetContents_3">
+                 <property name="geometry">
+                  <rect>
+                   <x>0</x>
+                   <y>0</y>
+                   <width>421</width>
+                   <height>175</height>
+                  </rect>
+                 </property>
+                 <layout class="QVBoxLayout" name="verticalLayout_5"/>
+                </widget>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="out">
+         <property name="title">
+          <string>Save as .csv file also (Optional)</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QLineEdit" name="file_name_obs">
+              <property name="frame">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="browse_obs">
+              <property name="text">
+               <string>Browse</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string>Climate Data</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_39">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item>
+          <widget class="QGroupBox" name="groupBox_9">
+           <property name="title">
+            <string>Resolution</string>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_24">
+            <item>
+             <widget class="QRadioButton" name="hour_climate">
+              <property name="text">
+               <string>Hour</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="day_climate">
+              <property name="text">
+               <string>Day</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="month_climate">
+              <property name="text">
+               <string>Month</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="year_climate">
+              <property name="text">
+               <string>Year</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_16">
+           <property name="title">
+            <string>Type</string>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_23">
+            <item>
+             <widget class="QRadioButton" name="stat_type">
+              <property name="text">
+               <string>Station</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="grid10_type">
+              <property name="text">
+               <string>10 km Grid</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="grid20_type">
+              <property name="text">
+               <string>20 km Grid</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="munic_type">
+              <property name="text">
+               <string>Municipality</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="country_type">
+              <property name="text">
+               <string>Country</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_65">
+         <item>
+          <widget class="QStackedWidget" name="stackedWidget_2">
+           <property name="currentIndex">
+            <number>0</number>
+           </property>
+           <widget class="QWidget" name="stat_para">
+            <layout class="QVBoxLayout" name="verticalLayout_24">
+             <item>
+              <widget class="QScrollArea" name="scrollArea_5">
+               <property name="widgetResizable">
+                <bool>true</bool>
+               </property>
+               <widget class="QWidget" name="scrollAreaWidgetContents_6">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>430</width>
+                  <height>206</height>
+                 </rect>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_14"/>
+               </widget>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="grid_para">
+            <layout class="QVBoxLayout" name="verticalLayout_37">
+             <item>
+              <widget class="QScrollArea" name="scrollArea_8">
+               <property name="widgetResizable">
+                <bool>true</bool>
+               </property>
+               <widget class="QWidget" name="scrollAreaWidgetContents_8">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>98</width>
+                  <height>28</height>
+                 </rect>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_32"/>
+               </widget>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="page">
+            <layout class="QVBoxLayout" name="verticalLayout_35"/>
+           </widget>
+          </widget>
+         </item>
+         <item>
+          <widget class="QStackedWidget" name="stackedWidget">
+           <property name="currentIndex">
+            <number>2</number>
+           </property>
+           <widget class="QWidget" name="stat_clima">
+            <layout class="QVBoxLayout" name="verticalLayout_33">
+             <item>
+              <widget class="QScrollArea" name="scrollArea_4">
+               <property name="widgetResizable">
+                <bool>true</bool>
+               </property>
+               <widget class="QWidget" name="scrollAreaWidgetContents_5">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>98</width>
+                  <height>28</height>
+                 </rect>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_36"/>
+               </widget>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="grid_10">
+            <layout class="QGridLayout" name="gridLayout_8">
+             <item row="0" column="0">
+              <widget class="QScrollArea" name="scrollArea_3">
+               <property name="widgetResizable">
+                <bool>true</bool>
+               </property>
+               <widget class="QWidget" name="scrollAreaWidgetContents">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>98</width>
+                  <height>28</height>
+                 </rect>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_40"/>
+               </widget>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="grid_20">
+            <layout class="QGridLayout" name="gridLayout_6">
+             <item row="0" column="0">
+              <widget class="QScrollArea" name="scrollArea_6">
+               <property name="widgetResizable">
+                <bool>true</bool>
+               </property>
+               <widget class="QWidget" name="scrollAreaWidgetContents_4">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>429</width>
+                  <height>206</height>
+                 </rect>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_34"/>
+               </widget>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="municipality">
+            <layout class="QGridLayout" name="gridLayout_11">
+             <item row="0" column="0">
+              <widget class="QScrollArea" name="scrollArea_7">
+               <property name="widgetResizable">
+                <bool>true</bool>
+               </property>
+               <widget class="QWidget" name="scrollAreaWidgetContents_7">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>175</width>
+                  <height>70</height>
+                 </rect>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_38">
+                 <item>
+                  <widget class="QCheckBox" name="m147">
+                   <property name="text">
+                    <string>0147 Frederiksberg</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="m101">
+                   <property name="text">
+                    <string>0101 København</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="country">
+            <layout class="QGridLayout" name="gridLayout_5"/>
+           </widget>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="out_2">
+         <property name="title">
+          <string>Save as .csv file also (Optional)</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_9">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <widget class="QLineEdit" name="file_name_cli"/>
+            </item>
+            <item>
+             <widget class="QPushButton" name="browse_cli">
+              <property name="text">
+               <string>Browse</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_3">
+      <attribute name="title">
+       <string>Radar Data</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_13">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_57">
+         <item>
+          <widget class="QGroupBox" name="groupBox_30">
+           <property name="title">
+            <string>Scan Type</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_71">
+            <item>
+             <widget class="QRadioButton" name="radioButton_23">
+              <property name="text">
+               <string>Full Range</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButton_24">
+              <property name="text">
+               <string>Doppler</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_29">
+           <property name="title">
+            <string>Stations</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_70">
+            <item>
+             <widget class="QCheckBox" name="checkBox_49">
+              <property name="text">
+               <string>All Stations</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_29">
+              <property name="text">
+               <string>Rømø</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_4">
+              <property name="text">
+               <string>Sindal</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox">
+              <property name="text">
+               <string>Bornholm</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_28">
+              <property name="text">
+               <string>Stevns</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_2">
+              <property name="text">
+               <string>Virring Skanderborg</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_14">
+         <item>
+          <widget class="QGroupBox" name="start_time_3">
+           <property name="title">
+            <string>Start date and time</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_11">
+            <item>
+             <widget class="QDateTimeEdit" name="start_date3">
+              <property name="dateTime">
+               <datetime>
+                <hour>0</hour>
+                <minute>0</minute>
+                <second>0</second>
+                <year>2022</year>
+                <month>1</month>
+                <day>1</day>
+               </datetime>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="end_time_3">
+           <property name="title">
+            <string>End date and time</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_12">
+            <item>
+             <widget class="QDateTimeEdit" name="end_date3">
+              <property name="dateTime">
+               <datetime>
+                <hour>0</hour>
+                <minute>0</minute>
+                <second>0</second>
+                <year>2022</year>
+                <month>1</month>
+                <day>2</day>
+               </datetime>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_4">
+      <attribute name="title">
+       <string>Lightning Data</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_20">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_11">
+         <item>
+          <widget class="QGroupBox" name="start_time_4">
+           <property name="title">
+            <string>Start date and time</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_16">
+            <item>
+             <widget class="QDateTimeEdit" name="start_date4">
+              <property name="dateTime">
+               <datetime>
+                <hour>0</hour>
+                <minute>0</minute>
+                <second>0</second>
+                <year>2020</year>
+                <month>1</month>
+                <day>1</day>
+               </datetime>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="end_time_4">
+           <property name="title">
+            <string>End date and time</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_18">
+            <item>
+             <widget class="QDateTimeEdit" name="end_date4">
+              <property name="dateTime">
+               <datetime>
+                <hour>0</hour>
+                <minute>0</minute>
+                <second>0</second>
+                <year>2021</year>
+                <month>1</month>
+                <day>2</day>
+               </datetime>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_16">
+         <item>
+          <widget class="QGroupBox" name="groupBox_7">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="title">
+            <string>BBox (optional)</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_22">
+            <item>
+             <widget class="QLineEdit" name="lineEdit_34"/>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_31">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="title">
+            <string>Type</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_72">
+            <item>
+             <widget class="QRadioButton" name="radioButton_25">
+              <property name="text">
+               <string>All Types</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButton_26">
+              <property name="text">
+               <string>Cloud to ground (negative)</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButton_28">
+              <property name="text">
+               <string>Cloud to ground (positive)</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButton_27">
+              <property name="text">
+               <string>Cloud to cloud</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="out_4">
+         <property name="title">
+          <string>Save as .csv file also (Optional)</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_17">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_9">
+            <item>
+             <widget class="QLineEdit" name="file_name_lig"/>
+            </item>
+            <item>
+             <widget class="QPushButton" name="browse_lig">
+              <property name="text">
+               <string>Browse</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_5">
+      <attribute name="title">
+       <string>Oceanographic Observations</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_21">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_12">
+         <item>
+          <widget class="QGroupBox" name="start_time_5">
+           <property name="title">
+            <string>Start date and time</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_26">
+            <item>
+             <widget class="QDateTimeEdit" name="start_date5">
+              <property name="dateTime">
+               <datetime>
+                <hour>0</hour>
+                <minute>0</minute>
+                <second>0</second>
+                <year>2020</year>
+                <month>1</month>
+                <day>1</day>
+               </datetime>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="end_time_5">
+           <property name="title">
+            <string>End date and time</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_27">
+            <item>
+             <widget class="QDateTimeEdit" name="end_date5">
+              <property name="dateTime">
+               <datetime>
+                <hour>0</hour>
+                <minute>0</minute>
+                <second>0</second>
+                <year>2020</year>
+                <month>1</month>
+                <day>2</day>
+               </datetime>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <item>
+          <widget class="QGroupBox" name="groupBox_11">
+           <property name="title">
+            <string>Parameters</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_29">
+            <item>
+             <widget class="QCheckBox" name="sealev_dvr">
+              <property name="text">
+               <string>sealev_dvr</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="sealev_ln">
+              <property name="text">
+               <string>sealev_ln</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="sea_reg">
+              <property name="text">
+               <string>sea_reg</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="tw">
+              <property name="text">
+               <string>tw</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_2">
+           <property name="title">
+            <string>Stations</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_25">
+            <item>
+             <widget class="QScrollArea" name="scrollArea_9">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="widgetResizable">
+               <bool>true</bool>
+              </property>
+              <widget class="QWidget" name="scrollAreaWidgetContents_10">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>423</width>
+                 <height>177</height>
+                </rect>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_100"/>
+              </widget>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="out_5">
+         <property name="title">
+          <string>Save as .csv file also (Optional)</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_28">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_19">
+            <item>
+             <widget class="QLineEdit" name="file_name_oce"/>
+            </item>
+            <item>
+             <widget class="QPushButton" name="browse_oce">
+              <property name="text">
+               <string>Browse</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_8">
+      <attribute name="title">
+       <string>Stations and Parameters</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_47">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_18">
+         <item>
+          <widget class="QRadioButton" name="met_stat_info">
+           <property name="text">
+            <string>Meteorological Stations</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="grid10_info">
+           <property name="text">
+            <string>10 km Grid</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="grid20_info">
+           <property name="text">
+            <string>20 km Grid</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="munic_info">
+           <property name="text">
+            <string>Municipality</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="rada_info">
+           <property name="text">
+            <string>Radar Stations</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="light_info">
+           <property name="text">
+            <string>Ligtning Stations</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="tide_info">
+           <property name="text">
+            <string>Tide Gauges</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QStackedWidget" name="stackedWidget_3">
+         <property name="currentIndex">
+          <number>4</number>
+         </property>
+         <widget class="QWidget" name="met_stat_page">
+          <layout class="QVBoxLayout" name="verticalLayout_52">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_54">
+             <item>
+              <widget class="QGroupBox" name="groupBox_17">
+               <property name="title">
+                <string>Area</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_50">
+                <item>
+                 <widget class="QRadioButton" name="radioButton_4">
+                  <property name="text">
+                   <string>All stations</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="radioButton_2">
+                  <property name="text">
+                   <string>Denmark</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="radioButton_3">
+                  <property name="text">
+                   <string>Greenland</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_15">
+               <property name="title">
+                <string>Station type</string>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_10">
+                <item row="0" column="0">
+                 <widget class="QRadioButton" name="radioButton_8">
+                  <property name="text">
+                   <string>All stations</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QRadioButton" name="radioButton_6">
+                  <property name="text">
+                   <string>Synop</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QRadioButton" name="radioButton_5">
+                  <property name="text">
+                   <string>Pluvio</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QRadioButton" name="radioButton_7">
+                  <property name="text">
+                   <string>Manual Snow</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_13">
+               <property name="title">
+                <string>Status</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_51">
+                <item>
+                 <widget class="QRadioButton" name="radioButton_9">
+                  <property name="text">
+                   <string>All stations</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="radioButton">
+                  <property name="text">
+                   <string>Only show active</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_6">
+               <property name="title">
+                <string>Time</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_48">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_25">
+                  <item>
+                   <widget class="QRadioButton" name="radioButton_10">
+                    <property name="text">
+                     <string>All time </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QRadioButton" name="radioButton_11">
+                    <property name="text">
+                     <string>Defined time</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QGroupBox" name="groupBox_25">
+                  <property name="title">
+                   <string>Start time</string>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_67">
+                   <item>
+                    <widget class="QDateTimeEdit" name="dateTimeEdit"/>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QGroupBox" name="groupBox_26">
+                  <property name="title">
+                   <string>End time</string>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_49">
+                   <item>
+                    <widget class="QDateTimeEdit" name="dateTimeEdit_2"/>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="climate_page">
+          <layout class="QVBoxLayout" name="verticalLayout_54"/>
+         </widget>
+         <widget class="QWidget" name="radar_page">
+          <layout class="QVBoxLayout" name="verticalLayout_57"/>
+         </widget>
+         <widget class="QWidget" name="light_page">
+          <layout class="QVBoxLayout" name="verticalLayout_60"/>
+         </widget>
+         <widget class="QWidget" name="tide_page">
+          <layout class="QVBoxLayout" name="verticalLayout_66">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_55">
+             <item>
+              <widget class="QGroupBox" name="groupBox_22">
+               <property name="title">
+                <string>Parameters measured</string>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_12">
+                <item row="0" column="0">
+                 <widget class="QRadioButton" name="radioButton_15">
+                  <property name="text">
+                   <string>sea_reg</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QRadioButton" name="radioButton_16">
+                  <property name="text">
+                   <string>sealev_dvr</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QRadioButton" name="radioButton_17">
+                  <property name="text">
+                   <string>sealev_ln</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QRadioButton" name="radioButton_18">
+                  <property name="text">
+                   <string>tw</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_21">
+               <property name="title">
+                <string>GroupBox</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_62">
+                <item>
+                 <widget class="QRadioButton" name="radioButton_14">
+                  <property name="text">
+                   <string>All stations</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="radioButton_12">
+                  <property name="text">
+                   <string>Owned by DMI</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="radioButton_13">
+                  <property name="text">
+                   <string>Owned by Coastal Authority</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_23">
+               <property name="title">
+                <string>Status</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_63">
+                <item>
+                 <widget class="QRadioButton" name="radioButton_19">
+                  <property name="text">
+                   <string>All stations</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="radioButton_20">
+                  <property name="text">
+                   <string>Only show active</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_24">
+               <property name="title">
+                <string>Time</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_64">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_56">
+                  <item>
+                   <widget class="QRadioButton" name="radioButton_21">
+                    <property name="text">
+                     <string>All time </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QRadioButton" name="radioButton_22">
+                    <property name="text">
+                     <string>Defined time</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_65">
+                  <item>
+                   <widget class="QGroupBox" name="groupBox_27">
+                    <property name="title">
+                     <string>Start Time</string>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_68">
+                     <item>
+                      <widget class="QDateTimeEdit" name="dateTimeEdit_3"/>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QGroupBox" name="groupBox_28">
+                    <property name="title">
+                     <string>End Time</string>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_69">
+                     <item>
+                      <widget class="QDateTimeEdit" name="dateTimeEdit_4"/>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_6">
+      <attribute name="title">
+       <string>Information</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_30">
+       <item>
+        <widget class="QTextEdit" name="textEdit">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+         <property name="html">
+          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;&quot;&gt;Plugin for DMIs Open Data &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;&quot;&gt;Before starting&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt;&quot;&gt;Documentation and more information about DMI Open Data can be found &lt;/span&gt;&lt;a href=&quot;https://confluence.govcloud.dk/display/FDAPI/Danish+Meteorological+Institute+-+Open+Data&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt;&quot;&gt;. This guide will only briefly cover the plugin - not the data, stations etc.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt;&quot;&gt;A thorough guide of how to use this plugin, along with examples, can be found here. &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt;&quot;&gt;The plugin allows the user to easily import data from DMIs Open Data from Meteorological Observations (metObs), Climate Data (climateData), Lightning Data (lightningData), Radar Data (radarData) and Oceanographic Observations (oceanObs). At each tab, the users API-key has to be inserted in order to get data. An API-key can be created &lt;/span&gt;&lt;a href=&quot;https://confluence.govcloud.dk/display/FDAPI/User+Creation&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;&quot;&gt;How to use this plugin&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt;&quot;&gt;In order to get data, an API Key must be inserted in the API Key field. Note that each type of data requires one specific API Key. &lt;br /&gt;After the API Key has been inserted, then it is possible to specify which type of data needed. &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt;&quot;&gt;Things to note when using the plugin: &lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Maximum amount of parameters available is 7.&lt;/li&gt;
+&lt;li style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;WiFi is neccessary in order to open the plugin and get data.&lt;/li&gt;
+&lt;li style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Sort the data in a manner that your QGIS can handle. Otherwise there is a risk of crashing.&lt;/li&gt;
+&lt;li style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Be sure to read about the stations and parameters, as not all stations measure all parameters. A list of meteorological stations and their associated parameters can also be found &lt;a href=&quot;https://confluence.govcloud.dk/pages/viewpage.action?pageId=53086560&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;.&lt;/li&gt;&lt;/ul&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt;&quot;&gt;If you have any questions about the plugin or DMI Open Data then please contact us. &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt;&quot;&gt;Go to &lt;/span&gt;&lt;a href=&quot;https://www.dmi.dk/kontakt/frie-data/&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;Contact form&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt;&quot;&gt;Call DMI support: +45 39 15 75 00&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;https://confluence.govcloud.dk/download/thumbnails/41718638/Open%20Data%20-%20Hvid%20baggrund%20med%20bl%C3%A5%20cirkler%20og%20tekst.png?version=1&amp;amp;modificationDate=1622790552000&amp;amp;api=v2&quot; width=&quot;100&quot; height=&quot;100&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt;&quot;&gt;&lt;br /&gt; &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt;&quot;&gt; &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_20">
+         <item>
+          <widget class="QCommandLinkButton" name="dmi_open_data">
+           <property name="text">
+            <string>Go to DMI Open Data</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCommandLinkButton" name="dmi_dk">
+           <property name="text">
+            <string>Go to dmi.dk</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QCommandLinkButton" name="dmi_open_data_2">
+       <property name="text">
+        <string>Read more about data, parameters and stations</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="run_app">
+       <property name="text">
+        <string>Run</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

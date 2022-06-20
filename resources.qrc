@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/plugins/DMI_Open_Data" >
+        <file>icon.png</file>
+    </qresource>
+</RCC>
