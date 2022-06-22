@@ -115,6 +115,8 @@ workflows:
             tags:
               only: /^\d+\.\d+\.\d+$/
       - release:
+          context:
+            - GITHUB_CREDS
           notes-file: CHANGELOG.md
           files: /home/circleci/project/zip_build/DMI_Open_Data.zip
           requires:
