@@ -45,5 +45,5 @@ If QGIS is already running, you need to reload the plugin in QGIS itself. You ca
 ### Before making a Pull Request
 
 Please make sure:
- - Unit tests run without failures
+ - Unit tests run without failures (ie. `pytest test` should run without failures)
  - Relevant unit tests are written for the provided code
