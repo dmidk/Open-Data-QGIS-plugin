@@ -9,7 +9,7 @@ orbs:
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  build-and-test:
+  build-and-test: # Run unit tests, build installable zip
     docker:
       - image: cimg/python:3.8
     steps:
@@ -34,9 +34,9 @@ jobs:
             - DMI_Open_Data.zip
       - store_artifacts:
           path: zip_build/DMI_Open_Data.zip
-  release:
+  release: # Job cabable of performing a GitHub release from a tagged commit
     description: |
-      Create a new GitHub Release for a repository. Specify a tag with the `tag` parameter (required). If a matching git tag does not yet exist, one will automatically get created from the latest state of the default branch.
+      Create a new GitHub Release for a repository.
     docker:
       - image: cimg/base:stable
     parameters:
@@ -102,12 +102,10 @@ jobs:
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  verify: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
+  verify: # Runs on every commit
     jobs:
       - build-and-test
-  # Execute a release workflow by pushing a git tag
-  release:
+  release: # Execute a release workflow by pushing a git tag
     jobs:
       - build-and-test:
           # Only on releases
