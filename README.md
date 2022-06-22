@@ -2,7 +2,7 @@
 
 DMI has built a QGIS plugin for retrieving and loading DMIs Open Data sets onto the map through a user friendly interface. It does so by interacting with DMIs Open Data APIs on behalf of the user.
 
-TODO screenshot
+![Plugin UI](qgis_plugin_ui.png)
 
 The main features on top of the API provided are:
  - Displaying options for stations and parameters to retrieve
