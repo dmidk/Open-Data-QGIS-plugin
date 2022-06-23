@@ -1,5 +1,3 @@
-# Initial beta release
-
 This plugin is still a work in progress, but is ready for release to be installed by anyone interested.
 
 The main features provided in this initial release is:
