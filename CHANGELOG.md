@@ -4,3 +4,7 @@ The main features provided in this initial release is:
 - Displaying options for stations and parameters to retrieve
 - Performing multiple API calls where needed and joining data into one map layer
 - CSV output option
+
+## Installation
+
+Download the latest zip file build from the Assets section. Install it by going to Plugins -> Manage and install plugins -> Install from ZIP, and select the zip file you just downloaded.
