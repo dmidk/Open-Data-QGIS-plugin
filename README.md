@@ -13,7 +13,7 @@ The main features on top of the API provided are:
 
 ~~The plugin is included in the official plugin repository, and be installed simply by going to Plugins -> Manage and install plugins -> All, and search for "DMI Open Data".~~
 
-Another option is to download the latest zip file build [here](TODO). Install it by going to Plugins -> Manage and install plugins -> Install from ZIP, and select the zip file you just downloaded.
+Another option is to download the latest zip file build [here](https://github.com/dmidk/Open-Data-QGIS-plugin/releases). Install it by going to Plugins -> Manage and install plugins -> Install from ZIP, and select the zip file you just downloaded.
 
 ## Development
 
