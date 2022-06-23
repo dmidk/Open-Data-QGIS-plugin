@@ -1,0 +1,125 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+orbs:
+  python: circleci/python@2.0.3
+  gh: circleci/github-cli@2.1.0
+
+
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+jobs:
+  build-and-test: # Run unit tests, build installable zip
+    docker:
+      - image: cimg/python:3.8
+    steps:
+      - checkout
+      - python/install-packages:
+          pip-dependency-file: requirements-dev.txt
+          pkg-manager: pip
+      - run:
+          name: Test
+          command: pytest test
+      - run:
+          name: Validate project
+          command: |
+            pbt validate
+      - run:
+          name: Build project
+          command: |
+            pbt zip
+      - persist_to_workspace:
+          root: zip_build
+          paths:
+            - DMI_Open_Data.zip
+      - store_artifacts:
+          path: zip_build/DMI_Open_Data.zip
+  release: # Job cabable of performing a GitHub release from a tagged commit
+    description: |
+      Create a new GitHub Release for a repository.
+    docker:
+      - image: cimg/base:stable
+    parameters:
+      files:
+        default: ""
+        description: 'To include a subset of your repository''s files in the release, enter the file glob here. (e.g. ./dist/*.tgz) '
+        type: string
+      notes-file:
+        default: ""
+        description: 'Path to file containing release notes (e.g.: ./changelog.md). '
+        type: string
+      token:
+        default: GITHUB_TOKEN
+        description: |
+          Enter the name of the environment variable containing the GitHub Personal Access token to be used for authentication.
+          It is recommended for CI processes that you create a "machine" user on GitHub.com with the needed permissions, rather than using your own.
+        type: env_var_name
+    resource_class: small
+    steps:
+      - gh/install:
+          version: 2.1.0 # Align with orb on line 6
+      - checkout
+      - attach_workspace:
+          at: zip_build
+      - run:
+          command: |
+            #!/bin/bash
+            # Debug info
+            ls
+            echo "---"
+            ls zip_build
+            echo "---"
+            pwd
+            # Get auth token
+            export GITHUB_TOKEN=${!PARAM_GH_TOKEN}
+            [ -z "$GITHUB_TOKEN" ] && echo "A GitHub token must be supplied. Check the \"token\" parameter." && exit 1
+            echo "export GITHUB_TOKEN=\"${GITHUB_TOKEN}\"" >> "$BASH_ENV"
+            
+            if [ -n "$PARAM_GH_NOTES" ]; then
+            	set -- "$@" --notes-file "$PARAM_GH_NOTES"
+            fi
+            # Setting title with release version (ie. git tag) and commit message subject of tagged commit
+            TITLE="Version: "$(git describe --tags)" - "$(git log -n 1 --pretty=format:%s)""
+            set -- "$@" --title "$TITLE"
+            PARAM_GH_TAG=$(git describe --tags)
+            set -- "$@" --repo "$(git config --get remote.origin.url)"
+            if [ -n "$PARAM_GH_FILES" ]; then
+            	set -- "$@" "$PARAM_GH_FILES"
+            fi
+            
+            echo gh release create "$PARAM_GH_TAG" "$@"
+            gh release create "$PARAM_GH_TAG" "$@"
+          environment:
+            PARAM_GH_FILES: <<parameters.files>>
+            PARAM_GH_NOTES: <<parameters.notes-file>>
+            PARAM_GH_TOKEN: <<parameters.token>>
+          name: Creating a GitHub Release
+
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+workflows:
+  verify: # Runs on every commit
+    jobs:
+      - build-and-test
+  release: # Execute a release workflow by pushing a git tag
+    jobs:
+      - build-and-test:
+          # Only on releases
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^\d+\.\d+\.\d+$/
+      - release:
+          context:
+            - GITHUB_CREDS
+          notes-file: CHANGELOG.md
+          files: /home/circleci/project/zip_build/DMI_Open_Data.zip
+          requires:
+            - build-and-test
+          # Only on releases
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^\d+\.\d+\.\d+$/
