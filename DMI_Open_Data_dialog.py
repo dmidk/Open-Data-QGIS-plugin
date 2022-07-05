@@ -14,7 +14,7 @@ from PyQt5.QtWidgets import *
 from qgis.PyQt.QtCore import QVariant
 import webbrowser
 
-from .api.station import get_stations, StationApi, StationId, Station
+from .api.station import get_stations, StationApi, StationId, Station, Parameter
 from .settings import DMISettingsManager, DMISettingKeys
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
@@ -22,7 +22,7 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 # The lists that will be used for parameters, stations, municipalities, 10 and 20km grids in the API calls.
 # Stations are not part of this list, as stations are more dynamicly added and removed.
 # Stations are therefore imported from DMI Open Data via. the internet, each time QGIS is started.
-from .para_munic_grid import grid10_id_dict, grid20_id_dict, grid_para_dict, munic_dict_num, para_grid, grid10, grid20, munic, munic_dict
+from .para_munic_grid import para_grid, grid10, grid20, munic
 
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 # Ignore this, we no longer use the static ui files, look at pluginui_test.py instead
@@ -103,68 +103,39 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         return stations, parameters
 
     def load_station_and_parameter_ui(self):
-        self.listCheckBox_para_stat_metObs = {}
         # Creates the checkboxes for parameters in metObs
-        metobs_parameter_layout = self.scrollAreaWidgetContents_2.findChildren(QtWidgets.QVBoxLayout)[0]
-        for parameter in sorted(self.metobs_parameters):
-            metobs_parameter_checkbox = QtWidgets.QCheckBox(self.scrollAreaWidgetContents_2)
-            metobs_parameter_checkbox.setObjectName(parameter)
-            metobs_parameter_checkbox.setText(parameter)
-            self.listCheckBox_para_stat_metObs[parameter] = metobs_parameter_checkbox
-            metobs_parameter_layout.addWidget(metobs_parameter_checkbox)
+        self.listCheckBox_para_stat_metObs = \
+            self.display_parameters(self.metobs_parameters, DMISettingKeys.METOBS_API_KEY, self.scrollAreaWidgetContents_2)
         # Creates checkboxes for stations in metobs
         self.listCheckBox_stat_metObs = \
             self.display_stations(self.stations_metobs, DMISettingKeys.METOBS_API_KEY, self.scrollAreaWidgetContents_3)
         # Creates the checkboxes for parameters in climateData
-        self.listCheckBox_para_stat_climate = {}
-        climate_parameter_layout = self.scrollAreaWidgetContents_6.findChildren(QtWidgets.QVBoxLayout)[0]
-        for parameter in sorted(self.climatedata_parameters):
-            climate_parameter_checkbox = QtWidgets.QCheckBox(self.scrollAreaWidgetContents_6)
-            climate_parameter_checkbox.setObjectName(parameter)
-            climate_parameter_checkbox.setText(parameter)
-            self.listCheckBox_para_stat_climate[parameter] = climate_parameter_checkbox
-            climate_parameter_layout.addWidget(climate_parameter_checkbox)
+        self.listCheckBox_para_stat_climate = \
+            self.display_parameters(self.climatedata_parameters, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents_6)
         # Creates the checkboxes for parameters used for grid, municipality and country
-        self.listCheckBox_para_grid = {}
-        climate_grid_cell_layout = self.scrollAreaWidgetContents_8.findChildren(QtWidgets.QVBoxLayout)[0]
-        for i, v in enumerate(para_grid):
-            self.listCheckBox_para_grid[i] = QtWidgets.QCheckBox(self.scrollAreaWidgetContents_8)
-            self.listCheckBox_para_grid[i].setObjectName(v)
-            self.listCheckBox_para_grid[i].setText(v)
-            climate_grid_cell_layout.addWidget(self.listCheckBox_para_grid[i])
+        self.listCheckBox_para_grid = \
+            self.display_parameters(para_grid, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents_8)
         # Creates the checkboxes for stations in climateData
         self.listCheckBox_station_climate = \
             self.display_stations(self.stations_climate, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents_5)
         # Creates the checkboxes for cellIds in climateData
-        self.listCheckBox_grid10 = {}
-        climate_grid10_layout = self.scrollAreaWidgetContents.findChildren(QtWidgets.QVBoxLayout)[0]
-        for i, v in enumerate(grid10):
-            self.listCheckBox_grid10[i] = QtWidgets.QCheckBox(self.scrollAreaWidgetContents)
-            self.listCheckBox_grid10[i].setObjectName(v)
-            self.listCheckBox_grid10[i].setText(v)
-            climate_grid10_layout.addWidget(self.listCheckBox_grid10[i])
+        self.listCheckBox_grid10 = \
+            self.display_parameters(grid10, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents)
         # Creates the checkboxes for cellids in climateData
-        self.listCheckBox_grid20 = {}
-        climate_grid20_layout = self.scrollAreaWidgetContents_4.findChildren(QtWidgets.QVBoxLayout)[0]
-        for i, v in enumerate(grid20):
-            self.listCheckBox_grid20[i] = QtWidgets.QCheckBox(self.scrollAreaWidgetContents_4)
-            self.listCheckBox_grid20[i].setObjectName(v)
-            self.listCheckBox_grid20[i].setText(v)
-            climate_grid20_layout.addWidget(self.listCheckBox_grid20[i])
+        self.listCheckBox_grid20 = \
+            self.display_parameters(grid20, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents_4)
         # Creates the checkboxes for municipalities in climateData
-        self.listCheckBox_municipalityId = {}
-        climate_munip_layout = self.scrollAreaWidgetContents_7.findChildren(QtWidgets.QVBoxLayout)[0]
-        for i, v in enumerate(munic):
-            self.listCheckBox_municipalityId[i] = QtWidgets.QCheckBox(self.scrollAreaWidgetContents_7)
-            self.listCheckBox_municipalityId[i].setObjectName(v)
-            self.listCheckBox_municipalityId[i].setText(v + ' '+ munic_dict[v])
-            climate_munip_layout.addWidget(self.listCheckBox_municipalityId[i])
+        self.listCheckBox_municipalityId = \
+            self.display_parameters(munic, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents_7)
         # Creates the checkboxes for stations in oceanObs
         self.listCheckBox_stat_ocean = \
             self.display_stations(self.stations_ocean, DMISettingKeys.OCEANOBS_API_KEY, self.scrollAreaWidgetContents_10)
 
+    @staticmethod
+    def generate_no_api_key_label(settings_key: DMISettingKeys):
+        return QtWidgets.QLabel(f'No API key configured for {settings_key.get_api_name()}\nPlease go to Settings -> Options -> DMI Open Data to configure')
+
     def display_stations(self, stations: Dict[StationId, Station], settings_key: DMISettingKeys, checkbox_container: QtWidgets.QScrollArea) -> Dict[StationId, QtWidgets.QCheckBox]:
-        settings_key.get_api_name()
         checkboxes = {}
         station_layout = checkbox_container.findChildren(QtWidgets.QVBoxLayout)[0]
         api_key = self.settings_manager.value(settings_key.value)
@@ -176,7 +147,23 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 checkboxes[station_id] = station_checkbox_widget
                 station_layout.addWidget(station_checkbox_widget)
         else:
-            station_layout.addWidget(QtWidgets.QLabel(f'No API key configured for {settings_key.get_api_name()}\nPlease go to Settings -> Options -> DMI Open Data to configure'))
+            station_layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(settings_key))
+        return checkboxes
+
+    def display_parameters(self, parameters: Set[Parameter], settings_key: DMISettingKeys, checkbox_container: QtWidgets.QScrollArea) -> Dict[Parameter, QtWidgets.QCheckBox]:
+        checkboxes = {}
+        parameter_layout = checkbox_container.findChildren(QtWidgets.QVBoxLayout)[0]
+        api_key = self.settings_manager.value(settings_key.value)
+        if api_key:
+            for parameter in sorted(parameters):
+                parameter_checkbox_widget = QtWidgets.QCheckBox(checkbox_container)
+                # Parameters are only unique per API, mixing in settings key to make globally unique object name
+                parameter_checkbox_widget.setObjectName(f"{settings_key}-{parameter}")
+                parameter_checkbox_widget.setText(parameter)
+                checkboxes[parameter] = parameter_checkbox_widget
+                parameter_layout.addWidget(parameter_checkbox_widget)
+        else:
+            parameter_layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(settings_key))
         return checkboxes
 
 
@@ -351,34 +338,34 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         
 # 10 km grid cells
         if data_type2 == '10kmGridValue':
-            for grid10_id in grid10_id_dict:
+            for grid10_id in grid10:
                 qt_checkbox_widget = self.listCheckBox_grid10[grid10_id]
                 if qt_checkbox_widget.isChecked():
-                    stations.append(grid10_id_dict[grid10_id])
+                    stations.append(grid10_id)
                     qt_checkbox_widget.setChecked(False)
 
 # 20 km grid cells
         if data_type2 == '20kmGridValue':
-            for grid20_id in grid20_id_dict:
+            for grid20_id in grid20:
                 qt_checkbox_widget = self.listCheckBox_grid20[grid20_id]
                 if qt_checkbox_widget.isChecked():
-                    stations.append(grid20_id_dict[grid20_id])
+                    stations.append(grid20_id)
                     qt_checkbox_widget.setChecked(False)
 
 # Municipality ID
         if data_type2 == 'municipalityValue':
-            for munic_id in munic_dict_num:
+            for munic_id in munic:
                 qt_checkbox_widget = self.listCheckBox_municipalityId[munic_id]
                 if qt_checkbox_widget.isChecked():
-                    stations.append(munic_dict_num[munic_id])
+                    stations.append(munic_id)
                     qt_checkbox_widget.setChecked(False)
 
 # Grid, municipality and country parameters
         if data_type2 == 'municipalityValue'or data_type2 == '20kmGridValue' or data_type2 == '10kmGridValue' or data_type2 == 'countryValue':
-            for grid_para in grid_para_dict:
-                qt_checkbox_widget = self.listCheckBox_para_grid[grid_para]
+            for p_g in para_grid:
+                qt_checkbox_widget = self.listCheckBox_para_grid[p_g]
                 if qt_checkbox_widget.isChecked():
-                    parameters.append(grid_para_dict[grid_para])
+                    parameters.append(p_g)
                     qt_checkbox_widget.setChecked(False)
 
         # Climate stations parameters
@@ -443,8 +430,8 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             #end_second = self.end_date.time().second()
             
         elif dataName == 'Climate Data':
-            start_datetime = self.start_date2.dateTime().toString(Qt.ISODate) + 'Z'
-            end_datetime = self.end_date2.dateTime().toString(Qt.ISODate) + 'Z'
+            start_datetime = self.climate_data_start_date_dateedit.dateTime().toString(Qt.ISODate) + 'Z'
+            end_datetime = self.climate_data_end_date_dateedit.dateTime().toString(Qt.ISODate) + 'Z'
 
             #start_year = self.start_date2.date().year()
             #start_month = self.start_date2.date().month()
