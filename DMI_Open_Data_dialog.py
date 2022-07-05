@@ -93,6 +93,24 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.dateTimeEdit_3.setEnabled(False)
         self.dateTimeEdit_4.setEnabled(False)
 
+        self.radar_disable_if_needed()
+
+    def radar_disable_if_needed(self):
+        api_key = self.settings_manager.value(DMISettingKeys.RADARDATA_API_KEY.value)
+        if api_key == '':
+            layout = self.tab_3.findChildren(QtWidgets.QVBoxLayout)[0]
+            layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(DMISettingKeys.RADARDATA_API_KEY))
+            self.checkBox.setEnabled(False)
+            self.checkBox_2.setEnabled(False)
+            self.checkBox_4.setEnabled(False)
+            self.checkBox_28.setEnabled(False)
+            self.checkBox_29.setEnabled(False)
+            self.checkBox_49.setEnabled(False)
+            self.radioButton_23.setEnabled(False)
+            self.radioButton_24.setEnabled(False)
+            self.start_date3.setEnabled(False)
+            self.end_date3.setEnabled(False)
+
     def get_stations_and_parameters_if_settings_allow(self, station_type: StationApi, settings_key: DMISettingKeys) -> Tuple[Dict[StationId, Station], Set[str]]:
         api_key = self.settings_manager.value(settings_key.value)
         stations = []
