@@ -863,22 +863,21 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     'datetime' : datetime,
                       'limit' : '300000'}
 # Did the user choose the BBOX?
-            if self.bbox_lig.text() != '':
+            if self.bbox_lightning.text() != '':
                 params.update({'bbox': self.bbox_lig.text()})
 # Did the user choose any specific lightning type?
-            if self.Cloud_to_g_pos.isChecked():
+            if self.cloud_to_g_pos.isChecked():
                 params.update({'type': '1'})
                 name = 'Lightning cloud to ground (positive)'
-            elif self.Cloud_to_g_neg.isChecked():
+            elif self.cloud_to_g_neg.isChecked():
                 params.update({'type': '0'})
                 name = 'Lightning cloud to ground (negative)'
-            elif self.Cloud_to_cloud.isChecked():
+            elif self.cloud_to_cloud.isChecked():
                 params.update({'type': '2'})
                 name = 'Lightning cloud to cloud'
             else:
                 name = 'Lightning'
 # URL creation
-            url = 'https://dmigw.govcloud.dk/v2/' + data_type + '/collections/' + data_type2 + '/items'
             r = requests.get(url, params=params)
             print(r.url)
             json = r.json()
