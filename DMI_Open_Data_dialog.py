@@ -64,6 +64,28 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.radioButton_19.setChecked(True)
         self.radioButton_21.setChecked(True)
 
+        # Datetime default today and yesterday
+        self.start_date.setDateTime(QDateTime(QDate.currentDate().addDays(-1), QTime(0, 0, 0)))
+        self.end_date.setDateTime(QDateTime(QDate.currentDate(), QTime(0, 0, 0)))
+
+        self.climate_data_start_date_dateedit.setDateTime(QDateTime(QDate.currentDate().addDays(-1), QTime(0, 0, 0)))
+        self.climate_data_end_date_dateedit.setDateTime(QDateTime(QDate.currentDate(), QTime(0, 0, 0)))
+
+        self.radar_start_date.setDateTime(QDateTime(QDate.currentDate().addDays(-1), QTime(0, 0, 0)))
+        self.radar_end_date.setDateTime(QDateTime(QDate.currentDate(), QTime(0, 0, 0)))
+
+        self.start_date4.setDateTime(QDateTime(QDate.currentDate().addDays(-1), QTime(0, 0, 0)))
+        self.end_date4.setDateTime(QDateTime(QDate.currentDate(), QTime(0, 0, 0)))
+
+        self.start_date5.setDateTime(QDateTime(QDate.currentDate().addDays(-1), QTime(0, 0, 0)))
+        self.end_date5.setDateTime(QDateTime(QDate.currentDate(), QTime(0, 0, 0)))
+
+        self.dateTimeEdit.setDateTime(QDateTime(QDate.currentDate().addDays(-1), QTime(0, 0, 0)))
+        self.dateTimeEdit_2.setDateTime(QDateTime(QDate.currentDate(), QTime(0, 0, 0)))
+
+        self.dateTimeEdit_3.setDateTime(QDateTime(QDate.currentDate().addDays(-1), QTime(0, 0, 0)))
+        self.dateTimeEdit_4.setDateTime(QDateTime(QDate.currentDate(), QTime(0, 0, 0)))
+
         # All the buttons that do actions
         self.run_app.clicked.connect(self.run)
         self.browse_obs.clicked.connect(self.browse_files_obs)

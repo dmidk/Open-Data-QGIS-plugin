@@ -77,6 +77,9 @@
                 <day>1</day>
                </datetime>
               </property>
+              <property name="calendarPopup">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
            </layout>
@@ -99,6 +102,9 @@
                 <month>1</month>
                 <day>2</day>
                </datetime>
+              </property>
+              <property name="calendarPopup">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -224,6 +230,9 @@
                 <day>1</day>
                </date>
               </property>
+              <property name="calendarPopup">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
            </layout>
@@ -243,6 +252,9 @@
                 <month>5</month>
                 <day>2</day>
                </date>
+              </property>
+              <property name="calendarPopup">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -523,84 +535,6 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_13">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_57">
-         <item>
-          <widget class="QGroupBox" name="groupBox_30">
-           <property name="title">
-            <string>Scan Type</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_71">
-            <item>
-             <widget class="QRadioButton" name="radar_scantype_fullrange_radioButton">
-              <property name="text">
-               <string>Full Range</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QRadioButton" name="radar_scantype_doppler_radioButton">
-              <property name="text">
-               <string>Doppler</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QGroupBox" name="groupBox_29">
-           <property name="title">
-            <string>Stations</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_70">
-            <item>
-             <widget class="QCheckBox" name="radar_all_stations_checkBox">
-              <property name="text">
-               <string>All Stations</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="radar_romoe_checkBox">
-              <property name="text">
-               <string>Rømø</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="radar_sindal_checkBox">
-              <property name="text">
-               <string>Sindal</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="radar_bornholm_checkBox">
-              <property name="text">
-               <string>Bornholm</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="radar_stevns_checkBox">
-              <property name="text">
-               <string>Stevns</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="radar_virring_skanderborg_checkBox">
-              <property name="text">
-               <string>Virring Skanderborg</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
         <layout class="QHBoxLayout" name="horizontalLayout_14">
          <item>
           <widget class="QGroupBox" name="radar_start_time">
@@ -619,6 +553,9 @@
                 <month>1</month>
                 <day>1</day>
                </datetime>
+              </property>
+              <property name="calendarPopup">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -642,6 +579,9 @@
                 <month>1</month>
                 <day>2</day>
                </datetime>
+              </property>
+              <property name="calendarPopup">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -677,6 +617,9 @@
                 <day>1</day>
                </datetime>
               </property>
+              <property name="calendarPopup">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
            </layout>
@@ -699,6 +642,9 @@
                 <month>1</month>
                 <day>2</day>
                </datetime>
+              </property>
+              <property name="calendarPopup">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -822,6 +768,9 @@
                 <day>1</day>
                </datetime>
               </property>
+              <property name="calendarPopup">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
            </layout>
@@ -844,6 +793,9 @@
                 <month>1</month>
                 <day>2</day>
                </datetime>
+              </property>
+              <property name="calendarPopup">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
