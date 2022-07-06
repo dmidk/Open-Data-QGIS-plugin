@@ -6,6 +6,7 @@ from enum import Enum
 
 StationId = str
 StationName = str
+Parameter = str
 
 
 class StationApi(Enum):
@@ -22,7 +23,7 @@ class StationApi(Enum):
 class Station:
     station_id: str
     station_name: str
-    parameters: List[str]
+    parameters: List[Parameter]
 
     def __init__(self, station_id, station_name, parameters):
         self.station_id = station_id
