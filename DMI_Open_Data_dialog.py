@@ -148,6 +148,9 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         # Creates the checkboxes for stations in oceanObs
         self.listCheckBox_stat_ocean = \
             self.display_stations(self.stations_ocean, DMISettingKeys.OCEANOBS_API_KEY, self.scrollAreaWidgetContents_10)
+        self.listCheckBox_station_climate_information = \
+            self.display_parameters(self.climatedata_parameters, DMISettingKeys.METOBS_API_KEY,
+                                    self.scrollAreaWidgetContents_9)
 
     @staticmethod
     def generate_no_api_key_label(settings_key: DMISettingKeys):
@@ -825,11 +828,11 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         if dataName == 'Stations and Parameters':
             if self.met_stat_info.isChecked():
                 data_type = 'climateData'
-                api_key = self.api_info_stat.text()
+                api_key = self.settings_manager.value(DMISettingKeys.CLIMATEDATA_API_KEY.value)
                 data_type2 = 'station'
             elif self.tide_info.isChecked():
                 data_type = 'oceanObs'
-                api_key = self.api_info_tide.text()
+                api_key = self.settings_manager.value(DMISettingKeys.OCEANOBS_API_KEY.value)
                 data_type2 = 'station'
             url = 'https://dmigw.govcloud.dk/v2/' + data_type + '/collections/' + data_type2 +'/items'
             params = {'api-key': api_key}
