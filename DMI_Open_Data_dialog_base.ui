@@ -38,7 +38,7 @@
       <bool>true</bool>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>2</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>
@@ -395,7 +395,7 @@
          <item>
           <widget class="QStackedWidget" name="stackedWidget">
            <property name="currentIndex">
-            <number>2</number>
+            <number>3</number>
            </property>
            <widget class="QWidget" name="stat_clima">
             <layout class="QVBoxLayout" name="verticalLayout_33">
@@ -475,26 +475,11 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>175</width>
-                  <height>70</height>
+                  <width>429</width>
+                  <height>128</height>
                  </rect>
                 </property>
-                <layout class="QVBoxLayout" name="verticalLayout_38">
-                 <item>
-                  <widget class="QCheckBox" name="m147">
-                   <property name="text">
-                    <string>0147 Frederiksberg</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="m101">
-                   <property name="text">
-                    <string>0101 København</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
+                <layout class="QVBoxLayout" name="verticalLayout_38"/>
                </widget>
               </widget>
              </item>
@@ -546,14 +531,14 @@
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_71">
             <item>
-             <widget class="QRadioButton" name="radioButton_23">
+             <widget class="QRadioButton" name="radar_scantype_fullrange_radioButton">
               <property name="text">
                <string>Full Range</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButton_24">
+             <widget class="QRadioButton" name="radar_scantype_doppler_radioButton">
               <property name="text">
                <string>Doppler</string>
               </property>
@@ -569,42 +554,42 @@
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_70">
             <item>
-             <widget class="QCheckBox" name="checkBox_49">
+             <widget class="QCheckBox" name="radar_all_stations_checkBox">
               <property name="text">
                <string>All Stations</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="checkBox_29">
+             <widget class="QCheckBox" name="radar_romoe_checkBox">
               <property name="text">
                <string>Rømø</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="checkBox_4">
+             <widget class="QCheckBox" name="radar_sindal_checkBox">
               <property name="text">
                <string>Sindal</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="checkBox">
+             <widget class="QCheckBox" name="radar_bornholm_checkBox">
               <property name="text">
                <string>Bornholm</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="checkBox_28">
+             <widget class="QCheckBox" name="radar_stevns_checkBox">
               <property name="text">
                <string>Stevns</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="checkBox_2">
+             <widget class="QCheckBox" name="radar_virring_skanderborg_checkBox">
               <property name="text">
                <string>Virring Skanderborg</string>
               </property>
@@ -618,13 +603,13 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_14">
          <item>
-          <widget class="QGroupBox" name="start_time_3">
+          <widget class="QGroupBox" name="radar_start_time">
            <property name="title">
             <string>Start date and time</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_11">
             <item>
-             <widget class="QDateTimeEdit" name="start_date3">
+             <widget class="QDateTimeEdit" name="radar_start_date">
               <property name="dateTime">
                <datetime>
                 <hour>0</hour>
@@ -641,13 +626,13 @@
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="end_time_3">
+          <widget class="QGroupBox" name="radar_end_time">
            <property name="title">
             <string>End date and time</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_12">
             <item>
-             <widget class="QDateTimeEdit" name="end_date3">
+             <widget class="QDateTimeEdit" name="radar_end_date">
               <property name="dateTime">
                <datetime>
                 <hour>0</hour>
