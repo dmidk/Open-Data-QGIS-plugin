@@ -205,7 +205,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             self.display_stations(self.stations_ocean, DMISettingKeys.OCEANOBS_API_KEY, self.scrollAreaWidgetContents_10, invalid_api_key=invalid_oceanobs_api_key)
         self.listCheckBox_station_climate_information = \
             self.display_parameters(self.climatedata_parameters, DMISettingKeys.METOBS_API_KEY,
-                                    self.scrollAreaWidgetContents_9, invalid_api_key=invalid_climate_api_key)
+                                    self.scrollAreaWidgetContents_9, invalid_api_key=invalid_climate_api_key, use_radio_button=True)
 
     @staticmethod
     def generate_no_api_key_label(settings_key: DMISettingKeys):
@@ -226,18 +226,21 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             station_layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(settings_key))
         return checkboxes
 
-    def display_parameters(self, parameters: Set[Parameter], settings_key: DMISettingKeys, checkbox_container: QtWidgets.QScrollArea, invalid_api_key=False) -> Dict[Parameter, QtWidgets.QCheckBox]:
+    def display_parameters(self, parameters: Set[Parameter], settings_key: DMISettingKeys, checkbox_container: QtWidgets.QScrollArea, invalid_api_key=False, use_radio_button=False) -> Dict[Parameter, QtWidgets.QCheckBox]:
         checkboxes = {}
         parameter_layout = checkbox_container.findChildren(QtWidgets.QVBoxLayout)[0]
         api_key = self.settings_manager.value(settings_key.value)
         if api_key and not invalid_api_key:
             for parameter in sorted(parameters):
-                parameter_checkbox_widget = QtWidgets.QCheckBox(checkbox_container)
+                if use_radio_button:
+                    parameter_widget = QtWidgets.QRadioButton(checkbox_container)
+                else:
+                    parameter_widget = QtWidgets.QCheckBox(checkbox_container)
                 # Parameters are only unique per API, mixing in settings key to make globally unique object name
-                parameter_checkbox_widget.setObjectName(f"{settings_key}-{parameter}")
-                parameter_checkbox_widget.setText(parameter)
-                checkboxes[parameter] = parameter_checkbox_widget
-                parameter_layout.addWidget(parameter_checkbox_widget)
+                parameter_widget.setObjectName(f"{settings_key}-{parameter}")
+                parameter_widget.setText(parameter)
+                checkboxes[parameter] = parameter_widget
+                parameter_layout.addWidget(parameter_widget)
         else:
             parameter_layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(settings_key))
         return checkboxes
