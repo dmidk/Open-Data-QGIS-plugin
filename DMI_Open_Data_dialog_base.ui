@@ -38,7 +38,7 @@
       <bool>true</bool>
      </property>
      <property name="currentIndex">
-      <number>7</number>
+      <number>3</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>
@@ -124,8 +124,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>98</width>
-                   <height>28</height>
+                   <width>422</width>
+                   <height>175</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_10"/>
@@ -155,8 +155,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>98</width>
-                   <height>28</height>
+                   <width>421</width>
+                   <height>175</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_5"/>
@@ -308,8 +308,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>98</width>
-                  <height>28</height>
+                  <width>430</width>
+                  <height>206</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_14"/>
@@ -330,8 +330,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>98</width>
-                  <height>28</height>
+                  <width>80</width>
+                  <height>18</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_32"/>
@@ -362,8 +362,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>98</width>
-                  <height>28</height>
+                  <width>80</width>
+                  <height>18</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36"/>
@@ -384,8 +384,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>98</width>
-                  <height>28</height>
+                  <width>80</width>
+                  <height>18</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_40"/>
@@ -406,8 +406,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>98</width>
-                  <height>28</height>
+                  <width>429</width>
+                  <height>206</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34"/>
@@ -690,7 +690,7 @@
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_22">
             <item>
-             <widget class="QLineEdit" name="lineEdit_34"/>
+             <widget class="QLineEdit" name="bbox_lightning"/>
             </item>
            </layout>
           </widget>
@@ -715,21 +715,21 @@
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButton_26">
+             <widget class="QRadioButton" name="cloud_to_g_neg">
               <property name="text">
                <string>Cloud to ground (negative)</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButton_28">
+             <widget class="QRadioButton" name="cloud_to_g_pos">
               <property name="text">
                <string>Cloud to ground (positive)</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButton_27">
+             <widget class="QRadioButton" name="cloud_to_cloud">
               <property name="text">
                <string>Cloud to cloud</string>
               </property>
@@ -881,8 +881,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>98</width>
-                 <height>28</height>
+                 <width>423</width>
+                 <height>177</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_100"/>
