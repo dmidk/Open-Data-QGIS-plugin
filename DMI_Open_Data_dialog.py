@@ -450,20 +450,6 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         elif dataName == 'Climate Data':
             start_datetime = self.climate_data_start_date_dateedit.dateTime().toString(Qt.ISODate) + 'Z'
             end_datetime = self.climate_data_end_date_dateedit.dateTime().toString(Qt.ISODate) + 'Z'
-
-            #start_year = self.start_date2.date().year()
-            #start_month = self.start_date2.date().month()
-            #start_day = self.start_date2.date().day()
-            #start_hour = self.start_date2.time().hour()
-            #start_minute = self.start_date2.time().minute()
-            #start_second = self.start_date2.time().second()
-            
-            #end_year = self.end_date2.date().year()
-            #end_month = self.end_date2.date().month()
-            #end_day = self.end_date2.date().day()
-            #end_hour = self.end_date2.time().hour()
-            #end_minute = self.end_date2.time().minute()
-            #end_second = self.end_date2.time().second()
             
         elif dataName == 'Radar Data':
             start_datetime = self.radar_start_date.dateTime().toString(Qt.ISODate) + 'Z'
@@ -473,120 +459,22 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             start_datetime = self.start_date4.dateTime().toString(Qt.ISODate) + 'Z'
             end_datetime = self.end_date4.dateTime().toString(Qt.ISODate) + 'Z'
 
-           # start_year = self.start_date4.date().year()
-           # start_month = self.start_date4.date().month()
-           # start_day = self.start_date4.date().day()
-           # start_hour = self.start_date4.time().hour()
-           # start_minute = self.start_date4.time().minute()
-           # start_second = self.start_date4.time().second()
-            
-            #end_year = self.end_date4.date().year()
-            #end_month = self.end_date4.date().month()
-            #end_day = self.end_date4.date().day()
-            #end_hour = self.end_date4.time().hour()
-            ##end_minute = self.end_date4.time().minute()
-            #end_second = self.end_date4.time().second()
-
         elif dataName == 'Oceanographic Observations':
             start_datetime = self.start_date5.dateTime().toString(Qt.ISODate) + 'Z'
             end_datetime = self.end_date5.dateTime().toString(Qt.ISODate) + 'Z'
-
-
-            #start_year = self.start_date5.date().year()
-            #start_month = self.start_date5.date().month()
-            #start_day = self.start_date5.date().day()
-            ##start_hour = self.start_date5.time().hour()
-            #start_minute = self.start_date5.time().minute()
-            #start_second = self.start_date5.time().second()
-            
-            #end_year = self.end_date5.date().year()
-            #end_month = self.end_date5.date().month()
-            #end_day = self.end_date5.date().day()
-            ##end_hour = self.end_date5.time().hour()
-            #end_minute = self.end_date5.time().minute()
-            #end_second = self.end_date5.time().second()
 
         #elif dataName == 'Forecast Data':
             #start_datetime = self.start_date2.dateTime().toString(Qt.ISODate)
             #end_datetime = self.end_date2.dateTime().toString(Qt.ISODate)
 
-            #start_year = self.start_date5.date().year()
-            ##start_month = self.start_date5.date().month()
-            #start_day = self.start_date5.date().day()
-            #start_hour = self.start_date5.time().hour()
-            ##start_minute = self.start_date5.time().minute()
-            #start_second = self.start_date5.time().second()
-            
-            #end_year = self.end_date5.date().year()
-            #end_month = self.end_date5.date().month()
-            #end_day = self.end_date5.date().day()
-            #end_hour = self.end_date5.time().hour()
-            #end_minute = self.end_date5.time().minute()
-            #end_second = self.end_date5.time().second()
-
         elif dataName == 'Stations and Parameters' and data_type2 == 'climateData':
             start_datetime = self.dateTimeEdit.dateTime().toString(Qt.ISODate) + 'Z'
             end_datetime = self.dateTimeEdit_2.dateTime().toString(Qt.ISODate) + 'Z'
-
-            #start_year = self.dateTimeEdit.date().year()
-            #start_month = self.dateTimeEdit.date().month()
-            #start_day = self.dateTimeEdit.date().day()
-            #start_hour = self.dateTimeEdit.time().hour()
-            #start_minute = self.dateTimeEdit.time().minute()
-            #start_second = self.dateTimeEdit.time().second()
-
-            #end_year = self.dateTimeEdit_2.date().year()
-            #end_month = self.dateTimeEdit_2.date().month()
-            #end_day = self.dateTimeEdit_2.date().day()
-            #end_hour = self.dateTimeEdit_2.time().hour()
-            #end_minute = self.dateTimeEdit_2.time().minute()
-            #end_second = self.dateTimeEdit_2.time().second()
 
         elif dataName == 'Stations and Parameters' and data_type2 == 'oceanObs':
             start_datetime = self.dateTimeEdit_3.dateTime().toString(Qt.ISODate) + 'Z'
             end_datetime = self.dateTimeEdit_4.dateTime().toString(Qt.ISODate) + 'Z'
 
-            #start_year = self.dateTimeEdit_3.date().year()
-            #start_month = self.dateTimeEdit_3.date().month()
-            #start_day = self.dateTimeEdit_3.date().day()
-            #start_hour = self.dateTimeEdit_3.time().hour()
-            #start_minute = self.dateTimeEdit_3.time().minute()
-            #start_second = self.dateTimeEdit_3.time().second()
-
-            #end_year = self.dateTimeEdit_4.date().year()
-            #end_month = self.dateTimeEdit_4.date().month()
-            #end_day = self.dateTimeEdit_4.date().day()
-            #end_hour = self.dateTimeEdit_4.time().hour()
-            ##end_minute = self.dateTimeEdit_4.time().minute()
-            #end_second = self.dateTimeEdit_4.time().second()
-            
-
-        #if start_month < 10:
-        #    start_month = '0' + str(start_month)
-        #if start_day < 10:
-        #    start_day = '0' + str(start_day)
-        #if start_year < 10:
-        #    start_year = '0' + str(start_year)
-        #if start_hour < 10:
-        #    start_hour = '0' + str(start_hour)
-        #if start_minute < 10:
-        #    start_minute = '0' + str(start_minute)
-        #if start_second < 10:
-        #    start_second = '0' + str(start_second)
-        #if end_day < 10:
-        #    end_day = '0' + str(end_day)
-        #if end_month < 10:
-        #    end_month = '0' + str(end_month)
-        #if end_year < 10:
-        #    end_year = '0' + str(end_year)
-        #if end_hour < 10:
-        #    end_hour = '0' + str(end_hour)
-        #if end_minute < 10:
-        #    end_minute = '0' + str(end_minute)
-        #if end_second < 10:
-        #    end_second = '0' + str(end_second)
-        #start_datetime = str(start_year) + '-' + str(start_month) + '-' + str(start_day) + 'T' + str(start_hour) + ':' + str(start_minute) + ':' + str(start_second) + 'Z/'
-        #end_datetime = str(end_year) + '-' + str(end_month) + '-' + str(end_day) + 'T' + str(end_hour) + ':' + str(end_minute) + ':' + str(end_second) + 'Z'
         datetime = start_datetime + '/' + end_datetime
 
         if start_datetime > end_datetime:
