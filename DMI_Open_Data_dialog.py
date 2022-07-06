@@ -93,6 +93,24 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.dateTimeEdit_3.setEnabled(False)
         self.dateTimeEdit_4.setEnabled(False)
 
+        self.radar_disable_if_needed()
+
+    def radar_disable_if_needed(self):
+        api_key = self.settings_manager.value(DMISettingKeys.RADARDATA_API_KEY.value)
+        if api_key == '':
+            layout = self.tab_3.findChildren(QtWidgets.QVBoxLayout)[0]
+            layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(DMISettingKeys.RADARDATA_API_KEY))
+            self.radar_bornholm_checkBox.setEnabled(False)
+            self.radar_virring_skanderborg_checkBox.setEnabled(False)
+            self.radar_sindal_checkBox.setEnabled(False)
+            self.radar_stevns_checkBox.setEnabled(False)
+            self.radar_romoe_checkBox.setEnabled(False)
+            self.radar_all_stations_checkBox.setEnabled(False)
+            self.radar_scantype_fullrange_radioButton.setEnabled(False)
+            self.radar_scantype_doppler_radioButton.setEnabled(False)
+            self.radar_start_date.setEnabled(False)
+            self.radar_end_date.setEnabled(False)
+
     def get_stations_and_parameters_if_settings_allow(self, station_type: StationApi, settings_key: DMISettingKeys) -> Tuple[Dict[StationId, Station], Set[str]]:
         api_key = self.settings_manager.value(settings_key.value)
         stations = []
@@ -448,23 +466,8 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             #end_second = self.end_date2.time().second()
             
         elif dataName == 'Radar Data':
-            start_datetime = self.start_date3.dateTime().toString(Qt.ISODate) + 'Z'
-            end_datetime = self.end_date3.dateTime().toString(Qt.ISODate) + 'Z'
-
-
-            #start_year = self.start_date3.date().year()
-            #start_month = self.start_date3.date().month()
-            #start_day = self.start_date3.date().day()
-            #start_hour = self.start_date3.time().hour()
-            #start_minute = self.start_date3.time().minute()
-            #start_second = self.start_date3.time().second()
-            
-            #end_year = self.end_date3.date().year()
-            #end_month = self.end_date3.date().month()
-            #end_day = self.end_date3.date().day()
-            #end_hour = self.end_date3.time().hour()
-            #end_minute = self.end_date3.time().minute()
-            #end_second = self.end_date3.time().second()
+            start_datetime = self.radar_start_date.dateTime().toString(Qt.ISODate) + 'Z'
+            end_datetime = self.radar_end_date.dateTime().toString(Qt.ISODate) + 'Z'
 
         elif dataName == 'Lightning Data':
             start_datetime = self.start_date4.dateTime().toString(Qt.ISODate) + 'Z'
