@@ -37,21 +37,40 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         """Constructor."""
         super(DMIOpenDataDialog, self).__init__(parent)
         self.settings_manager = settings_manager
-        self.stations_ocean, self.oceanobs_parameters = self.get_stations_and_parameters_if_settings_allow(
-            StationApi.OCEAN_OBS,
-            DMISettingKeys.OCEANOBS_API_KEY
-        )
-        self.stations_climate, self.climatedata_parameters = self.get_stations_and_parameters_if_settings_allow(
-            StationApi.CLIMATE_STATION_VALUE,
-            DMISettingKeys.CLIMATEDATA_API_KEY
-        )
-        self.stations_metobs, self.metobs_parameters = self.get_stations_and_parameters_if_settings_allow(
-            StationApi.MET_OBS,
-            DMISettingKeys.METOBS_API_KEY
-        )
+        load_ui_options = {}
+        try:
+            self.stations_ocean, self.oceanobs_parameters = self.get_stations_and_parameters_if_settings_allow(
+                StationApi.OCEAN_OBS,
+                DMISettingKeys.OCEANOBS_API_KEY
+            )
+        except Exception as ex:
+            self.stations_ocean, self.oceanobs_parameters = {}, {}
+            QMessageBox.warning(self, self.tr("DMI Open Data"),
+                                self.tr(str(ex)))
+            load_ui_options['invalid_oceanobs_api_key'] = True
+        try:
+            self.stations_climate, self.climatedata_parameters = self.get_stations_and_parameters_if_settings_allow(
+                StationApi.CLIMATE_STATION_VALUE,
+                DMISettingKeys.CLIMATEDATA_API_KEY
+            )
+        except Exception as ex:
+            self.stations_climate, self.climatedata_parameters = {}, {}
+            QMessageBox.warning(self, self.tr("DMI Open Data"),
+                                self.tr(str(ex)))
+            load_ui_options['invalid_climate_api_key'] = True
+        try:
+            self.stations_metobs, self.metobs_parameters = self.get_stations_and_parameters_if_settings_allow(
+                StationApi.MET_OBS,
+                DMISettingKeys.METOBS_API_KEY
+            )
+        except Exception as ex:
+            self.stations_metobs, self.metobs_parameters = {}, {}
+            QMessageBox.warning(self, self.tr("DMI Open Data"),
+                                self.tr(str(ex)))
+            load_ui_options['invalid_metobs_api_key'] = True
 
         super(DMIOpenDataDialog, self).setupUi(self)
-        self.load_station_and_parameter_ui()
+        self.load_station_and_parameter_ui(**load_ui_options)
 
         # All the radiobuttons that by default is checked
         self.stat_type.setChecked(True)
@@ -142,47 +161,47 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             parameters = {parameter for station in stations.values() for parameter in station.parameters }
         return stations, parameters
 
-    def load_station_and_parameter_ui(self):
+    def load_station_and_parameter_ui(self, invalid_metobs_api_key=False, invalid_oceanobs_api_key=False, invalid_climate_api_key=False):
         # Creates the checkboxes for parameters in metObs
         self.listCheckBox_para_stat_metObs = \
-            self.display_parameters(self.metobs_parameters, DMISettingKeys.METOBS_API_KEY, self.scrollAreaWidgetContents_2)
+            self.display_parameters(self.metobs_parameters, DMISettingKeys.METOBS_API_KEY, self.scrollAreaWidgetContents_2, invalid_api_key=invalid_metobs_api_key)
         # Creates checkboxes for stations in metobs
         self.listCheckBox_stat_metObs = \
-            self.display_stations(self.stations_metobs, DMISettingKeys.METOBS_API_KEY, self.scrollAreaWidgetContents_3)
+            self.display_stations(self.stations_metobs, DMISettingKeys.METOBS_API_KEY, self.scrollAreaWidgetContents_3, invalid_api_key=invalid_metobs_api_key)
         # Creates the checkboxes for parameters in climateData
         self.listCheckBox_para_stat_climate = \
-            self.display_parameters(self.climatedata_parameters, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents_6)
+            self.display_parameters(self.climatedata_parameters, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents_6, invalid_api_key=invalid_climate_api_key)
         # Creates the checkboxes for parameters used for grid, municipality and country
         self.listCheckBox_para_grid = \
-            self.display_parameters(para_grid, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents_8)
+            self.display_parameters(para_grid, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents_8, invalid_api_key=invalid_climate_api_key)
         # Creates the checkboxes for stations in climateData
         self.listCheckBox_station_climate = \
-            self.display_stations(self.stations_climate, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents_5)
+            self.display_stations(self.stations_climate, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents_5, invalid_api_key=invalid_climate_api_key)
         # Creates the checkboxes for cellIds in climateData
         self.listCheckBox_grid10 = \
-            self.display_parameters(grid10, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents)
+            self.display_parameters(grid10, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents, invalid_api_key=invalid_climate_api_key)
         # Creates the checkboxes for cellids in climateData
         self.listCheckBox_grid20 = \
-            self.display_parameters(grid20, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents_4)
+            self.display_parameters(grid20, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents_4, invalid_api_key=invalid_climate_api_key)
         # Creates the checkboxes for municipalities in climateData
         self.listCheckBox_municipalityId = \
-            self.display_parameters(munic, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents_7)
+            self.display_parameters(munic, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents_7, invalid_api_key=invalid_climate_api_key)
         # Creates the checkboxes for stations in oceanObs
         self.listCheckBox_stat_ocean = \
-            self.display_stations(self.stations_ocean, DMISettingKeys.OCEANOBS_API_KEY, self.scrollAreaWidgetContents_10)
+            self.display_stations(self.stations_ocean, DMISettingKeys.OCEANOBS_API_KEY, self.scrollAreaWidgetContents_10, invalid_api_key=invalid_oceanobs_api_key)
         self.listCheckBox_station_climate_information = \
             self.display_parameters(self.climatedata_parameters, DMISettingKeys.METOBS_API_KEY,
-                                    self.scrollAreaWidgetContents_9)
+                                    self.scrollAreaWidgetContents_9, invalid_api_key=invalid_climate_api_key)
 
     @staticmethod
     def generate_no_api_key_label(settings_key: DMISettingKeys):
         return QtWidgets.QLabel(f'No API key configured for {settings_key.get_api_name()}\nPlease go to Settings -> Options -> DMI Open Data to configure')
 
-    def display_stations(self, stations: Dict[StationId, Station], settings_key: DMISettingKeys, checkbox_container: QtWidgets.QScrollArea) -> Dict[StationId, QtWidgets.QCheckBox]:
+    def display_stations(self, stations: Dict[StationId, Station], settings_key: DMISettingKeys, checkbox_container: QtWidgets.QScrollArea, invalid_api_key=False) -> Dict[StationId, QtWidgets.QCheckBox]:
         checkboxes = {}
         station_layout = checkbox_container.findChildren(QtWidgets.QVBoxLayout)[0]
         api_key = self.settings_manager.value(settings_key.value)
-        if api_key:
+        if api_key and not invalid_api_key:
             for station_id, station in sorted(stations.items()):
                 station_checkbox_widget = QtWidgets.QCheckBox(checkbox_container)
                 station_checkbox_widget.setObjectName(station_id)
@@ -193,11 +212,11 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             station_layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(settings_key))
         return checkboxes
 
-    def display_parameters(self, parameters: Set[Parameter], settings_key: DMISettingKeys, checkbox_container: QtWidgets.QScrollArea) -> Dict[Parameter, QtWidgets.QCheckBox]:
+    def display_parameters(self, parameters: Set[Parameter], settings_key: DMISettingKeys, checkbox_container: QtWidgets.QScrollArea, invalid_api_key=False) -> Dict[Parameter, QtWidgets.QCheckBox]:
         checkboxes = {}
         parameter_layout = checkbox_container.findChildren(QtWidgets.QVBoxLayout)[0]
         api_key = self.settings_manager.value(settings_key.value)
-        if api_key:
+        if api_key and not invalid_api_key:
             for parameter in sorted(parameters):
                 parameter_checkbox_widget = QtWidgets.QCheckBox(checkbox_container)
                 # Parameters are only unique per API, mixing in settings key to make globally unique object name
