@@ -93,8 +93,8 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.radar_start_date.setDateTime(QDateTime(QDate.currentDate().addDays(-1), QTime(0, 0, 0)))
         self.radar_end_date.setDateTime(QDateTime(QDate.currentDate(), QTime(0, 0, 0)))
 
-        self.start_date4.setDateTime(QDateTime(QDate.currentDate().addDays(-1), QTime(0, 0, 0)))
-        self.end_date4.setDateTime(QDateTime(QDate.currentDate(), QTime(0, 0, 0)))
+        self.lightning_start_date.setDateTime(QDateTime(QDate.currentDate().addDays(-1), QTime(0, 0, 0)))
+        self.lightning_end_date.setDateTime(QDateTime(QDate.currentDate(), QTime(0, 0, 0)))
 
         self.start_date5.setDateTime(QDateTime(QDate.currentDate().addDays(-1), QTime(0, 0, 0)))
         self.end_date5.setDateTime(QDateTime(QDate.currentDate(), QTime(0, 0, 0)))
@@ -135,6 +135,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.dateTimeEdit_4.setEnabled(False)
 
         self.radar_disable_if_needed()
+        self.lightning_disable_if_needed()
 
     def radar_disable_if_needed(self):
         api_key = self.settings_manager.value(DMISettingKeys.RADARDATA_API_KEY.value)
@@ -151,6 +152,19 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             self.radar_scantype_doppler_radioButton.setEnabled(False)
             self.radar_start_date.setEnabled(False)
             self.radar_end_date.setEnabled(False)
+
+    def lightning_disable_if_needed(self):
+        api_key = self.settings_manager.value(DMISettingKeys.LIGHTNINGDATA_API_KEY.value)
+        if api_key == '':
+            layout = self.lightning_tab.findChildren(QtWidgets.QVBoxLayout)[0]
+            layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(DMISettingKeys.LIGHTNINGDATA_API_KEY))
+            self.bbox_lightning.setEnabled(False)
+            self.all_lightning_types.setEnabled(False)
+            self.cloud_to_g_pos.setEnabled(False)
+            self.cloud_to_g_neg.setEnabled(False)
+            self.cloud_to_cloud.setEnabled(False)
+            self.lightning_start_date.setEnabled(False)
+            self.lightning_end_date.setEnabled(False)
 
     def get_stations_and_parameters_if_settings_allow(self, station_type: StationApi, settings_key: DMISettingKeys) -> Tuple[Dict[StationId, Station], Set[str]]:
         api_key = self.settings_manager.value(settings_key.value)
@@ -500,8 +514,8 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             end_datetime = self.radar_end_date.dateTime().toString(Qt.ISODate) + 'Z'
 
         elif dataName == 'Lightning Data':
-            start_datetime = self.start_date4.dateTime().toString(Qt.ISODate) + 'Z'
-            end_datetime = self.end_date4.dateTime().toString(Qt.ISODate) + 'Z'
+            start_datetime = self.lightning_start_date.dateTime().toString(Qt.ISODate) + 'Z'
+            end_datetime = self.lightning_end_date.dateTime().toString(Qt.ISODate) + 'Z'
 
         elif dataName == 'Oceanographic Observations':
             start_datetime = self.start_date5.dateTime().toString(Qt.ISODate) + 'Z'
