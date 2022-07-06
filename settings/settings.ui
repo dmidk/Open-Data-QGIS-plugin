@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1043</width>
-    <height>486</height>
+    <width>519</width>
+    <height>396</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -45,8 +45,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>1032</width>
-        <height>274</height>
+        <width>511</width>
+        <height>287</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -62,6 +62,16 @@
        <property name="topMargin">
         <number>0</number>
        </property>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://confluence.govcloud.dk/display/FDAPI/User+Creation#UserCreation-FindYourAPIKeyRetrieveyourAPIKey&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Find your API Key for your desired API&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Not a user of DMI Open data? &lt;a href=&quot;https://confluence.govcloud.dk/display/FDAPI/User+Creation#UserCreation-UserCreation&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;User guide&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="openExternalLinks">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
        <item row="0" column="0">
         <widget class="QFrame" name="frame">
          <property name="sizePolicy">
@@ -80,7 +90,7 @@
           <item>
            <widget class="QGroupBox" name="groupBox_metObs">
             <property name="title">
-             <string>API Key MetObs</string>
+             <string>API Key metObs</string>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout">
              <item>
@@ -89,59 +99,57 @@
                 <string/>
                </property>
                <property name="placeholderText">
-                <string>Enter API Key for MetObs</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="DMI_apiKey_oceanObs">
-               <property name="text">
                 <string/>
                </property>
-               <property name="placeholderText">
-                <string>Enter API Key for OceanObs</string>
-               </property>
               </widget>
              </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox">
+            <property name="title">
+             <string>API Key climateData </string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_3">
              <item>
-              <widget class="QLineEdit" name="DMI_apiKey_climateData">
-               <property name="text">
-                <string/>
-               </property>
-               <property name="placeholderText">
-                <string>Enter API Key for Climate Data</string>
-               </property>
-              </widget>
+              <widget class="QLineEdit" name="DMI_apiKey_climateData"/>
              </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_2">
+            <property name="title">
+             <string>API Key radarData</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_4">
              <item>
-              <widget class="QLineEdit" name="DMI_apiKey_lightningData">
-               <property name="text">
-                <string/>
-               </property>
-               <property name="placeholderText">
-                <string>Enter API Key for Lightning Data</string>
-               </property>
-              </widget>
+              <widget class="QLineEdit" name="DMI_apiKey_radarData"/>
              </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_3">
+            <property name="title">
+             <string>API Key lightningData</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_5">
              <item>
-              <widget class="QLineEdit" name="DMI_apiKey_radarData">
-               <property name="text">
-                <string/>
-               </property>
-               <property name="placeholderText">
-                <string>Enter API Key for Radar Data</string>
-               </property>
-              </widget>
+              <widget class="QLineEdit" name="DMI_apiKey_lightningData"/>
              </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_4">
+            <property name="title">
+             <string>API Key oceanObs</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_6">
              <item>
-              <widget class="QLabel" name="label">
-               <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://confluence.govcloud.dk/display/FDAPI/User+Creation#UserCreation-FindYourAPIKeyRetrieveyourAPIKey&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Find your API Key for your desired API&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Not a user of DMI Open data? &lt;a href=&quot;https://confluence.govcloud.dk/display/FDAPI/User+Creation#UserCreation-UserCreation&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Create user guide&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
-               <property name="openExternalLinks">
-                <bool>true</bool>
-               </property>
-              </widget>
+              <widget class="QLineEdit" name="DMI_apiKey_oceanObs"/>
              </item>
             </layout>
            </widget>
