@@ -79,9 +79,9 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.radioButton_4.setChecked(True)
         self.radioButton_10.setChecked(True)
         self.radioButton_9.setChecked(True)
-        self.radioButton_14.setChecked(True)
-        self.radioButton_19.setChecked(True)
-        self.radioButton_21.setChecked(True)
+        self.all_stations_tide_info.setChecked(True)
+        self.any_status_stations_tide_info.setChecked(True)
+        self.all_time_tide_info.setChecked(True)
 
         # Datetime default today and yesterday
         self.start_date.setDateTime(QDateTime(QDate.currentDate().addDays(-1), QTime(0, 0, 0)))
@@ -102,8 +102,8 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.dateTimeEdit.setDateTime(QDateTime(QDate.currentDate().addDays(-1), QTime(0, 0, 0)))
         self.dateTimeEdit_2.setDateTime(QDateTime(QDate.currentDate(), QTime(0, 0, 0)))
 
-        self.dateTimeEdit_3.setDateTime(QDateTime(QDate.currentDate().addDays(-1), QTime(0, 0, 0)))
-        self.dateTimeEdit_4.setDateTime(QDateTime(QDate.currentDate(), QTime(0, 0, 0)))
+        self.tide_start_time.setDateTime(QDateTime(QDate.currentDate().addDays(-1), QTime(0, 0, 0)))
+        self.tide_end_time.setDateTime(QDateTime(QDate.currentDate(), QTime(0, 0, 0)))
 
         # All the buttons that do actions
         self.run_app.clicked.connect(self.run)
@@ -126,16 +126,17 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.tide_info.clicked.connect(self.infoTide)
         self.radioButton_10.clicked.connect(self.disable_time)
         self.radioButton_11.clicked.connect(self.enable_time)
-        self.radioButton_21.clicked.connect(self.disable_time_oce)
-        self.radioButton_22.clicked.connect(self.enable_time_oce)
+        self.all_time_tide_info.clicked.connect(self.disable_time_oce)
+        self.defined_time_tide_info.clicked.connect(self.enable_time_oce)
         # Sets the time in "Stations and parameters" unavailable untill "Defined Time" has been checked
         self.groupBox_25.setEnabled(False)
         self.groupBox_26.setEnabled(False)
-        self.dateTimeEdit_3.setEnabled(False)
-        self.dateTimeEdit_4.setEnabled(False)
+        self.tide_start_time.setEnabled(False)
+        self.tide_end_time.setEnabled(False)
 
         self.radar_disable_if_needed()
         self.lightning_disable_if_needed()
+        self.station_param_tide_disable_if_needed()
 
     def radar_disable_if_needed(self):
         api_key = self.settings_manager.value(DMISettingKeys.RADARDATA_API_KEY.value)
@@ -165,6 +166,23 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             self.cloud_to_cloud.setEnabled(False)
             self.lightning_start_date.setEnabled(False)
             self.lightning_end_date.setEnabled(False)
+
+    def station_param_tide_disable_if_needed(self):
+        api_key = self.settings_manager.value(DMISettingKeys.OCEANOBS_API_KEY.value)
+        if api_key == '':
+            layout = self.tide_page.findChildren(QtWidgets.QVBoxLayout)[0]
+            layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(DMISettingKeys.OCEANOBS_API_KEY))
+            self.sea_reg_info.setEnabled(False)
+            self.sealev_dvr_info.setEnabled(False)
+            self.sealev_ln_info.setEnabled(False)
+            self.tw_info.setEnabled(False)
+            self.all_stations_tide_info.setEnabled(False)
+            self.dmi_stations_tide_info.setEnabled(False)
+            self.kdi_stations_tide_info.setEnabled(False)
+            self.active_stations_tide_info.setEnabled(False)
+            self.any_status_stations_tide_info.setEnabled(False)
+            self.all_time_tide_info.setEnabled(False)
+            self.defined_time_tide_info.setEnabled(False)
 
     def get_stations_and_parameters_if_settings_allow(self, station_type: StationApi, settings_key: DMISettingKeys) -> Tuple[Dict[StationId, Station], Set[str]]:
         api_key = self.settings_manager.value(settings_key.value)
@@ -248,11 +266,11 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
 
 # Disables or enables time in "Stations and parameters"
     def disable_time_oce(self):
-        self.dateTimeEdit_3.setEnabled(False)
-        self.dateTimeEdit_4.setEnabled(False)
+        self.tide_start_time.setEnabled(False)
+        self.tide_end_time.setEnabled(False)
     def enable_time_oce(self):
-        self.dateTimeEdit_3.setEnabled(True)
-        self.dateTimeEdit_4.setEnabled(True)
+        self.tide_start_time.setEnabled(True)
+        self.tide_end_time.setEnabled(True)
     def disable_time(self):
         self.groupBox_25.setEnabled(False)
         self.groupBox_26.setEnabled(False)
@@ -533,8 +551,8 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             end_datetime = self.dateTimeEdit_2.dateTime().toString(Qt.ISODate) + 'Z'
 
         elif dataName == 'Stations and Parameters' and data_type2 == 'oceanObs':
-            start_datetime = self.dateTimeEdit_3.dateTime().toString(Qt.ISODate) + 'Z'
-            end_datetime = self.dateTimeEdit_4.dateTime().toString(Qt.ISODate) + 'Z'
+            start_datetime = self.tide_start_time.dateTime().toString(Qt.ISODate) + 'Z'
+            end_datetime = self.tide_end_time.dateTime().toString(Qt.ISODate) + 'Z'
 
         datetime = start_datetime + '/' + end_datetime
 
@@ -907,14 +925,14 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     params.update({'datetime': datetime})
 # ocean info
             if self.tide_info.isChecked():
-                if self.radioButton_20.isChecked() and self.radioButton_22.isChecked():
+                if self.active_stations_tide_info.isChecked() and self.defined_time_tide_info.isChecked():
                     params.update({'datetime': datetime,
                               'status': 'Active'})
-                elif self.radioButton_19.isChecked() and self.radioButton_21.isChecked():
+                elif self.any_status_stations_tide_info.isChecked() and self.all_time_tide_info.isChecked():
                     params = params
-                elif self.radioButton_20.isChecked() and self.radioButton_21.isChecked():
+                elif self.active_stations_tide_info.isChecked() and self.all_time_tide_info.isChecked():
                     params.update({'status': 'Active'})
-                elif self.radioButton_19.isChecked() and self.radioButton_22.isChecked():
+                elif self.any_status_stations_tide_info.isChecked() and self.defined_time_tide_info.isChecked():
                     params.update({'datetime': datetime})
             r = requests.get(url, params=params)
             print(r.url)
@@ -936,12 +954,12 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     elif self.radioButton_4.isChecked():
                         name_stations_met = 'All Meteorological Stations'
                 if self.tide_info.isChecked():
-                    if self.radioButton_14.isChecked():
+                    if self.all_stations_tide_info.isChecked():
                         name_stations_met = 'All stations'
-                    elif self.radioButton_12.isChecked():
+                    elif self.dmi_stations_tide_info.isChecked():
                         df = df.loc[df['properties.owner'] == 'DMI']
                         name_stations_met = 'DMI'
-                    elif self.radioButton_13.isChecked():
+                    elif self.kdi_stations_tide_info.isChecked():
                         df = df.loc[df['properties.owner'] == 'Kystdirektoratet / Coastal Authority']
                         name_stations_met = 'Coastal Authority'
     # Names the layer as the station type and parameter if parameter is chosen.

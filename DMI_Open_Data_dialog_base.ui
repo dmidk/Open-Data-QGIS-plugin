@@ -38,7 +38,7 @@
       <bool>true</bool>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>5</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>
@@ -993,8 +993,8 @@
                     <rect>
                      <x>0</x>
                      <y>0</y>
-                     <width>98</width>
-                     <height>28</height>
+                     <width>169</width>
+                     <height>224</height>
                     </rect>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout"/>
@@ -1093,29 +1093,29 @@
          <widget class="QWidget" name="tide_page">
           <layout class="QVBoxLayout" name="verticalLayout_66">
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_55">
+            <layout class="QHBoxLayout" name="tide_page_layout">
              <item>
-              <widget class="QGroupBox" name="groupBox_21">
+              <widget class="QGroupBox" name="tide_station_type_select">
                <property name="title">
-                <string>GroupBox</string>
+                <string>Station type</string>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_62">
                 <item>
-                 <widget class="QRadioButton" name="radioButton_14">
+                 <widget class="QRadioButton" name="all_stations_tide_info">
                   <property name="text">
                    <string>All stations</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QRadioButton" name="radioButton_12">
+                 <widget class="QRadioButton" name="dmi_stations_tide_info">
                   <property name="text">
                    <string>Owned by DMI</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QRadioButton" name="radioButton_13">
+                 <widget class="QRadioButton" name="kdi_stations_tide_info">
                   <property name="text">
                    <string>Owned by Coastal Authority</string>
                   </property>
@@ -1125,7 +1125,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_22">
+              <widget class="QGroupBox" name="tide_param_select">
                <property name="title">
                 <string>Parameters measured</string>
                </property>
@@ -1162,20 +1162,20 @@
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_23">
+              <widget class="QGroupBox" name="tide_status_select">
                <property name="title">
                 <string>Status</string>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_63">
                 <item>
-                 <widget class="QRadioButton" name="radioButton_19">
+                 <widget class="QRadioButton" name="any_status_stations_tide_info">
                   <property name="text">
                    <string>All stations</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QRadioButton" name="radioButton_20">
+                 <widget class="QRadioButton" name="active_stations_tide_info">
                   <property name="text">
                    <string>Only show active</string>
                   </property>
@@ -1185,22 +1185,22 @@
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_24">
+              <widget class="QGroupBox" name="tide_time_select">
                <property name="title">
                 <string>Time</string>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_7">
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_56">
+                 <layout class="QHBoxLayout" name="tide_time_select_layout">
                   <item>
-                   <widget class="QRadioButton" name="radioButton_21">
+                   <widget class="QRadioButton" name="all_time_tide_info">
                     <property name="text">
                      <string>All time </string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QRadioButton" name="radioButton_22">
+                   <widget class="QRadioButton" name="defined_time_tide_info">
                     <property name="text">
                      <string>Defined time</string>
                     </property>
@@ -1209,13 +1209,13 @@
                  </layout>
                 </item>
                 <item>
-                 <widget class="QGroupBox" name="groupBox_27">
+                 <widget class="QGroupBox" name="tide_start_time_select">
                   <property name="title">
                    <string>Start Time</string>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_68">
                    <item>
-                    <widget class="QDateTimeEdit" name="dateTimeEdit_3">
+                    <widget class="QDateTimeEdit" name="tide_start_time">
                      <property name="calendarPopup">
                       <bool>true</bool>
                      </property>
@@ -1225,13 +1225,13 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QGroupBox" name="groupBox_28">
+                 <widget class="QGroupBox" name="tide_end_time_select">
                   <property name="title">
                    <string>End Time</string>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_69">
                    <item>
-                    <widget class="QDateTimeEdit" name="dateTimeEdit_4">
+                    <widget class="QDateTimeEdit" name="tide_end_time">
                      <property name="calendarPopup">
                       <bool>true</bool>
                      </property>
