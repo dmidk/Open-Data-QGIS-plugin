@@ -14,6 +14,7 @@ from PyQt5.QtWidgets import *
 from qgis.PyQt.QtCore import QVariant
 import webbrowser
 
+from .dmi_dialog_tabs.information import DMIInformationWidget
 from .api.station import get_stations, StationApi, StationId, Station, Parameter
 from .settings import DMISettingsManager, DMISettingKeys
 
@@ -37,6 +38,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         """Constructor."""
         super(DMIOpenDataDialog, self).__init__(parent)
         self.settings_manager = settings_manager
+
         load_ui_options = {}
         try:
             self.stations_ocean, self.oceanobs_parameters = self.get_stations_and_parameters_if_settings_allow(
@@ -70,6 +72,12 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             load_ui_options['invalid_metobs_api_key'] = True
 
         super(DMIOpenDataDialog, self).setupUi(self)
+
+        # Initializing information widget
+        information_widget = DMIInformationWidget(self.settings_manager, parent=self.information_tab)
+        layout = self.information_tab.findChildren(QtWidgets.QVBoxLayout)[0]
+        layout.addWidget(information_widget)
+
         self.load_station_and_parameter_ui(**load_ui_options)
 
         # All the radiobuttons that by default is checked
@@ -116,9 +124,6 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.grid20_type.clicked.connect(self.grid20_typeR)
         self.munic_type.clicked.connect(self.municipality_typeR)
         self.country_type.clicked.connect(self.country_typeR)
-        self.dmi_open_data.clicked.connect(self.open_openData)
-        self.dmi_open_data_2.clicked.connect(self.open_openData_2)
-        self.dmi_dk.clicked.connect(self.open_dmi_dk)
         self.stackedWidget.setCurrentWidget(self.stat_clima)
         self.stackedWidget_2.setCurrentWidget(self.stat_para)
         self.stackedWidget_3.setCurrentWidget(self.met_stat_page)
@@ -128,6 +133,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.radioButton_11.clicked.connect(self.enable_time)
         self.radioButton_21.clicked.connect(self.disable_time_oce)
         self.radioButton_22.clicked.connect(self.enable_time_oce)
+        self.dmi_open_data_2.clicked.connect(self.open_openData_2)
         # Sets the time in "Stations and parameters" unavailable untill "Defined Time" has been checked
         self.groupBox_25.setEnabled(False)
         self.groupBox_26.setEnabled(False)
@@ -275,12 +281,8 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
     def infoTide(self):
         self.stackedWidget_3.setCurrentWidget(self.tide_page)
 # Actions for buttons to go to dmi.dk
-    def open_openData(self):
-        webbrowser.open('https://confluence.govcloud.dk/display/FDAPI/Danish+Meteorological+Institute+-+Open+Data')
     def open_openData_2(self):
         webbrowser.open('https://confluence.govcloud.dk/display/FDAPI/Danish+Meteorological+Institute+-+Open+Data')
-    def open_dmi_dk(self):
-        webbrowser.open('https://www.dmi.dk/')
 # Actions when saving as .csv
     def browse_files_cli(self):
         fname = QFileDialog.getSaveFileName(self, 'Open File', 'C:')
