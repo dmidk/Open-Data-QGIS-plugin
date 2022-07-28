@@ -142,14 +142,6 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         if api_key == '':
             layout = self.tab_3.findChildren(QtWidgets.QVBoxLayout)[0]
             layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(DMISettingKeys.RADARDATA_API_KEY))
-            self.radar_bornholm_checkBox.setEnabled(False)
-            self.radar_virring_skanderborg_checkBox.setEnabled(False)
-            self.radar_sindal_checkBox.setEnabled(False)
-            self.radar_stevns_checkBox.setEnabled(False)
-            self.radar_romoe_checkBox.setEnabled(False)
-            self.radar_all_stations_checkBox.setEnabled(False)
-            self.radar_scantype_fullrange_radioButton.setEnabled(False)
-            self.radar_scantype_doppler_radioButton.setEnabled(False)
             self.radar_start_date.setEnabled(False)
             self.radar_end_date.setEnabled(False)
 
