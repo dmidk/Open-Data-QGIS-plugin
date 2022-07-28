@@ -1,6 +1,6 @@
 ## Changes
 
- - Quick fix so plugin does not crash if no radar API is set
+ - Quick fix when using "Run" for lightning data
 
 ## Installation
 
