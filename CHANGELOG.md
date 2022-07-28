@@ -1,11 +1,6 @@
 ## Changes
 
- - Stations & Parameters tab fixed
- - Radar tab only supports composite images
- - Various UX improvements for missing / invalid API keys
- - Better date + time selection defaults
- - Calendar popup support for date selection
- - And much more
+ - Quick fix so plugin does not crash if no radar API is set
 
 ## Installation
 
