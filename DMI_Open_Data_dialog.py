@@ -790,6 +790,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
 
 # Lightning data URL creation
         if dataName == 'Lightning Data':
+            url = 'https://dmigw.govcloud.dk/v2/' + data_type + '/collections/' + data_type2 + '/items'
             params = {'api-key' : api_key,
                     'datetime' : datetime,
                       'limit' : '300000'}
