@@ -983,17 +983,21 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     self.file_name_lig.clear()
 # Forecast data
         if dataName == 'Forecast Data':
+            root = QgsProject.instance().layerTreeRoot()
+            layer_group = root.insertGroup(0, 'Forecast' + datetime)
             temp = 'temp'
             url = 'https://dmigw.govcloud.dk/v1/' + data_type + '/collections/' + data_type2 + '_' + fore_area + '/items'
             params = {'api-key': api_key,
                     'datetime': datetime,
-                    'limit': '1'}
+                    'limit': '300000'}
             if self.bbox_fore.text() != '':
                 params.update({'bbox': self.bbox_fore.text()})
             r = requests.get(url, params=params)
             print(r, r.url)
             json = r.json()
-            for feature in json['features']:
+            latest_model_run = sorted(json['features'], key=lambda feature: feature['properties']['modelRun'])[-1]['properties']['modelRun']
+            print(latest_model_run)
+            for feature in filter(lambda feature: feature['properties']['modelRun'] == latest_model_run, json['features']):
                 downloadurl = feature['asset']['data']['href']
                 downloaddata = requests.get(downloadurl)
                 id = feature['id']
@@ -1090,6 +1094,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     layer.setRenderer(renderer)
                     layer.renderer().setContrastEnhancement(myEnhancement)
 
+
                 # Changes the name
                 if len(parameters) > 0:
                     if self.wam_fore.isChecked():
@@ -1102,8 +1107,8 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     layer.setName(data_type2 + ' ' + fore_area + ' ' + 'All parameters ' + feature['properties']['datetime'])
                 # Adds the layer to the map
                 project = QgsProject.instance()
-                project.addMapLayer(layer)
-
+                project.addMapLayer(layer, addToLegend=False)
+                layer_group.insertLayer(-1, layer)
 # Information about stations and parameters
         if dataName == 'Stations and Parameters':
             if self.met_stat_info.isChecked():
