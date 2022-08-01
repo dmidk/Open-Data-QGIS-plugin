@@ -9,12 +9,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>890</width>
-    <height>440</height>
+    <width>1345</width>
+    <height>528</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -38,7 +38,7 @@
       <bool>true</bool>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>5</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>
@@ -133,8 +133,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>393</width>
-                   <height>116</height>
+                   <width>637</width>
+                   <height>305</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_10"/>
@@ -164,8 +164,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>393</width>
-                   <height>116</height>
+                   <width>636</width>
+                   <height>305</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_5"/>
@@ -389,8 +389,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>401</width>
-                  <height>69</height>
+                  <width>641</width>
+                  <height>275</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_32"/>
@@ -407,7 +407,7 @@
          <item>
           <widget class="QStackedWidget" name="stackedWidget">
            <property name="currentIndex">
-            <number>3</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="stat_clima">
             <layout class="QVBoxLayout" name="verticalLayout_33">
@@ -421,8 +421,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>98</width>
-                  <height>28</height>
+                  <width>640</width>
+                  <height>275</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36"/>
@@ -487,8 +487,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>401</width>
-                  <height>69</height>
+                  <width>98</width>
+                  <height>28</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_38"/>
@@ -533,7 +533,7 @@
       <attribute name="title">
        <string>Radar Data</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_13">
+      <layout class="QVBoxLayout" name="verticalLayout_75">
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_14">
          <item>
@@ -589,6 +589,126 @@
           </widget>
          </item>
         </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_31">
+         <item>
+          <widget class="QGroupBox" name="groupBox_20">
+           <property name="title">
+            <string>Type of radar data</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_13">
+            <item>
+             <widget class="QRadioButton" name="composite">
+              <property name="text">
+               <string>Composite</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="pseudo">
+              <property name="text">
+               <string>Pseudo CAPPI</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="scan_type">
+           <property name="title">
+            <string>Scan Type (Only available for Composite)</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_74">
+            <item>
+             <widget class="QRadioButton" name="full_range">
+              <property name="text">
+               <string>Full Range</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="doppler">
+              <property name="text">
+               <string>Doppler</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="both_types">
+              <property name="text">
+               <string>Both types </string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="stat_radar">
+           <property name="title">
+            <string>Stations (Only available for Pseudo CAPPI)</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_73">
+            <item>
+             <widget class="QRadioButton" name="_60960">
+              <property name="text">
+               <string>60960 Rømø/Juvre	</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="_06036">
+              <property name="text">
+               <string>06036 Sindal</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="_06194">
+              <property name="text">
+               <string>06194 Bornholm</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="_06177">
+              <property name="text">
+               <string>06177 Stevns</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="_06103">
+              <property name="text">
+               <string>06103 Virring Skanderborg	</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_29">
+         <property name="title">
+          <string>BBox (optional)</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_71">
+          <item>
+           <widget class="QLineEdit" name="lineEdit_2">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="placeholderText">
+             <string>E.g. 8.0786,54.5576,15.1712,57.7664</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -668,7 +788,11 @@
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_22">
             <item>
-             <widget class="QLineEdit" name="bbox_lightning"/>
+             <widget class="QLineEdit" name="bbox_lightning">
+              <property name="placeholderText">
+               <string>E.g. 8.0786,54.5576,15.1712,57.7664</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -865,8 +989,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>395</width>
-                 <height>118</height>
+                 <width>638</width>
+                 <height>307</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_100"/>
@@ -899,6 +1023,1574 @@
            </layout>
           </item>
          </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_4">
+      <attribute name="title">
+       <string>Forecast Data</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_59">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_29">
+         <item>
+          <widget class="QGroupBox" name="groupBox">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="title">
+            <string>Start date and time</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_23">
+            <item>
+             <widget class="QDateTimeEdit" name="datetime_fore_start">
+              <property name="calendarPopup">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_4">
+           <property name="title">
+            <string>End date and time</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_41">
+            <item>
+             <widget class="QDateTimeEdit" name="datetime_fore_end">
+              <property name="calendarPopup">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_5">
+         <property name="title">
+          <string>Model</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_43">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_26">
+            <item>
+             <widget class="QRadioButton" name="wam_fore">
+              <property name="text">
+               <string>Wave Model (WAM)</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="dkss_fore">
+              <property name="text">
+               <string>Strom Surge Model (DKSS)</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QStackedWidget" name="para_stacked">
+         <property name="currentIndex">
+          <number>1</number>
+         </property>
+         <widget class="QWidget" name="wam_page">
+          <layout class="QVBoxLayout" name="verticalLayout_61">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_27">
+             <item>
+              <widget class="QGroupBox" name="groupBox_10">
+               <property name="title">
+                <string>Parameters</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_45">
+                <item>
+                 <widget class="QScrollArea" name="scrollArea_11">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="widgetResizable">
+                   <bool>true</bool>
+                  </property>
+                  <widget class="QWidget" name="scrollAreaWidgetContents_11">
+                   <property name="geometry">
+                    <rect>
+                     <x>0</x>
+                     <y>0</y>
+                     <width>620</width>
+                     <height>278</height>
+                    </rect>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_60">
+                    <item>
+                     <widget class="QRadioButton" name="all_para_wam">
+                      <property name="text">
+                       <string>All parameters </string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="wind_speed_10">
+                      <property name="text">
+                       <string>10 metre wind speed</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="wind_direction_10">
+                      <property name="text">
+                       <string>10 metre wind direction</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="sig_wave_height">
+                      <property name="text">
+                       <string>Significant wave height</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="dom_wave_period">
+                      <property name="text">
+                       <string>Dominant wave period / peak period of 1D spectra</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="mean_wave_period">
+                      <property name="text">
+                       <string>Mean wave period</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="mean_zero_wave_period">
+                      <property name="text">
+                       <string>Mean zero-crossing wave period</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="mean_wave_dir">
+                      <property name="text">
+                       <string>Mean wave direction</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="sig_height_wind_waves_sea">
+                      <property name="text">
+                       <string>Significant height of wind waves (sea)</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="mean_period_wind_wave_sea">
+                      <property name="text">
+                       <string>Mean period of wind waves (sea)</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="mean_dir_wind_wave_sea">
+                      <property name="text">
+                       <string>Mean direction of wind waves (sea)</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="sig_height_swell">
+                      <property name="text">
+                       <string>Significant height of total swell</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="mean_period_swell">
+                      <property name="text">
+                       <string>Mean period of total swell</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="mean_dir_swell">
+                      <property name="text">
+                       <string>Mean direction of total swell</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="benjamin_index">
+                      <property name="text">
+                       <string>Benjamin-Feir index</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_8">
+               <property name="title">
+                <string>Areas</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_42">
+                <item>
+                 <widget class="QRadioButton" name="danish_waters">
+                  <property name="text">
+                   <string>Danish Waters</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="north_atlantic">
+                  <property name="text">
+                   <string>North Atlantic</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="north_sea_baltic">
+                  <property name="text">
+                   <string>North Sea-Baltic</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_8">
+             <item>
+              <widget class="QGroupBox" name="groupBox_3">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="title">
+                <string>BBox</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_8">
+                <item>
+                 <widget class="QLineEdit" name="lineEdit">
+                  <property name="placeholderText">
+                   <string>E.g. 8.0786,54.5576,15.1712,57.7664</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="dkss_page">
+          <layout class="QVBoxLayout" name="verticalLayout_70">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_30">
+             <item>
+              <widget class="QGroupBox" name="groupBox_18">
+               <property name="title">
+                <string>Parameters</string>
+               </property>
+               <layout class="QGridLayout" name="gridLayout">
+                <item row="0" column="0">
+                 <widget class="QScrollArea" name="scrollArea_13">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="widgetResizable">
+                   <bool>true</bool>
+                  </property>
+                  <widget class="QWidget" name="scrollAreaWidgetContents_13">
+                   <property name="geometry">
+                    <rect>
+                     <x>0</x>
+                     <y>-21</y>
+                     <width>620</width>
+                     <height>260</height>
+                    </rect>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_64">
+                    <item>
+                     <widget class="QRadioButton" name="all_para_dkss">
+                      <property name="text">
+                       <string>All parameters</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="dev_sea_mean">
+                      <property name="text">
+                       <string>Deviation of sea level from mean</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="u_comp_wind">
+                      <property name="text">
+                       <string>u-component of wind</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="v_comp_wind">
+                      <property name="text">
+                       <string>v-component of wind</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="u_comp_cur">
+                      <property name="text">
+                       <string>u-component of current</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="v_comp_cur">
+                      <property name="text">
+                       <string>v-component of current</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="water_temp">
+                      <property name="text">
+                       <string>Water temperature</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="salinity">
+                      <property name="text">
+                       <string>Salinity</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="ice_thick">
+                      <property name="text">
+                       <string>Ice thickness</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="ice_conc">
+                      <property name="text">
+                       <string>Ice concentration (ice=1;no ice=0)</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="u_comp_cur_">
+                      <property name="text">
+                       <string>u-component of current (&gt; 1 meters depth)</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="v_comp_cur_">
+                      <property name="text">
+                       <string>v-component of current (&gt; 1 meters depth)</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="water_temp_">
+                      <property name="text">
+                       <string>Water temperature (&gt; 1 meters depth)</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="salinity_">
+                      <property name="text">
+                       <string>Salinity (&gt; 1 meters depth)</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_12">
+               <property name="title">
+                <string>Areas</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_46">
+                <item>
+                 <widget class="QRadioButton" name="north_sea_baltic_sea">
+                  <property name="text">
+                   <string>North Sea Baltic Sea </string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="inner_danish_waters">
+                  <property name="text">
+                   <string>Inner Danish Waters </string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="wadden_sea">
+                  <property name="text">
+                   <string>Wadden Sea </string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="isefjord">
+                  <property name="text">
+                   <string>Isefjord </string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="limfjord">
+                  <property name="text">
+                   <string>Limfjord </string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="little_belt">
+                  <property name="text">
+                   <string>Little Belt </string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_28">
+             <item>
+              <widget class="QGroupBox" name="groupBox_14">
+               <property name="title">
+                <string>Depth (meters)</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_44">
+                <item>
+                 <widget class="QStackedWidget" name="stackedWidget_4">
+                  <property name="currentIndex">
+                   <number>5</number>
+                  </property>
+                  <widget class="QWidget" name="nsbs_depth">
+                   <layout class="QVBoxLayout" name="verticalLayout_53">
+                    <item>
+                     <widget class="QComboBox" name="depth_box_nsbs">
+                      <item>
+                       <property name="text">
+                        <string>4</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>9</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>11</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>13</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>14</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>15</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>16</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>17</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>19</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>21</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>23</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>25</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>27</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>29</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>31</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>33</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>35</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>37</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>39</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>41</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>43</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>45</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>47</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>49</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>51</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>53</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>55</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>57</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>59</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>61</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>63</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>65</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>67</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>69</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>71</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>73</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>75</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>77</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>79</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>82</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>88</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>96</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>113</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>138</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>175</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>225</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>275</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>325</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>375</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>425</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>475</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>525</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="idw_depth">
+                   <layout class="QVBoxLayout" name="verticalLayout_54">
+                    <item>
+                     <widget class="QComboBox" name="depth_box_idw">
+                      <item>
+                       <property name="text">
+                        <string>1</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>3</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>4</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>5</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>6</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>7</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>8</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>9</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>10</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>11</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>12</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>13</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>14</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>15</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>16</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>17</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>18</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>19</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>20</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>21</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>22</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>23</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>24</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>25</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>26</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>27</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>28</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>29</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>30</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>31</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>33</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>35</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>37</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>39</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>40</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>41</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>43</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>44</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>45</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>47</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>49</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>51</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>53</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>55</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>57</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>59</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>61</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>63</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>65</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>67</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>69</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>71</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>73</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>75</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="ws_depth">
+                   <layout class="QVBoxLayout" name="verticalLayout_55">
+                    <item>
+                     <widget class="QComboBox" name="depth_box_ws">
+                      <item>
+                       <property name="text">
+                        <string>4</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>9</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>11</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>13</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>15</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>17</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>19</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>21</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>23</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>25</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>27</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>29</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>31</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>33</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>35</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>37</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>39</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>41</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>43</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>45</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>47</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>49</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="if_depth">
+                   <layout class="QVBoxLayout" name="verticalLayout_56">
+                    <item>
+                     <widget class="QComboBox" name="depth_box_if">
+                      <item>
+                       <property name="text">
+                        <string>1</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>3</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>4</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>5</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>6</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>7</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>8</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>9</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>10</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>11</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="lf_depth">
+                   <layout class="QVBoxLayout" name="verticalLayout_57">
+                    <item>
+                     <widget class="QComboBox" name="depth_box_lf">
+                      <item>
+                       <property name="text">
+                        <string>1</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>3</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>4</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>5</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>6</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>7</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>8</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>9</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>10</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>11</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>12</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>13</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>14</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>15</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>16</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>17</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>18</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>19</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>20</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>21</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>22</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="lb_depth">
+                   <layout class="QVBoxLayout" name="verticalLayout_58">
+                    <item>
+                     <widget class="QComboBox" name="depth_box_lb">
+                      <item>
+                       <property name="text">
+                        <string>1</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>3</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>4</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>5</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>6</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>7</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>8</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>9</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>10</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>11</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>12</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>13</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>14</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>15</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>16</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>17</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>18</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>19</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>20</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>21</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>22</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>23</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>24</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>25</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>26</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>27</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>28</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>29</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>30</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>31</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>33</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>35</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>37</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>39</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>41</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>43</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>45</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>47</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>49</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>51</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>53</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>55</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_19">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="title">
+                <string>BBox</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_65">
+                <item>
+                 <widget class="QLineEdit" name="bbox_fore"/>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
         </widget>
        </item>
       </layout>
@@ -1265,21 +2957,21 @@
           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:14pt; font-weight:600;&quot;&gt;Plugin for DMIs Open Data &lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:600;&quot;&gt;Before starting&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2';&quot;&gt;Documentation and more information about DMI Open Data can be found &lt;/span&gt;&lt;a href=&quot;https://confluence.govcloud.dk/display/FDAPI/Danish+Meteorological+Institute+-+Open+Data&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; text-decoration: underline; color:#0000ff;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2';&quot;&gt;. This guide will only briefly cover the plugin - not the data, stations etc.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2';&quot;&gt;A thorough guide of how to use this plugin, along with examples, can be found here. &lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2';&quot;&gt;The plugin allows the user to easily import data from DMIs Open Data from Meteorological Observations (metObs), Climate Data (climateData), Lightning Data (lightningData), Radar Data (radarData) and Oceanographic Observations (oceanObs). At each tab, the users API-key has to be inserted in order to get data. An API-key can be created &lt;/span&gt;&lt;a href=&quot;https://confluence.govcloud.dk/display/FDAPI/User+Creation&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; text-decoration: underline; color:#0000ff;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2';&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:600;&quot;&gt;How to use this plugin&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2';&quot;&gt;In order to get data, an API Key must be configured in QGIS settings menu. To configure API keys, please go to Settings -&amp;gt; Options -&amp;gt; DMI Open Data. Note that each type of data requires one specific API Key corresponding to that UI. &lt;br /&gt;After the API Key has been configured in settings, stations and parameters will be accessible, and the plugin will work as intended. &lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2';&quot;&gt;Things to note when using the plugin: &lt;/span&gt;&lt;/p&gt;
-&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'MS Shell Dlg 2';&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Maximum amount of parameters available is 7.&lt;/li&gt;
-&lt;li style=&quot; font-family:'MS Shell Dlg 2';&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Internet is neccessary in order to open the plugin and get data.&lt;/li&gt;
-&lt;li style=&quot; font-family:'MS Shell Dlg 2';&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Sort the data in a manner that your QGIS can handle. Otherwise there is a risk of crashing.&lt;/li&gt;
-&lt;li style=&quot; font-family:'MS Shell Dlg 2';&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Be sure to read about the stations and parameters, as not all stations measure all parameters. A list of meteorological stations and their associated parameters can also be found &lt;a href=&quot;https://confluence.govcloud.dk/pages/viewpage.action?pageId=53086560&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;.&lt;/li&gt;&lt;/ul&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2';&quot;&gt;If you have any questions about the plugin or DMI Open Data then please contact us. &lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2';&quot;&gt;Go to &lt;/span&gt;&lt;a href=&quot;https://www.dmi.dk/kontakt/frie-data/&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; text-decoration: underline; color:#0000ff;&quot;&gt;Contact form&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2';&quot;&gt;Call DMI support: +45 39 15 75 00&lt;/span&gt;&lt;/p&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Plugin for DMIs Open Data &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;Before starting&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Documentation and more information about DMI Open Data can be found &lt;/span&gt;&lt;a href=&quot;https://confluence.govcloud.dk/display/FDAPI/Danish+Meteorological+Institute+-+Open+Data&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;. This guide will only briefly cover the plugin - not the data, stations etc.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;A thorough guide of how to use this plugin, along with examples, can be found here. &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;The plugin allows the user to easily import data from DMIs Open Data from Meteorological Observations (metObs), Climate Data (climateData), Lightning Data (lightningData), Radar Data (radarData) and Oceanographic Observations (oceanObs). At each tab, the users API-key has to be inserted in order to get data. An API-key can be created &lt;/span&gt;&lt;a href=&quot;https://confluence.govcloud.dk/display/FDAPI/User+Creation&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;How to use this plugin&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;In order to get data, an API Key must be configured in QGIS settings menu. To configure API keys, please go to Settings -&amp;gt; Options -&amp;gt; DMI Open Data. Note that each type of data requires one specific API Key corresponding to that UI. &lt;br /&gt;After the API Key has been configured in settings, stations and parameters will be accessible, and the plugin will work as intended. &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Things to note when using the plugin: &lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Maximum amount of parameters available is 7.&lt;/li&gt;
+&lt;li style=&quot; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Internet is neccessary in order to open the plugin and get data.&lt;/li&gt;
+&lt;li style=&quot; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Sort the data in a manner that your QGIS can handle. Otherwise there is a risk of crashing.&lt;/li&gt;
+&lt;li style=&quot; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Be sure to read about the stations and parameters, as not all stations measure all parameters. A list of meteorological stations and their associated parameters can also be found &lt;a href=&quot;https://confluence.govcloud.dk/pages/viewpage.action?pageId=53086560&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;.&lt;/li&gt;&lt;/ul&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;If you have any questions about the plugin or DMI Open Data then please contact us. &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Go to &lt;/span&gt;&lt;a href=&quot;https://www.dmi.dk/kontakt/frie-data/&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Contact form&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Call DMI support: +45 39 15 75 00&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;https://confluence.govcloud.dk/download/thumbnails/41718638/Open%20Data%20-%20Hvid%20baggrund%20med%20bl%C3%A5%20cirkler%20og%20tekst.png?version=1&amp;amp;modificationDate=1622790552000&amp;amp;api=v2&quot; width=&quot;100&quot; height=&quot;100&quot; /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="openExternalLinks">
