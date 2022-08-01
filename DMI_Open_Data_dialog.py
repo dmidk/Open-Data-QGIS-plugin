@@ -1091,6 +1091,12 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     myEnhancement.setContrastEnhancementAlgorithm(contrast_enhancement, True)
                     myEnhancement.setMinimumValue(stats.minimumValue)
                     myEnhancement.setMaximumValue(stats.maximumValue)
+                    d = feature['properties']['datetime']
+                    start_time = QDateTime.fromString(d, 'yyyy-MM-ddThh:mm:ssZ')
+                    end_time = start_time.addSecs(3600)
+                    time_range = QgsDateTimeRange(start_time, end_time)
+                    layer.temporalProperties().setFixedTemporalRange(time_range)
+                    layer.temporalProperties().setIsActive(True)
                     layer.setRenderer(renderer)
                     layer.renderer().setContrastEnhancement(myEnhancement)
 
