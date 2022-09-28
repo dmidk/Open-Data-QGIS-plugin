@@ -181,27 +181,60 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
 
         self.radar_disable_if_needed()
         self.lightning_disable_if_needed()
+        self.metobs_disable_if_needed()
+        self.climate_disable_if_needed()
+        self.ocean_disable_if_needed()
+        self.forecast_disable_if_needed()
+        self.stat_info_disable_if_needed()
+
+    def stat_info_disable_if_needed(self):
+        api_key = self.settings_manager.value(DMISettingKeys.METOBS_API_KEY.value)
+        if api_key == '':
+            layout = self.tab_8.findChildren(QtWidgets.QVBoxLayout)[0]
+            layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(DMISettingKeys.METOBS_API_KEY))
+            self.tab_8.setEnabled(False)
+
+    def forecast_disable_if_needed(self):
+        api_key = self.settings_manager.value(DMISettingKeys.FORECASTDATA_API_KEY.value)
+        if api_key == '':
+            layout = self.tab_4.findChildren(QtWidgets.QVBoxLayout)[0]
+            layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(DMISettingKeys.FORECASTDATA_API_KEY))
+            self.tab_4.setEnabled(False)
+
+    def ocean_disable_if_needed(self):
+        api_key = self.settings_manager.value(DMISettingKeys.OCEANOBS_API_KEY.value)
+        if api_key == '':
+            layout = self.tab_5.findChildren(QtWidgets.QVBoxLayout)[0]
+            layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(DMISettingKeys.OCEANOBS_API_KEY))
+            self.tab_5.setEnabled(False)
 
     def radar_disable_if_needed(self):
         api_key = self.settings_manager.value(DMISettingKeys.RADARDATA_API_KEY.value)
         if api_key == '':
             layout = self.tab_3.findChildren(QtWidgets.QVBoxLayout)[0]
             layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(DMISettingKeys.RADARDATA_API_KEY))
-            self.radar_start_date.setEnabled(False)
-            self.radar_end_date.setEnabled(False)
+            self.tab_3.setEnabled(False)
 
     def lightning_disable_if_needed(self):
         api_key = self.settings_manager.value(DMISettingKeys.LIGHTNINGDATA_API_KEY.value)
         if api_key == '':
             layout = self.lightning_tab.findChildren(QtWidgets.QVBoxLayout)[0]
             layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(DMISettingKeys.LIGHTNINGDATA_API_KEY))
-            self.bbox_lightning.setEnabled(False)
-            self.all_lightning_types.setEnabled(False)
-            self.cloud_to_g_pos.setEnabled(False)
-            self.cloud_to_g_neg.setEnabled(False)
-            self.cloud_to_cloud.setEnabled(False)
-            self.lightning_start_date.setEnabled(False)
-            self.lightning_end_date.setEnabled(False)
+            self.lightning_tab.setEnabled(False)
+
+    def metobs_disable_if_needed(self):
+        api_key = self.settings_manager.value(DMISettingKeys.METOBS_API_KEY.value)
+        if api_key == '':
+            layout = self.tab.findChildren(QtWidgets.QVBoxLayout)[0]
+            layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(DMISettingKeys.METOBS_API_KEY))
+            self.tab.setEnabled(False)
+
+    def climate_disable_if_needed(self):
+        api_key = self.settings_manager.value(DMISettingKeys.CLIMATEDATA_API_KEY.value)
+        if api_key == '':
+            layout = self.tab_2.findChildren(QtWidgets.QVBoxLayout)[0]
+            layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(DMISettingKeys.CLIMATEDATA_API_KEY))
+            self.tab_2.setEnabled(False)
 
     def get_stations_and_parameters_if_settings_allow(self, station_type: StationApi, settings_key: DMISettingKeys) -> Tuple[Dict[StationId, Station], Set[str]]:
         api_key = self.settings_manager.value(settings_key.value)
