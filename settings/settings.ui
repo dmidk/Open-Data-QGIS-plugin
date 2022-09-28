@@ -46,7 +46,7 @@
         <x>0</x>
         <y>0</y>
         <width>511</width>
-        <height>287</height>
+        <height>334</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -62,7 +62,7 @@
        <property name="topMargin">
         <number>0</number>
        </property>
-       <item row="1" column="0">
+       <item row="2" column="0">
         <widget class="QLabel" name="label">
          <property name="text">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://confluence.govcloud.dk/display/FDAPI/User+Creation#UserCreation-FindYourAPIKeyRetrieveyourAPIKey&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Find your API Key for your desired API&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Not a user of DMI Open data? &lt;a href=&quot;https://confluence.govcloud.dk/display/FDAPI/User+Creation#UserCreation-UserCreation&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;User guide&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -150,6 +150,18 @@
             <layout class="QVBoxLayout" name="verticalLayout_6">
              <item>
               <widget class="QLineEdit" name="DMI_apiKey_oceanObs"/>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_5">
+            <property name="title">
+             <string>API Key forecastData</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_7">
+             <item>
+              <widget class="QLineEdit" name="DMI_apiKey_forecastData"/>
              </item>
             </layout>
            </widget>
