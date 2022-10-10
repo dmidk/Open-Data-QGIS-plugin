@@ -85,7 +85,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.radioButton_14.setChecked(True)
         self.radioButton_19.setChecked(True)
         self.radioButton_21.setChecked(True)
-        self.wam_fore.setChecked(True)
+        self.harm_fore.setChecked(True)
         self.north_sea_baltic_sea.setChecked(True)
         self.danish_waters.setChecked(True)
         self.all_para_dkss.setChecked(True)
@@ -138,10 +138,11 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.stackedWidget_2.setCurrentWidget(self.stat_para)
         self.stackedWidget_3.setCurrentWidget(self.met_stat_page)
         self.met_stat_info.clicked.connect(self.infoStat)
-        self.para_stacked.setCurrentWidget(self.wam_page)
+        self.para_stacked.setCurrentWidget(self.harm_page)
         self.stackedWidget_4.setCurrentWidget(self.nsbs_depth)
         self.wam_fore.clicked.connect(self.wamTab)
         self.dkss_fore.clicked.connect(self.dkssTab)
+        self.harm_fore.clicked.connect(self.harmonieTab)
         self.tide_info.clicked.connect(self.infoTide)
         self.radioButton_10.clicked.connect(self.disable_time)
         self.radioButton_11.clicked.connect(self.enable_time)
@@ -337,6 +338,8 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
 # Changes pages when clicked
     def wamTab(self):
         self.para_stacked.setCurrentWidget(self.wam_page)
+    def harmonieTab(self):
+        self.para_stacked.setCurrentWidget(self.harm_page)
     def dkssTab(self):
         self.para_stacked.setCurrentWidget(self.dkss_page)
     def depth_tab_dis(self):
@@ -471,7 +474,6 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         elif data_type == 'ocean_para_info':
             data_type2 = 'oceanObs'
         elif data_type == 'forecastdata':
-            print('fore')
             if self.wam_fore.isChecked():
                 data_type2 = 'wam'
             elif self.dkss_fore.isChecked():
@@ -617,7 +619,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                          'water_temp', 'salinity', 'ice_thick', 'ice_conc', 'u_comp_cur_',
                          'v_comp_cur_', 'water_temp_', 'salinity_']
             nsbs_para_band = list(range(1, 10))
-            para_fore_dict_nsbs = dict(zip(nsbs_para[0:8], nsbs_para_band))
+            para_fore_dict_nsbs = dict(zip(nsbs_para[0:9], nsbs_para_band))
             for fore_para in nsbs_para:
                qt_checkbox_widget = getattr(self, fore_para)
                if qt_checkbox_widget.isChecked():
@@ -1026,15 +1028,13 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             if self.bbox_fore.text() != '':
                 params.update({'bbox': self.bbox_fore.text()})
             r = requests.get(url, params=params)
-            print(r, r.url)
+            print(r.url)
             json = r.json()
             latest_model_run = sorted(json['features'], key=lambda feature: feature['properties']['modelRun'])[-1]['properties']['modelRun']
-            print(latest_model_run)
             for feature in filter(lambda feature: feature['properties']['modelRun'] == latest_model_run, json['features']):
                 downloadurl = feature['asset']['data']['href']
                 downloaddata = requests.get(downloadurl)
                 id = feature['id']
-                print(id)
                 tempfile = temp + id
                 if not os.path.isfile(tempfile):
                     with open(tempfile, 'wb') as fd:
@@ -1045,8 +1045,6 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     if data_type2 == 'wam':
                         band_par = para_fore_dict_wam[parameters[0]]
                     elif data_type2 == 'dkss':
-                        print(parameters)
-                        print(depth_para_dkss)
                         if parameters[0] in depth_para_dkss:
                             if fore_area == 'nsbs':
                                 depth = int(self.depth_box_nsbs.currentText())

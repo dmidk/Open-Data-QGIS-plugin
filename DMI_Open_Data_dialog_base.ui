@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1345</width>
-    <height>528</height>
+    <width>1372</width>
+    <height>508</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -38,7 +38,7 @@
       <bool>true</bool>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>5</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>
@@ -133,8 +133,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>624</width>
-                   <height>246</height>
+                   <width>637</width>
+                   <height>226</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_10"/>
@@ -164,8 +164,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>623</width>
-                   <height>246</height>
+                   <width>637</width>
+                   <height>226</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_5"/>
@@ -389,8 +389,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>628</width>
-                  <height>204</height>
+                  <width>641</width>
+                  <height>184</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_32"/>
@@ -421,8 +421,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>627</width>
-                  <height>204</height>
+                  <width>641</width>
+                  <height>184</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36"/>
@@ -989,8 +989,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>625</width>
-                 <height>248</height>
+                 <width>639</width>
+                 <height>228</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_100"/>
@@ -1083,6 +1083,13 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_26">
             <item>
+             <widget class="QRadioButton" name="harm_fore">
+              <property name="text">
+               <string>Weather Model (Harmonie)</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QRadioButton" name="wam_fore">
               <property name="text">
                <string>Wave Model (WAM)</string>
@@ -1104,8 +1111,1172 @@
        <item>
         <widget class="QStackedWidget" name="para_stacked">
          <property name="currentIndex">
-          <number>1</number>
+          <number>2</number>
          </property>
+         <widget class="QWidget" name="harm_page">
+          <layout class="QVBoxLayout" name="verticalLayout_86">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_32">
+             <item>
+              <widget class="QGroupBox" name="groupBox_32">
+               <property name="title">
+                <string>Parameters</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_79">
+                <item>
+                 <widget class="QScrollArea" name="scrollArea_12">
+                  <property name="widgetResizable">
+                   <bool>true</bool>
+                  </property>
+                  <widget class="QWidget" name="scrollAreaWidgetContents_12">
+                   <property name="geometry">
+                    <rect>
+                     <x>0</x>
+                     <y>0</y>
+                     <width>630</width>
+                     <height>137</height>
+                    </rect>
+                   </property>
+                  </widget>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_30">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="title">
+                <string>Area</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_76">
+                <item>
+                 <widget class="QRadioButton" name="radioButton_7">
+                  <property name="text">
+                   <string>North Eastern Europe (NEA)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="radioButton_6">
+                  <property name="text">
+                   <string>Greenland (IGB)</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_33">
+             <item>
+              <widget class="QGroupBox" name="groupBox_33">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="title">
+                <string>Height (meters)</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_77">
+                <item>
+                 <widget class="QStackedWidget" name="stackedWidget_5">
+                  <property name="currentIndex">
+                   <number>3</number>
+                  </property>
+                  <widget class="QWidget" name="nsbs_depth_2">
+                   <layout class="QVBoxLayout" name="verticalLayout_78">
+                    <item>
+                     <widget class="QComboBox" name="depth_box_nsbs_2">
+                      <item>
+                       <property name="text">
+                        <string>4</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>9</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>11</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>13</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>14</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>15</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>16</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>17</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>19</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>21</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>23</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>25</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>27</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>29</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>31</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>33</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>35</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>37</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>39</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>41</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>43</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>45</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>47</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>49</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>51</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>53</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>55</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>57</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>59</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>61</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>63</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>65</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>67</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>69</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>71</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>73</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>75</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>77</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>79</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>82</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>88</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>96</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>113</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>138</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>175</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>225</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>275</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>325</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>375</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>425</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>475</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>525</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="idw_depth_2">
+                   <layout class="QVBoxLayout" name="verticalLayout_80">
+                    <item>
+                     <widget class="QComboBox" name="depth_box_idw_2">
+                      <item>
+                       <property name="text">
+                        <string>1</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>3</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>4</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>5</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>6</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>7</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>8</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>9</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>10</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>11</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>12</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>13</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>14</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>15</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>16</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>17</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>18</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>19</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>20</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>21</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>22</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>23</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>24</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>25</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>26</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>27</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>28</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>29</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>30</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>31</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>33</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>35</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>37</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>39</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>40</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>41</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>43</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>44</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>45</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>47</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>49</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>51</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>53</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>55</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>57</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>59</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>61</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>63</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>65</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>67</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>69</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>71</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>73</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>75</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="ws_depth_2">
+                   <layout class="QVBoxLayout" name="verticalLayout_81">
+                    <item>
+                     <widget class="QComboBox" name="depth_box_ws_2">
+                      <item>
+                       <property name="text">
+                        <string>4</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>9</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>11</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>13</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>15</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>17</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>19</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>21</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>23</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>25</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>27</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>29</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>31</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>33</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>35</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>37</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>39</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>41</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>43</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>45</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>47</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>49</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="if_depth_2">
+                   <layout class="QVBoxLayout" name="verticalLayout_82">
+                    <item>
+                     <widget class="QComboBox" name="depth_box_if_2">
+                      <item>
+                       <property name="text">
+                        <string>1</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>3</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>4</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>5</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>6</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>7</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>8</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>9</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>10</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>11</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="lf_depth_2">
+                   <layout class="QVBoxLayout" name="verticalLayout_83">
+                    <item>
+                     <widget class="QComboBox" name="depth_box_lf_2">
+                      <item>
+                       <property name="text">
+                        <string>1</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>3</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>4</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>5</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>6</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>7</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>8</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>9</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>10</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>11</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>12</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>13</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>14</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>15</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>16</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>17</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>18</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>19</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>20</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>21</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>22</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="lb_depth_2">
+                   <layout class="QVBoxLayout" name="verticalLayout_84">
+                    <item>
+                     <widget class="QComboBox" name="depth_box_lb_2">
+                      <item>
+                       <property name="text">
+                        <string>1</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>3</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>4</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>5</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>6</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>7</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>8</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>9</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>10</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>11</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>12</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>13</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>14</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>15</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>16</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>17</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>18</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>19</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>20</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>21</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>22</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>23</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>24</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>25</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>26</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>27</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>28</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>29</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>30</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>31</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>33</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>35</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>37</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>39</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>41</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>43</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>45</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>47</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>49</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>51</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>53</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>55</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_34">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="title">
+                <string>BBox</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_85">
+                <item>
+                 <widget class="QLineEdit" name="bbox_fore_2">
+                  <property name="placeholderText">
+                   <string>E.g. 8.0786,54.5576,15.1712,57.7664</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
          <widget class="QWidget" name="wam_page">
           <layout class="QVBoxLayout" name="verticalLayout_61">
            <item>
@@ -1132,7 +2303,7 @@
                     <rect>
                      <x>0</x>
                      <y>0</y>
-                     <width>284</width>
+                     <width>617</width>
                      <height>372</height>
                     </rect>
                    </property>
@@ -1315,6 +2486,12 @@
             <layout class="QHBoxLayout" name="horizontalLayout_30">
              <item>
               <widget class="QGroupBox" name="groupBox_18">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="title">
                 <string>Parameters</string>
                </property>
@@ -1334,8 +2511,8 @@
                    <property name="geometry">
                     <rect>
                      <x>0</x>
-                     <y>0</y>
-                     <width>604</width>
+                     <y>-130</y>
+                     <width>617</width>
                      <height>348</height>
                     </rect>
                    </property>
@@ -1502,6 +2679,12 @@
             <layout class="QHBoxLayout" name="horizontalLayout_28">
              <item>
               <widget class="QGroupBox" name="groupBox_14">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="title">
                 <string>Depth (meters)</string>
                </property>
@@ -2582,7 +3765,11 @@
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_65">
                 <item>
-                 <widget class="QLineEdit" name="bbox_fore"/>
+                 <widget class="QLineEdit" name="bbox_fore">
+                  <property name="placeholderText">
+                   <string>E.g. 8.0786,54.5576,15.1712,57.7664</string>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </widget>
@@ -2971,7 +4158,7 @@ p, li { white-space: pre-wrap; }
 &lt;li style=&quot; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Sort the data in a manner that your QGIS can handle. Otherwise there is a risk of crashing.&lt;/li&gt;
 &lt;li style=&quot; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Be sure to read about the stations and parameters, as not all stations measure all parameters. A list of meteorological stations and their associated parameters can also be found &lt;a href=&quot;https://confluence.govcloud.dk/pages/viewpage.action?pageId=53086560&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;.&lt;/li&gt;&lt;/ul&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;If you have any questions about the plugin or DMI Open Data then please contact us. &lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Go to &lt;/span&gt;&lt;a href=&quot;https://www.dmi.dk/kontakt/frie-data/&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Contact form&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Call DMI support: +45 39 15 75 00 &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Go to &lt;/span&gt;&lt;a href=&quot;https://www.dmi.dk/kontakt/frie-data/&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Contact form&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Call DMI support: +45 39 15 75 00&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;https://confluence.govcloud.dk/download/thumbnails/41718638/Open%20Data%20-%20Hvid%20baggrund%20med%20bl%C3%A5%20cirkler%20og%20tekst.png?version=1&amp;amp;modificationDate=1622790552000&amp;amp;api=v2&quot; width=&quot;100&quot; height=&quot;100&quot; /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="openExternalLinks">
