@@ -93,6 +93,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.composite.setChecked(True)
         self.full_range.setChecked(True)
         self._60960.setChecked(True)
+        self.all_lightning_types.setChecked(True)
 
 
         # Datetime default today and yesterday
@@ -617,7 +618,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                          'water_temp', 'salinity', 'ice_thick', 'ice_conc', 'u_comp_cur_',
                          'v_comp_cur_', 'water_temp_', 'salinity_']
             nsbs_para_band = list(range(1, 10))
-            para_fore_dict_nsbs = dict(zip(nsbs_para[0:8], nsbs_para_band))
+            para_fore_dict_nsbs = dict(zip(nsbs_para[0:9], nsbs_para_band))
             for fore_para in nsbs_para:
                qt_checkbox_widget = getattr(self, fore_para)
                if qt_checkbox_widget.isChecked():
@@ -809,6 +810,8 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 for head in df1:
                     if head == 'observed':
                         pr.addAttributes([QgsField(head, QVariant.DateTime)])
+                    if head == para:
+                        pr.addAttributes([QgsField(head, QVariant.Int)])
                     elif head != 'observed':
                         pr.addAttributes([QgsField(head, QVariant.String)])
                 vl.updateFields()
