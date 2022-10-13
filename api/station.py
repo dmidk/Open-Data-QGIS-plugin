@@ -112,6 +112,11 @@ class Station:
         qgs_feature.setFields(Station.qgs_fields())
         qgs_feature.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(self.longitude, self.latitude)))
         for attr, value in [(attr, value) for attr, value in vars(self).items() if attr not in ['longitude', 'latitude', 'parameters']]:
+            # While QGIS accepts QVariant.Datetime as QgsField type (even though the documentation says otherwise) the
+            # value of the field still has to be a string. With ISO formatting the temporal features of QGIS works when
+            # the field type is QVariant.Datetime
+            if type(value) == datetime:
+                value = value.isoformat()
             qgs_feature.setAttribute(attr, value)
         return qgs_feature
 
@@ -119,8 +124,8 @@ class Station:
     @lru_cache(maxsize=None)
     def qgs_fields(cls) -> QgsFields:
         qgs_fields = QgsFields()
-        for property_name, type in [(p, t) for p, t in cls.__annotations__.items() if p not in ['latitude', 'longitude', 'parameters']]:
-            qgs_fields.append(QgsField(property_name, get_qvariant(type)))
+        for property_name, python_type in [(p, t) for p, t in cls.__annotations__.items() if p not in ['latitude', 'longitude', 'parameters']]:
+            qgs_fields.append(QgsField(property_name, get_qvariant(python_type)))
         return qgs_fields
 
 
