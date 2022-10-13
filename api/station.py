@@ -88,7 +88,9 @@ class Station:
         self.station_id = geojson_feature['properties']['stationId']
         self.station_name = geojson_feature['properties']['name']
         self.parameters = geojson_feature['properties']['parameterId']
-        self.barometer_height = geojson_feature['properties']['barometerHeight']
+        # Some stations (like oceanObs stations) does not have barometer height, therefore this attribute is optional
+        if barometer_height := geojson_feature['properties']['barometerHeight']:
+            self.barometer_height = barometer_height
         self.country = geojson_feature['properties']['country']
         self.created = datetime.strptime(geojson_feature['properties']['created'], rfc3339_zulu_format)
         if operation_from := geojson_feature['properties']['operationFrom']:
