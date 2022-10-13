@@ -1152,8 +1152,8 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         # Information about stations and parameters
         if dataName == 'Stations and Parameters':
             if self.met_stat_info.isChecked():
-                station_api = StationApi.MET_OBS
-                api_key = self.settings_manager.value(DMISettingKeys.METOBS_API_KEY.value)
+                station_api = StationApi.CLIMATE_STATION_VALUE
+                api_key = self.settings_manager.value(DMISettingKeys.CLIMATEDATA_API_KEY.value)
             elif self.tide_info.isChecked():
                 station_api = StationApi.OCEAN_OBS
                 api_key = self.settings_manager.value(DMISettingKeys.OCEANOBS_API_KEY.value)
@@ -1207,7 +1207,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
 
             try:
                 stations = list(get_stations(station_api, api_key, status=status, start_datetime=start, end_datetime=end,
-                                        country=country, owner=owner))
+                                        country=country, owner=owner, parameters=parameters))
                 if len(stations) == 0:
                     QMessageBox.warning(self, self.tr("DMI Open Data"),
                                     self.tr('No stations meets this requirement.'))
