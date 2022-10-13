@@ -194,11 +194,15 @@ def get_folded_stations(station_api: StationApi, api_key: str) -> Dict[StationId
 
 
 def get_stations(station_api: StationApi, api_key: str, status=None, start_datetime: datetime = None,
-                 end_datetime: datetime = None, country: StationCountry = None, owner: StationOwner = None, station_type: str = None) -> Iterable[Station]:
+                 end_datetime: datetime = None, country: StationCountry = None, owner: StationOwner = None,
+                 station_type: str = None,
+                 parameters: List[str] = None) -> Iterable[Station]:
     stations = _station_api_call(station_api, api_key, status=status, start_datetime=start_datetime,
                                  end_datetime=end_datetime, station_type=station_type)
     if country:
         stations = filter(lambda station: station.country == country.value, stations)
     if owner:
         stations = filter(lambda station: station.owner == owner.value, stations)
+    if parameters:
+        stations = filter(lambda station: any(parameter in station.parameters for parameter in parameters), stations)
     return stations
