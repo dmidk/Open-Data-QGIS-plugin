@@ -2,6 +2,7 @@
 import os
 from typing import Tuple, Dict, Set
 
+from datetime import datetime as dt
 from qgis.PyQt import QtWidgets, uic
 import requests
 import pandas as pd
@@ -15,6 +16,8 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from qgis.PyQt.QtCore import QVariant
 import webbrowser
+
+from .util import rfc3339_zulu_format
 from .forecast_para import depth_para_dkss, salinity_nsbs, salinity_idw, salinity_if, salinity_lb, salinity_lf, salinity_ws, water_temp_nsbs, water_temp_if, water_temp_lb, water_temp_lf, water_temp_ws, water_temp_idw, v_current_nsbs, v_current_idw, v_current_if, v_current_lb, v_current_lf, v_current_ws, u_current_nsbs, u_current_idw, u_current_if,u_current_lb, u_current_lf, u_current_ws
 import processing
 from .api.station import get_folded_stations, get_stations, StationApi, StationId, Station, Parameter, StationCountry, \
@@ -1171,8 +1174,8 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     status = 'Active'
 
                 if self.radioButton_11.isChecked():
-                    start = start_datetime
-                    end = end_datetime
+                    start = dt.strptime(start_datetime, rfc3339_zulu_format)
+                    end = dt.strptime(end_datetime, rfc3339_zulu_format)
 
                 if self.radioButton_2.isChecked():
                     country = StationCountry.DENMARK
@@ -1189,8 +1192,8 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     status = 'Active'
 
                 if self.radioButton_22.isChecked():
-                    start = start_datetime
-                    end = end_datetime
+                    start = dt.strptime(start_datetime, rfc3339_zulu_format)
+                    end = dt.strptime(end_datetime, rfc3339_zulu_format)
 
                 if self.radioButton_14.isChecked():
                     name_stations_met = 'All stations'

@@ -7,12 +7,11 @@ from qgis.core import QgsFeature, QgsFields, QgsField, QgsGeometry, QgsPointXY
 import requests
 from enum import Enum
 from operator import attrgetter
+from ..util import rfc3339_zulu_format
 
 StationId = str
 StationName = str
 Parameter = str
-
-rfc3339_zulu_format = '%Y-%m-%dT%H:%M:%SZ'
 
 
 def get_qvariant(python_type):
