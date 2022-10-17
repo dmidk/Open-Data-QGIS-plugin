@@ -10,9 +10,17 @@ The plugin allows the user to easily import data from DMIs Open Data from Meteor
 
 ## Installation
 
-Open QGIS and go to Plugins and then Manage and Install Plugins. Search for DMI Open Data and install the plugin. The plugin will be located in the plugin toolbar.
+Open QGIS and go to Plugins and then Manage and Install Plugins. ![Manage Plugins](guide%20image/plugin_installer.png)  
+Search for DMI Open Data and install the plugin. The plugin will be located in the plugin toolbar.
 
 ![Installation](guide%20image/installl.png)
+
+## Activate your API keys
+
+Go to Settings &rarr; Options &rarr; DMI Open Data. 
+![API Settings](guide%20image/api_setting.png)
+A new tab will open that will allow you to insert your API keys.
+![API Keys](guide%20image/api_keys.png)
 
 ## Meteorological Observations
 
