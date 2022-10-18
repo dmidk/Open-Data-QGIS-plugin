@@ -116,7 +116,7 @@ workflows:
       - release:
           context:
             - GITHUB_CREDS
-          notes-file: CHANGELOG.md
+          notes-file: latest-release-notes.md
           files: /home/circleci/project/zip_build/DMI_Open_Data.zip
           requires:
             - build-and-test
