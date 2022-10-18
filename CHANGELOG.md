@@ -1,7 +1,30 @@
-## Changes
+## Version: 0.1.2 - Minor bugfix for lightning data
+
+### Changes
 
  - Quick fix when using "Run" for lightning data
 
-## Installation
+## Version: 0.1.1 - Minor bugfix release
 
-Download the latest zip file build from the Assets section. Install it by going to Plugins -> Manage and install plugins -> Install from ZIP, and select the zip file you just downloaded.
+### Changes
+
+- Quick fix so plugin does not crash if no radar API is set
+
+
+##  Version: 0.1.0 - Beta release!
+
+### Changes
+
+- Stations & Parameters tab fixed
+- Radar tab only supports composite images
+- Various UX improvements for missing / invalid API keys
+- Better date + time selection defaults
+- Calendar popup support for date selection
+- And much more
+
+
+## Version: 0.0.2 - Fix plugin build
+
+### Changes
+
+Fixed bug in build process, so plugin now works
