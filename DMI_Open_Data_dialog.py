@@ -811,7 +811,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     if head == 'observed':
                         pr.addAttributes([QgsField(head, QVariant.DateTime)])
                     if head == para:
-                        pr.addAttributes([QgsField(head, QVariant.Int)])
+                        pr.addAttributes([QgsField(head, QVariant.Double)])
                     elif head != 'observed':
                         pr.addAttributes([QgsField(head, QVariant.String)])
                 vl.updateFields()
