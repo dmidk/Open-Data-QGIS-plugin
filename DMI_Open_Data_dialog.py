@@ -821,19 +821,19 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
 # Cliamte data has 2 datetimes where metObs only has 1 which explains the following if statement.
                 if dataName == 'Climate Data' and data_type2 != 'countryValue':
                     for row in df1.itertuples():
-                        if len(parameters) == 1:
+                        if len(df1.columns) == 4:
                             listee = [row[1],row[2],row[3],row[4]]
-                        elif len(parameters) == 2:
+                        elif len(df1.columns) == 5:
                             listee = [row[1],row[2],row[3],row[4],row[5]]
-                        elif len(parameters) == 3:
+                        elif len(df1.columns) == 6:
                             listee = [row[1],row[2],row[3],row[4],row[5],row[6]]
-                        elif len(parameters) == 4:
+                        elif len(df1.columns) == 7:
                             listee = [row[1],row[2],row[3],row[4],row[5],row[6],row[7]]
-                        elif len(parameters) == 5:
+                        elif len(df1.columns) == 8:
                             listee = [row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8]]
-                        elif len(parameters) == 6:
+                        elif len(df1.columns) == 9:
                             listee = [row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9]]
-                        elif len(parameters) == 7:
+                        elif len(df1.columns) == 10:
                             listee = [row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9],row[10]]
                         if stat1 == 'cellId':
                             koordi = [QgsPointXY(koordinater[0][0][0], koordinater[0][0][1]),
@@ -848,19 +848,19 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                         vl.addFeature(f)
                 elif data_type2 == 'observation' or data_type2 == 'countryValue':
                     for row in df1.itertuples():
-                        if len(parameters) == 1:
+                        if len(df1.columns) == 3:
                             listee = [row[1],row[2],row[3]]
-                        elif len(parameters) == 2:
+                        elif len(df1.columns) == 4:
                             listee = [row[1],row[2],row[3],row[4]]
-                        elif len(parameters) == 3:
+                        elif len(df1.columns) == 5:
                             listee = [row[1],row[2],row[3],row[4],row[5]]
-                        elif len(parameters) == 4:
+                        elif len(df1.columns) == 6:
                             listee = [row[1],row[2],row[3],row[4],row[5],row[6]]
-                        elif len(parameters) == 5:
-                            listee = [row[1],row[2],row[3],row[4],row[5],row[6],row[7]]
-                        elif len(parameters) == 6:
-                            listee = [row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8]]
                         elif len(parameters) == 7:
+                            listee = [row[1],row[2],row[3],row[4],row[5],row[6],row[7]]
+                        elif len(df1.columns) == 8:
+                            listee = [row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8]]
+                        elif len(df1.columns) == 9:
                             listee = [row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9]]
                         f.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(koordinater[0], koordinater[1])))
                         f.setAttributes(listee)
