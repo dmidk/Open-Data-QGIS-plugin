@@ -765,7 +765,13 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     num = json['numberReturned']
                 if num > 0:
                     df = json_normalize(json['features'])
-                    new_param_table = pd.DataFrame({para: df['properties.value'].tolist()})
+                    new_param_table = pd.DataFrame({para: df['properties.value']})
+                    if stat1 == 'stationId':
+                        new_param_table[stat1] = df['properties.stationId']
+                    elif stat1 == 'cellId':
+                        new_param_table[stat1] = df['properties.cellId']
+                    elif stat1 == 'municipalityId':
+                        new_param_table[stat1] = df['properties.municipalityId']
                     if data_type2 == 'observation':
                         new_param_table['observed'] = df['properties.observed']
                         merge_column = ['observed']
@@ -776,7 +782,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     if station_param_table.empty:
                         station_param_table = new_param_table
                     else:
-                        station_param_table = station_param_table.merge(new_param_table, how='outer', on=merge_column)
+                        station_param_table = station_param_table.merge(new_param_table, how='outer', on=merge_column+[stat1])
 # If the API is correct but the chosen parameter is not measured by the station.
                 elif num == 0 and r_code != 403:
                     error_stats.append(stat)
@@ -793,12 +799,6 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     df['properties.observed'] = pd.to_datetime(df['properties.observed'])
                 elif data_type == 'climateData':
                     df['properties.from'] = pd.to_datetime(df['properties.from'])
-                if stat1 == 'stationId':
-                    station_param_table[stat1] = df['properties.stationId']
-                elif stat1 == 'cellId':
-                    station_param_table[stat1] = df['properties.cellId']
-                elif stat1 == 'municipalityId':
-                    station_param_table[stat1] = df['properties.municipalityId']
 
                 if station_table.empty:
                     station_table = station_param_table
@@ -820,7 +820,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 vl.startEditing()
 # Gives headers in attribute table in QGIS
                 for head in station_param_table:
-                    if head == 'observed':
+                    if head in ['observed', 'from', 'to']:
                         pr.addAttributes([QgsField(head, QVariant.DateTime)])
                     if head == para:
                         pr.addAttributes([QgsField(head, QVariant.Double)])
