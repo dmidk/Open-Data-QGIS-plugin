@@ -2,6 +2,7 @@
 import os
 from typing import Tuple, Dict, Set
 
+from datetime import datetime as dt
 from qgis.PyQt import QtWidgets, uic
 import requests
 import pandas as pd
@@ -15,9 +16,12 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from qgis.PyQt.QtCore import QVariant
 import webbrowser
+
+from .util import rfc3339_zulu_format
 from .forecast_para import depth_para_dkss, salinity_nsbs, salinity_idw, salinity_if, salinity_lb, salinity_lf, salinity_ws, water_temp_nsbs, water_temp_if, water_temp_lb, water_temp_lf, water_temp_ws, water_temp_idw, v_current_nsbs, v_current_idw, v_current_if, v_current_lb, v_current_lf, v_current_ws, u_current_nsbs, u_current_idw, u_current_if,u_current_lb, u_current_lf, u_current_ws
 import processing
-from .api.station import get_stations, StationApi, StationId, Station, Parameter
+from .api.station import get_folded_stations, get_stations, StationApi, StationId, Station, Parameter, StationCountry, \
+    StationOwner
 from .settings import DMISettingsManager, DMISettingKeys
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
@@ -242,7 +246,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         stations = []
         parameters = {}
         if api_key:
-            stations = get_stations(station_type, api_key)
+            stations = get_folded_stations(station_type, api_key)
             parameters = {parameter for station in stations.values() for parameter in station.parameters }
         return stations, parameters
 
@@ -1165,100 +1169,83 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 project = QgsProject.instance()
                 project.addMapLayer(layer, addToLegend=False)
                 layer_group.insertLayer(-1, layer)
-# Information about stations and parameters
+        # Information about stations and parameters
         if dataName == 'Stations and Parameters':
             if self.met_stat_info.isChecked():
-                data_type = 'climateData'
+                station_api = StationApi.CLIMATE_STATION_VALUE
                 api_key = self.settings_manager.value(DMISettingKeys.CLIMATEDATA_API_KEY.value)
-                data_type2 = 'station'
             elif self.tide_info.isChecked():
-                data_type = 'oceanObs'
+                station_api = StationApi.OCEAN_OBS
                 api_key = self.settings_manager.value(DMISettingKeys.OCEANOBS_API_KEY.value)
-                data_type2 = 'station'
-            url = 'https://dmigw.govcloud.dk/v2/' + data_type + '/collections/' + data_type2 +'/items'
-            params = {'api-key': api_key}
-# metObs info
+
+            name_stations_met = ''
+            status = None
+            start = None
+            end = None
+            country: StationCountry = None
+            owner: StationOwner = None
+
+            # metObs info
             if self.met_stat_info.isChecked():
-                if self.radioButton_11.isChecked() and self.radioButton.isChecked():
-                    params.update({'datetime': datetime,
-                              'status': 'Active'})
-                elif self.radioButton_10.isChecked() and self.radioButton_9.isChecked():
-                    params = params
-                elif self.radioButton.isChecked() and self.radioButton_10.isChecked():
-                    params.update({'status': 'Active'})
-                elif self.radioButton_9.isChecked() and self.radioButton_11.isChecked():
-                    params.update({'datetime': datetime})
-# ocean info
+                if self.radioButton.isChecked():
+                    status = 'Active'
+
+                if self.radioButton_11.isChecked():
+                    start = dt.strptime(start_datetime, rfc3339_zulu_format)
+                    end = dt.strptime(end_datetime, rfc3339_zulu_format)
+
+                if self.radioButton_2.isChecked():
+                    country = StationCountry.DENMARK
+                    name_stations_met = 'Meteorological Stations Denmark'
+                elif self.radioButton_3.isChecked():
+                    country = StationCountry.GREENLAND
+                    name_stations_met = 'Meteorological Stations Greenland'
+                elif self.radioButton_4.isChecked():
+                    name_stations_met = 'All Meteorological Stations'
+
+            # ocean info
             if self.tide_info.isChecked():
-                if self.radioButton_20.isChecked() and self.radioButton_22.isChecked():
-                    params.update({'datetime': datetime,
-                              'status': 'Active'})
-                elif self.radioButton_19.isChecked() and self.radioButton_21.isChecked():
-                    params = params
-                elif self.radioButton_20.isChecked() and self.radioButton_21.isChecked():
-                    params.update({'status': 'Active'})
-                elif self.radioButton_19.isChecked() and self.radioButton_22.isChecked():
-                    params.update({'datetime': datetime})
-            r = requests.get(url, params=params)
-            print(r.url)
-            json = r.json()
-            r_code = r.status_code
-            if r_code == 403:
-                QMessageBox.warning(self, self.tr("DMI Open Data"),
-                                 self.tr('API Key is not valid or is expired / revoked.'))
-            else:
-                df = json_normalize(json['features'])
-    # Name and sort the data based on users preferences
-                if self.met_stat_info.isChecked():
-                    if self.radioButton_2.isChecked():
-                        df = df.loc[df['properties.country'] == 'DNK']
-                        name_stations_met = 'Meteorological Stations Denmark'
-                    elif self.radioButton_3.isChecked():
-                        df = df.loc[df['properties.country'] == 'GRL']
-                        name_stations_met = 'Meteorological Stations Greenland'
-                    elif self.radioButton_4.isChecked():
-                        name_stations_met = 'All Meteorological Stations'
-                if self.tide_info.isChecked():
-                    if self.radioButton_14.isChecked():
-                        name_stations_met = 'All stations'
-                    elif self.radioButton_12.isChecked():
-                        df = df.loc[df['properties.owner'] == 'DMI']
-                        name_stations_met = 'DMI'
-                    elif self.radioButton_13.isChecked():
-                        df = df.loc[df['properties.owner'] == 'Kystdirektoratet / Coastal Authority']
-                        name_stations_met = 'Coastal Authority'
-    # Names the layer as the station type and parameter if parameter is chosen.
-                if len(parameters) != 0:
-                    df = df[pd.DataFrame(df['properties.parameterId'].tolist()).isin(parameters).any(1).values]
-                    name_stations_met = name_stations_met + ' ' + parameters[0]
-                if len(df) == 0:
+                if self.radioButton_20.isChecked():
+                    status = 'Active'
+
+                if self.radioButton_22.isChecked():
+                    start = dt.strptime(start_datetime, rfc3339_zulu_format)
+                    end = dt.strptime(end_datetime, rfc3339_zulu_format)
+
+                if self.radioButton_14.isChecked():
+                    name_stations_met = 'All stations'
+                elif self.radioButton_12.isChecked():
+                    owner = StationOwner.DMI
+                    name_stations_met = 'DMI'
+                elif self.radioButton_13.isChecked():
+                    owner = StationOwner.KDI
+                    name_stations_met = 'Coastal Authority'
+
+            # Names the layer as the station type and parameter if parameter is chosen.
+            if len(parameters) != 0:
+                name_stations_met = name_stations_met + ' ' + parameters[0]
+
+            try:
+                stations = list(get_stations(station_api, api_key, status=status, start_datetime=start, end_datetime=end,
+                                        country=country, owner=owner, parameters=parameters))
+                if len(stations) == 0:
                     QMessageBox.warning(self, self.tr("DMI Open Data"),
                                     self.tr('No stations meets this requirement.'))
-                elif len(df) > 0:
-    # QGIS geometry
-                    vl = QgsVectorLayer("Point", name_stations_met, "memory")
-                    for row in df.itertuples():
-                        pr = vl.dataProvider()
-                        vl.startEditing()
-                        for head in df:
-                            if head != 'geometry.coordinates':
-                                pr.addAttributes([QgsField(head, QVariant.String)])
-                        vl.updateFields()
-                        f = QgsFeature()
-                        f.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(row[3][0], row[3][1])))
-                        if data_type == 'climateData':
-                            f.setAttributes([row[1],row[2],row[4],row[5],row[6],row[7],\
-                                                row[8],row[9],row[10],row[11],str(row[12]),row[13],row[14],\
-                                                row[15],row[16],row[17],row[18],row[19],row[20],row[21],row[22]])
-                        elif data_type == 'oceanObs':
-                            f.setAttributes([row[1], row[2], row[4], row[5], row[6], str(row[7]), \
-                                             row[8], row[9], row[10], row[11], str(row[12]), row[13], row[14], \
-                                             row[15], row[16], row[17], row[18], row[19], row[20], row[21]])
-                        vl.addFeature(f)
-                        vl.updateExtents()
-                    vl.commitChanges()
-                    QgsProject.instance().addMapLayer(vl)
-                iface.zoomToActiveLayer()
+                vl = QgsVectorLayer("Point", name_stations_met, "memory")
+                pr = vl.dataProvider()
+                vl.startEditing()
+                pr.addAttributes(Station.qgs_fields().toList())
+                vl.updateFields()
+                for station in stations:
+                    vl.addFeature(station.as_qgs_feature())
+                vl.updateExtents()
+                vl.commitChanges()
+                QgsProject.instance().addMapLayer(vl)
+            except Exception as ex:
+                QMessageBox.warning(self, self.tr("DMI Open Data"),
+                                    self.tr(str(ex)))
+                return  # No point in continuing...
+            iface.zoomToActiveLayer()
         if len(error_stats) != 0:
             QMessageBox.warning(self, self.tr("DMI Open Data"),
                                 self.tr('Following stations does not produce data.' + '\n' + 'Change parameters, time and/or resolution.' + '\n' + '\n' + '\n'.join(error_stats)))
