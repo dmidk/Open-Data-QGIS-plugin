@@ -716,17 +716,18 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             if len(stations) == 0:
                 QMessageBox.warning(self, self.tr("DMI Open Data"),
                                     self.tr('Please select a station.'))
-                num = 0
+                observations_count = 0
             if len(parameters) == 0:
                 QMessageBox.warning(self, self.tr("DMI Open Data"),
                                     self.tr('Please select a parameter.'))
-                num = 0
+                observations_count = 0
 
         # A pandas DataFrame is created to easier manage the data, and to convert to csv.
         station_table = pd.DataFrame()
         # Iterates over each station that has been checked by the user.
         # It is only possible to check stations in climateData, metObs and oceanObs. This section is therefor only for these 3.
         for stat in stations:
+            station_total_observations = 0
             url = 'https://dmigw.govcloud.dk/v2/' + data_type + '/collections/' + data_type2 + '/items'
             # Will be initialized later, when the merge column is known
             station_param_table = pd.DataFrame()
@@ -757,13 +758,14 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 r_code = r.status_code
 # 403 means that the api is wrong.
                 if r_code == 403:
-                    num = 0
+                    observations_count = 0
                     QMessageBox.warning(self, self.tr("DMI Open Data"), self.tr('API Key is not valid or is expired / revoked.'))
 # if the call has the right API, then continue. This does not mean that the call will deliver data!
 # The station could still not be measuring the wished parameter.
                 elif r_code != 403:
-                    num = json['numberReturned']
-                if num > 0:
+                    observations_count = json['numberReturned']
+                    station_total_observations += observations_count
+                if observations_count > 0:
                     df = json_normalize(json['features'])
                     new_param_table = pd.DataFrame({para: df['properties.value']})
                     if stat1 == 'stationId':
@@ -784,16 +786,16 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     else:
                         station_param_table = station_param_table.merge(new_param_table, how='outer', on=merge_column+[stat1])
 # If the API is correct but the chosen parameter is not measured by the station.
-                elif num == 0 and r_code != 403:
+                elif observations_count == 0 and r_code != 403:
                     error_stats.append(stat)
 # It is only possible to choose 7 parameters.
                 elif len(parameters) > 7:
-                    num = 0
+                    observations_count = 0
                     QMessageBox.warning(self, self.tr("DMI Open Data"),
                                         self.tr('Maximum amount of parameters allowed is 7. Please change amount of parameters.'))
                     parameters.remove(para)
 # If num > 0 then the program will stop.
-            if num > 0:
+            if station_total_observations > 0:
 # Changes the name of the header and adds it to the new dataframe
                 if data_type2 == 'observation':
                     df['properties.observed'] = pd.to_datetime(df['properties.observed'])
@@ -901,7 +903,6 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             if self.file_name_obs.text() == '':
                 pass
             else:
-                print('Doing CSV extract')
                 station_table.to_csv(self.file_name_obs.text() + '.csv', index=False)
                 self.file_name_obs.clear()
         elif dataName == 'Climate Data':
@@ -937,15 +938,15 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             r_code = r.status_code
             json = r.json()
             if r_code == 403:
-                num = 0
+                observations_count = 0
                 QMessageBox.warning(self, self.tr("DMI Open Data"),
                                     self.tr('API Key is not valid or is expired / revoked.'))
             elif r_code != 403:
-                num = json['numberReturned']
-            if num == 0:
+                observations_count = json['numberReturned']
+            if observations_count == 0:
                 QMessageBox.warning(self, self.tr("DMI Open Data"), self.tr('Radar data is only available 6 months prior to current date, and has a delay in upload. \
                 Please change date and time.'))
-            elif num > 0:
+            elif observations_count > 0:
                 for feature in json['features']:
                     downloadurl = feature['asset']['data']['href']
                     downloaddata = requests.get(downloadurl)
@@ -1012,14 +1013,14 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             if r_code == 403:
                 QMessageBox.warning(self, self.tr("DMI Open Data"),
                                     self.tr('API Key is not valid or is expired / revoked.'))
-                num = 0
+                observations_count = 0
             elif r_code != 403:
-                num = json['numberReturned']
+                observations_count = json['numberReturned']
                 df = json_normalize(json['features'])
-            if num == 0 and r_code != 403:
+            if observations_count == 0 and r_code != 403:
                 QMessageBox.warning(self, self.tr("DMI Open Data"),
                                     self.tr('No lightnings observed. Change time or parameter.'))
-            elif num > 0:
+            elif observations_count > 0:
 # QGIS geometry
                 df = df.drop(['id','type','geometry.type','properties.created'], axis=1)
                 vl = QgsVectorLayer("Point",name , "memory")
