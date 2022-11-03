@@ -878,19 +878,23 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                         f.setAttributes(listee)
                         vl.addFeature(f)
 # The coordinates are used based on which type of geometry (polygon or point).
-                if stat1 == 'stationId' or stat1 == 'municipalityId' or data_type2 == 'countryValue':
-                    f.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(coordinates[0],coordinates[1])))
-                    vl.addFeature(f)
-                    vl.updateExtents()
-                    vl.commitChanges()
-                elif stat1 == 'cellId':
-                    koordi = [QgsPointXY(coordinates[0][0][0],coordinates[0][0][1]),QgsPointXY(coordinates[0][1][0],coordinates[0][1][1]),\
-                              QgsPointXY(coordinates[0][2][0],coordinates[0][2][1]),QgsPointXY(coordinates[0][3][0],coordinates[0][3][1]),\
-                              QgsPointXY(coordinates[0][4][0],coordinates[0][4][1])]
-                    f.setGeometry(QgsGeometry.fromPolygonXY([koordi]))
-                    vl.addFeature(f)
-                    vl.updateExtents()
-                    vl.commitChanges()
+
+                #if stat1 == 'stationId' or stat1 == 'municipalityId' or data_type2 == 'countryValue':
+                 #   f_geometry.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(koordinater[0],koordinater[1])))
+                    #vl.addFeature(f_geometry)
+                 #   vl.updateExtents()
+                  #  vl.commitChanges()
+                #elif stat1 == 'cellId':
+                 #   koordi = [QgsPointXY(koordinater[0][0][0],koordinater[0][0][1]),QgsPointXY(koordinater[0][1][0],koordinater[0][1][1]),\
+                  #            QgsPointXY(koordinater[0][2][0],koordinater[0][2][1]),QgsPointXY(koordinater[0][3][0],koordinater[0][3][1]),\
+                   #           QgsPointXY(koordinater[0][4][0],koordinater[0][4][1])]
+                    #f_geometry.setGeometry(QgsGeometry.fromPolygonXY([koordi]))
+                    #vl.addFeature(f_geometry)
+                    #vl.updateExtents()
+                    #vl.commitChanges()
+
+                vl.updateExtents()
+                vl.commitChanges()
                 QgsProject.instance().addMapLayer(vl)
 # The files are saved, if the user has chosen to write something in the "save as .csv" section
         if dataName == 'Meteorological Observations':
