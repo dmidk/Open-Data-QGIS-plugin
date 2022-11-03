@@ -722,14 +722,15 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                                     self.tr('Please select a parameter.'))
                 num = 0
 
-# Iterates over each station that has been checked by the user.
-# It is only possible to check stations in climateData, metObs and oceanObs. This section is therefor only for these 3.
+        # A pandas DataFrame is created to easier manage the data, and to convert to csv.
+        station_table = pd.DataFrame()
+        # Iterates over each station that has been checked by the user.
+        # It is only possible to check stations in climateData, metObs and oceanObs. This section is therefor only for these 3.
         for stat in stations:
             url = 'https://dmigw.govcloud.dk/v2/' + data_type + '/collections/' + data_type2 + '/items'
-# Two dataframes are created to sort the data.
-# The second is created further down.
-            df1 = pd.DataFrame()
-# Iterates over all the parameters that has been checked by the user.
+            # Will be initialized later, when the merge column is known
+            station_param_table = pd.DataFrame()
+            # Iterates over all the parameters that has been checked by the user.
             for para in parameters:
 # Only Climate Data has resolution.
                 params = {'api-key': api_key,
@@ -763,10 +764,25 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 elif r_code != 403:
                     num = json['numberReturned']
                 if num > 0:
-# A pandas DataFrame is created to easier manage the data, and to convert to csv.
-# All parameters will be appended to the dataframe created earlier, and the header will change name to the parameter.
                     df = json_normalize(json['features'])
-                    df1[para] = df['properties.value'].tolist()
+                    new_param_table = pd.DataFrame({para: df['properties.value']})
+                    if stat1 == 'stationId':
+                        new_param_table[stat1] = df['properties.stationId']
+                    elif stat1 == 'cellId':
+                        new_param_table[stat1] = df['properties.cellId']
+                    elif stat1 == 'municipalityId':
+                        new_param_table[stat1] = df['properties.municipalityId']
+                    if data_type2 == 'observation':
+                        new_param_table['observed'] = df['properties.observed']
+                        merge_column = ['observed']
+                    elif data_type == 'climateData':
+                        new_param_table['from'] = df['properties.from']
+                        new_param_table['to'] = df['properties.to']
+                        merge_column = ['from', 'to']
+                    if station_param_table.empty:
+                        station_param_table = new_param_table
+                    else:
+                        station_param_table = station_param_table.merge(new_param_table, how='outer', on=merge_column+[stat1])
 # If the API is correct but the chosen parameter is not measured by the station.
                 elif num == 0 and r_code != 403:
                     error_stats.append(stat)
@@ -781,20 +797,16 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
 # Changes the name of the header and adds it to the new dataframe
                 if data_type2 == 'observation':
                     df['properties.observed'] = pd.to_datetime(df['properties.observed'])
-                    df1['observed'] = df['properties.observed'].dt.strftime('%Y-%m-%d %H:%M')
                 elif data_type == 'climateData':
                     df['properties.from'] = pd.to_datetime(df['properties.from'])
-                    df1['from'] = df['properties.from'].dt.strftime('%Y-%m-%d %H:%M')
-                    df1['to'] = df['properties.to']
-                if stat1 == 'stationId':
-                    df1[stat1] = df['properties.stationId']
-                elif stat1 == 'cellId':
-                    df1[stat1] = df['properties.cellId']
-                elif stat1 == 'municipalityId':
-                    df1[stat1] = df['properties.municipalityId']
-# QGIS geometry
-# The coordinate for the station
-                koordinater = df['geometry.coordinates'].iloc[0]
+
+                if station_table.empty:
+                    station_table = station_param_table
+                else:
+                    station_table = station_table.merge(station_param_table, how='outer', on=merge_column+parameters+[stat1])
+                # QGIS geometry
+                # The coordinate for the station
+                coordinates = df['geometry.coordinates'].iloc[0]
 # Name and geometry type for the layer
                 if stat1 == 'stationId':
                     vl = QgsVectorLayer("Point", stat, "memory")
@@ -807,8 +819,8 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 pr = vl.dataProvider()
                 vl.startEditing()
 # Gives headers in attribute table in QGIS
-                for head in df1:
-                    if head == 'observed':
+                for head in station_param_table:
+                    if head in ['observed', 'from', 'to']:
                         pr.addAttributes([QgsField(head, QVariant.DateTime)])
                     if head == para:
                         pr.addAttributes([QgsField(head, QVariant.Double)])
@@ -820,88 +832,85 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
 # Maximum numbers of parameters available is 7 because of this.
 # Cliamte data has 2 datetimes where metObs only has 1 which explains the following if statement.
                 if dataName == 'Climate Data' and data_type2 != 'countryValue':
-                    for row in df1.itertuples():
-                        if len(df1.columns) == 4:
+                    for row in station_param_table.itertuples():
+                        if len(station_param_table.columns) == 4:
                             listee = [row[1],row[2],row[3],row[4]]
-                        elif len(df1.columns) == 5:
+                        elif len(station_param_table.columns) == 5:
                             listee = [row[1],row[2],row[3],row[4],row[5]]
-                        elif len(df1.columns) == 6:
+                        elif len(station_param_table.columns) == 6:
                             listee = [row[1],row[2],row[3],row[4],row[5],row[6]]
-                        elif len(df1.columns) == 7:
+                        elif len(station_param_table.columns) == 7:
                             listee = [row[1],row[2],row[3],row[4],row[5],row[6],row[7]]
-                        elif len(df1.columns) == 8:
+                        elif len(station_param_table.columns) == 8:
                             listee = [row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8]]
-                        elif len(df1.columns) == 9:
+                        elif len(station_param_table.columns) == 9:
                             listee = [row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9]]
-                        elif len(df1.columns) == 10:
+                        elif len(station_param_table.columns) == 10:
                             listee = [row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9],row[10]]
                         if stat1 == 'cellId':
-                            koordi = [QgsPointXY(koordinater[0][0][0], koordinater[0][0][1]),
-                                      QgsPointXY(koordinater[0][1][0], koordinater[0][1][1]), \
-                                      QgsPointXY(koordinater[0][2][0], koordinater[0][2][1]),
-                                      QgsPointXY(koordinater[0][3][0], koordinater[0][3][1]), \
-                                      QgsPointXY(koordinater[0][4][0], koordinater[0][4][1])]
+                            koordi = [QgsPointXY(coordinates[0][0][0], coordinates[0][0][1]),
+                                      QgsPointXY(coordinates[0][1][0], coordinates[0][1][1]), \
+                                      QgsPointXY(coordinates[0][2][0], coordinates[0][2][1]),
+                                      QgsPointXY(coordinates[0][3][0], coordinates[0][3][1]), \
+                                      QgsPointXY(coordinates[0][4][0], coordinates[0][4][1])]
                             f.setGeometry(QgsGeometry.fromPolygonXY([koordi]))
                         elif stat1 != 'cellId':
-                            f.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(koordinater[0], koordinater[1])))
+                            f.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(coordinates[0], coordinates[1])))
                         f.setAttributes(listee)
                         vl.addFeature(f)
                 elif data_type2 == 'observation' or data_type2 == 'countryValue':
-                    for row in df1.itertuples():
-                        if len(df1.columns) == 3:
+                    for row in station_param_table.itertuples():
+                        if len(station_param_table.columns) == 3:
                             listee = [row[1],row[2],row[3]]
-                        elif len(df1.columns) == 4:
+                        elif len(station_param_table.columns) == 4:
                             listee = [row[1],row[2],row[3],row[4]]
-                        elif len(df1.columns) == 5:
+                        elif len(station_param_table.columns) == 5:
                             listee = [row[1],row[2],row[3],row[4],row[5]]
-                        elif len(df1.columns) == 6:
+                        elif len(station_param_table.columns) == 6:
                             listee = [row[1],row[2],row[3],row[4],row[5],row[6]]
-                        elif len(parameters) == 7:
+                        elif len(station_param_table) == 7:
                             listee = [row[1],row[2],row[3],row[4],row[5],row[6],row[7]]
-                        elif len(df1.columns) == 8:
+                        elif len(station_param_table.columns) == 8:
                             listee = [row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8]]
-                        elif len(df1.columns) == 9:
+                        elif len(station_param_table.columns) == 9:
                             listee = [row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9]]
-                        f.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(koordinater[0], koordinater[1])))
+                        f.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(coordinates[0], coordinates[1])))
                         f.setAttributes(listee)
                         vl.addFeature(f)
 # The coordinates are used based on which type of geometry (polygon or point).
-
-                #if stat1 == 'stationId' or stat1 == 'municipalityId' or data_type2 == 'countryValue':
-                 #   f_geometry.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(koordinater[0],koordinater[1])))
-                    #vl.addFeature(f_geometry)
-                 #   vl.updateExtents()
-                  #  vl.commitChanges()
-                #elif stat1 == 'cellId':
-                 #   koordi = [QgsPointXY(koordinater[0][0][0],koordinater[0][0][1]),QgsPointXY(koordinater[0][1][0],koordinater[0][1][1]),\
-                  #            QgsPointXY(koordinater[0][2][0],koordinater[0][2][1]),QgsPointXY(koordinater[0][3][0],koordinater[0][3][1]),\
-                   #           QgsPointXY(koordinater[0][4][0],koordinater[0][4][1])]
-                    #f_geometry.setGeometry(QgsGeometry.fromPolygonXY([koordi]))
-                    #vl.addFeature(f_geometry)
-                    #vl.updateExtents()
-                    #vl.commitChanges()
-
-                vl.updateExtents()
-                vl.commitChanges()
+                if stat1 == 'stationId' or stat1 == 'municipalityId' or data_type2 == 'countryValue':
+                    f.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(coordinates[0],coordinates[1])))
+                    vl.addFeature(f)
+                    vl.updateExtents()
+                    vl.commitChanges()
+                elif stat1 == 'cellId':
+                    koordi = [QgsPointXY(coordinates[0][0][0],coordinates[0][0][1]),QgsPointXY(coordinates[0][1][0],coordinates[0][1][1]),\
+                              QgsPointXY(coordinates[0][2][0],coordinates[0][2][1]),QgsPointXY(coordinates[0][3][0],coordinates[0][3][1]),\
+                              QgsPointXY(coordinates[0][4][0],coordinates[0][4][1])]
+                    f.setGeometry(QgsGeometry.fromPolygonXY([koordi]))
+                    vl.addFeature(f)
+                    vl.updateExtents()
+                    vl.commitChanges()
                 QgsProject.instance().addMapLayer(vl)
 # The files are saved, if the user has chosen to write something in the "save as .csv" section
         if dataName == 'Meteorological Observations':
             if self.file_name_obs.text() == '':
                 pass
             else:
-                df1.to_csv(self.file_name_obs.text() + '.csv', index=False)
+                print('Doing CSV extract')
+                station_table.to_csv(self.file_name_obs.text() + '.csv', index=False)
                 self.file_name_obs.clear()
         elif dataName == 'Climate Data':
             if self.file_name_cli.text() == '':
                 pass
             else:
-                df1.to_csv(self.file_name_cli.text() + '.csv', index=False)
+                station_table.to_csv(self.file_name_cli.text() + '.csv', index=False)
                 self.file_name_cli.clear()
         elif dataName == 'Oceanographic Observations':
             if self.file_name_oce.text() == '':
                 pass
             else:
-                df1.to_csv(self.file_name_oce.text() + '.csv', index=False)
+                station_table.to_csv(self.file_name_oce.text() + '.csv', index=False)
                 self.file_name_oce.clear()
 # URL call radar data
         if dataName == 'Radar Data':
