@@ -803,7 +803,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 if station_table.empty:
                     station_table = station_param_table
                 else:
-                    station_table = station_table.merge(station_param_table, how='outer', on=merge_column+parameters+[stat1])
+                    station_table = station_table.merge(station_param_table, how='outer', on=merge_column+[para]+[stat1])
                 # QGIS geometry
                 # The coordinate for the station
                 coordinates = df['geometry.coordinates'].iloc[0]
@@ -1270,4 +1270,4 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 iface.zoomToActiveLayer()
         if len(error_stats) != 0:
             QMessageBox.warning(self, self.tr("DMI Open Data"),
-                                self.tr('Following stations does not produce data.' + '\n' + 'Change parameters, time and/or resolution.' + '\n' + '\n' + '\n'.join(error_stats)))
+                                self.tr('Following stations does not produce data.' + '\n' + 'Change parameters, time and/or resolution.' + '\n' + '\n' + '\n'.join(set(error_stats))))
