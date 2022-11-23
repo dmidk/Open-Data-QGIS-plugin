@@ -803,7 +803,11 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 if station_table.empty:
                     station_table = station_param_table
                 else:
-                    station_table = station_table.merge(station_param_table, how='outer', on=merge_column+[para]+[stat1])
+                    station_table = station_table.merge(
+                        station_param_table,
+                        how='outer',
+                        on=list(set(station_table.columns) & set(station_param_table.columns))
+                    )
                 # QGIS geometry
                 # The coordinate for the station
                 coordinates = df['geometry.coordinates'].iloc[0]
