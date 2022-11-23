@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
 from typing import Tuple, Dict, Set
-
 from qgis.PyQt import QtWidgets, uic
 import requests
 import pandas as pd
@@ -19,7 +18,6 @@ from .forecast_para import depth_para_dkss, salinity_nsbs, salinity_idw, salinit
 import processing
 from .api.station import get_stations, StationApi, StationId, Station, Parameter
 from .settings import DMISettingsManager, DMISettingKeys
-
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 # The lists that will be used for parameters, stations, municipalities, 10 and 20km grids in the API calls.
@@ -88,8 +86,10 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.wam_fore.setChecked(True)
         self.north_sea_baltic_sea.setChecked(True)
         self.danish_waters.setChecked(True)
-        self.all_para_dkss.setChecked(True)
-        self.all_para_wam.setChecked(True)
+        #self.all_para_dkss.setChecked(True)
+        #self.all_para_wam.setChecked(True)
+        self.dev_sea_mean.setChecked(True)
+        self.wind_speed_10.setChecked(True)
         self.composite.setChecked(True)
         self.full_range.setChecked(True)
         self._60960.setChecked(True)
@@ -188,6 +188,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.forecast_disable_if_needed()
         self.stat_info_disable_if_needed()
 
+    # Disables data-tab if no API key has been entered
     def stat_info_disable_if_needed(self):
         api_key = self.settings_manager.value(DMISettingKeys.METOBS_API_KEY.value)
         if api_key == '':
@@ -415,11 +416,11 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         stations = []
 
         index = self.tabWidget.currentIndex()
-# dataName is used to define which type of data the user is interested in
-# (metObs, climateData, radar, oceanData,lightnign)
+        # dataName is used to define which type of data the user is interested in
+        # (metObs, climateData, radar, oceanData,lightnign)
         dataName = self.tabWidget.tabText(index)
-# Based on dataName, data_type and API key are asigned
-# data_type is the service name used in URL creation
+        # Based on dataName, data_type and API key are asigned
+        # data_type is the service name used in URL creation
         if dataName == 'Meteorological Observations':
             data_type = 'metObs'
             api_key = self.settings_manager.value(DMISettingKeys.METOBS_API_KEY.value)
@@ -438,15 +439,14 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         elif dataName == 'Forecast Data':
             data_type = 'forecastdata'
             api_key = self.settings_manager.value(DMISettingKeys.FORECASTDATA_API_KEY.value)
-            #api_key = self.settings_manager.value(DMISettingKeys.FORECASTDATA_API_KEY.value)
         elif dataName == 'Stations and Parameters' and self.met_stat_info.isChecked():
             data_type = 'stat_para_info'
         elif dataName == 'Stations and Parameters' and self.tide_info.isChecked():
             data_type = 'ocean_para_info'
         
-# data_type and data_type2 are assigned
-# data_type2 is the type of collection and will be assigned based on the users preferences.
-# climateData has multiple types of collection
+        # data_type and data_type2 are assigned
+        # data_type2 is the type of collection and will be assigned based on the users preferences.
+        # climateData has multiple types of collection
         if data_type == 'oceanObs' or data_type == 'metObs' or data_type == 'lightningdata':
             data_type2 = 'observation'
         elif data_type == 'climateData':
@@ -472,14 +472,13 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         elif data_type == 'ocean_para_info':
             data_type2 = 'oceanObs'
         elif data_type == 'forecastdata':
-            print('fore')
             if self.wam_fore.isChecked():
                 data_type2 = 'wam'
             elif self.dkss_fore.isChecked():
                 data_type2 = 'dkss'
 
 
-# Based on data_type2 the stationId, municipalityId or cellId will be assigned.
+        # Based on data_type2 the stationId, municipalityId or cellId will be assigned.
         if data_type2 == 'observation' and data_type == 'metObs':
             stat1 = 'stationId'
         elif data_type2 == 'observation' and data_type == 'oceanObs':
@@ -513,7 +512,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             elif self.little_belt.isChecked():
                 fore_area = 'lb'
 
-# Oceanographic parameters
+        # Oceanographic parameters
         if dataName == 'Oceanographic Observations':
             if self.sealev_dvr.isChecked():
                 parameters.append('sealev_dvr')
@@ -544,7 +543,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     stations.append(climate_station_id)
                     qt_checkbox_widget.setChecked(False)
         
-# 10 km grid cells
+        # 10 km grid cells
         if data_type2 == '10kmGridValue':
             for grid10_id in grid10:
                 qt_checkbox_widget = self.listCheckBox_grid10[grid10_id]
@@ -552,7 +551,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     stations.append(grid10_id)
                     qt_checkbox_widget.setChecked(False)
 
-# 20 km grid cells
+        # 20 km grid cells
         if data_type2 == '20kmGridValue':
             for grid20_id in grid20:
                 qt_checkbox_widget = self.listCheckBox_grid20[grid20_id]
@@ -560,7 +559,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     stations.append(grid20_id)
                     qt_checkbox_widget.setChecked(False)
 
-# Municipality ID
+        # Municipality ID
         if data_type2 == 'municipalityValue':
             for munic_id in munic:
                 qt_checkbox_widget = self.listCheckBox_municipalityId[munic_id]
@@ -568,7 +567,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     stations.append(munic_id)
                     qt_checkbox_widget.setChecked(False)
 
-# Grid, municipality and country parameters
+        # Grid, municipality and country parameters
         if data_type2 == 'municipalityValue'or data_type2 == '20kmGridValue' or data_type2 == '10kmGridValue' or data_type2 == 'countryValue':
             for p_g in para_grid:
                 qt_checkbox_widget = self.listCheckBox_para_grid[p_g]
@@ -625,7 +624,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                    parameters.append(fore_para)
                    qt_checkbox_widget.setChecked(False)
                     
-# Information for stations. The list of stations is based on climateData and NOT metObs
+        # Information for stations. The list of stations is based on climateData and NOT metObs
         if dataName == 'Stations and Parameters' and data_type2 == 'climateData':
             for parameter in self.climatedata_parameters:
                 qt_checkbox_widget = self.listCheckBox_station_climate_information[parameter]
@@ -648,9 +647,9 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 if qt_checkbox_widget.isChecked():
                     radar_stations_it.append(radar_stat[1:])
                     qt_checkbox_widget.setChecked(False)
-# Datetime
-# Changes the format of the datetime to make it compatible for the URL calls.
-# The format by QT is yyyy:m:d h:m:s and the format needed for URL is yyyy:mm:ddThh:mm:ssZ
+        # Datetime
+        # Changes the format of the datetime to make it compatible for the URL calls.
+        # The format by QT is yyyy:m:d h:m:s and the format needed for URL is yyyy:mm:ddThh:mm:ssZ
         if dataName == 'Meteorological Observations':
             start_datetime = self.start_date.dateTime().toString(Qt.ISODate) + 'Z'
             end_datetime = self.end_date.dateTime().toString(Qt.ISODate) + 'Z'
@@ -693,11 +692,11 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                                  self.tr('Start time is after end time.'))
                 return
 
-        # A list that holds all stations that are doesnt meet the requirement set by the user.
+        # A list that holds all stations that doesnt meet the requirement set by the user.
         error_stats = []
 
-# URL creation for metObs and cliamteData
-# Resolution
+        # URL creation for metObs and climateData
+        # Resolution
         if self.hour_climate.isChecked():
             res = 'hour'
         elif self.day_climate.isChecked():
@@ -706,13 +705,13 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             res = 'month'
         elif self.year_climate.isChecked():
             res = 'year'
-# URL call and pandas creation
+        # URL call and pandas creation
         if data_type2 == 'countryValue':
             stations.append('Denmark')
             stat1 = 'Denmark'
-# Errors if no stations or parameters chosen.
-# When 0 is assigned to num, it means that the program shouldnt run further, as there is an issue with data.
-# num is only used in climateData, metObs and oceanObs.
+        # Errors if no stations or parameters chosen.
+        # When 0 is assigned to observations_count, it means that the program shouldnt run further, as there is an issue with data.
+        # num is only used in climateData, metObs and oceanObs.
         if dataName == 'Climate Data' or dataName == 'Meteorological Observations' or dataName == 'Oceanographic Observations':
             if len(stations) == 0:
                 QMessageBox.warning(self, self.tr("DMI Open Data"),
@@ -734,7 +733,6 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             station_param_table = pd.DataFrame()
             # Iterates over all the parameters that has been checked by the user.
             for para in parameters:
-# Only Climate Data has resolution.
                 params = {'api-key': api_key,
                           'datetime': datetime,
                           'parameterId': para,
@@ -754,15 +752,15 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 print(r.url)
                 json = r.json()
                 #df = json_normalize(json['features'])
-# Makes sure that data gets a return. If no numbers returned then shows a warning box.
-# r_code represents the status code.
+                # Makes sure that data gets a return. If no numbers returned then shows a warning box.
+                # r_code represents the status code.
                 r_code = r.status_code
-# 403 means that the api is wrong.
+                # 403 means that the api is wrong.
                 if r_code == 403:
                     observations_count = 0
                     QMessageBox.warning(self, self.tr("DMI Open Data"), self.tr('API Key is not valid or is expired / revoked.'))
-# if the call has the right API, then continue. This does not mean that the call will deliver data!
-# The station could still not be measuring the wished parameter.
+                # if the call has the right API, then continue. This does not mean that the call will deliver data!
+                # The station could still not be measuring the wished parameter.
                 elif r_code != 403:
                     observations_count = json['numberReturned']
                     station_total_observations += observations_count
@@ -789,12 +787,11 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                         station_param_table = new_param_table
                     else:
                         station_param_table = station_param_table.merge(new_param_table, how='outer', on=merge_column)
-# If the API is correct but the chosen parameter is not measured by the station.
+                # If the API is correct but the chosen parameter is not measured by the station.
                 elif observations_count == 0 and r_code != 403:
                     error_stats.append(stat)
-# If num > 0 then the program will stop.
             if station_total_observations > 0:
-# Changes the name of the header and adds it to the new dataframe
+                # Changes the name of the header and adds it to the new dataframe
                 if data_type2 == 'observation':
                     df['properties.observed'] = pd.to_datetime(df['properties.observed'])
                 elif data_type == 'climateData':
@@ -811,7 +808,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 # QGIS geometry
                 # The coordinate for the station
                 coordinates = df['geometry.coordinates'].iloc[0]
-# Name and geometry type for the layer
+                # Name and geometry type for the layer
                 if stat1 == 'stationId':
                     vl = QgsVectorLayer("Point", stat, "memory")
                 elif stat1 == 'municipalityId':
@@ -822,7 +819,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     vl = QgsVectorLayer('Point', stat1, 'memory')
                 pr = vl.dataProvider()
                 vl.startEditing()
-# Gives headers in attribute table in QGIS
+                # Gives headers in attribute table in QGIS
                 for head in station_param_table:
                     if head in ['observed', 'from', 'to']:
                         pr.addAttributes([QgsField(head, QVariant.DateTime)])
@@ -832,9 +829,9 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                         pr.addAttributes([QgsField(head, QVariant.String)])
                 vl.updateFields()
                 f = QgsFeature()
-# Iterates over the rows in the df. This depends on the amount of parameters called.
-# Maximum numbers of parameters available is 7 because of this.
-# Cliamte data has 2 datetimes where metObs only has 1 which explains the following if statement.
+                # Iterates over the rows in the df. This depends on the amount of parameters called.
+                # Maximum numbers of parameters available is 7 because of this.
+                # Cliamte data has 2 datetimes where metObs only has 1 which explains the following if statement.
                 if dataName == 'Climate Data' and data_type2 != 'countryValue':
                     for row in station_param_table.itertuples():
                         listee = list(row[1:len(station_param_table.columns) + 1])
@@ -855,26 +852,11 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                         f.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(coordinates[0], coordinates[1])))
                         f.setAttributes(listee)
                         vl.addFeature(f)
-# The coordinates are used based on which type of geometry (polygon or point).
-
-                #if stat1 == 'stationId' or stat1 == 'municipalityId' or data_type2 == 'countryValue':
-                 #   f_geometry.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(koordinater[0],koordinater[1])))
-                    #vl.addFeature(f_geometry)
-                 #   vl.updateExtents()
-                  #  vl.commitChanges()
-                #elif stat1 == 'cellId':
-                 #   koordi = [QgsPointXY(koordinater[0][0][0],koordinater[0][0][1]),QgsPointXY(koordinater[0][1][0],koordinater[0][1][1]),\
-                  #            QgsPointXY(koordinater[0][2][0],koordinater[0][2][1]),QgsPointXY(koordinater[0][3][0],koordinater[0][3][1]),\
-                   #           QgsPointXY(koordinater[0][4][0],koordinater[0][4][1])]
-                    #f_geometry.setGeometry(QgsGeometry.fromPolygonXY([koordi]))
-                    #vl.addFeature(f_geometry)
-                    #vl.updateExtents()
-                    #vl.commitChanges()
-
                 vl.updateExtents()
                 vl.commitChanges()
                 QgsProject.instance().addMapLayer(vl)
-# The files are saved, if the user has chosen to write something in the "save as .csv" section
+                iface.zoomToActiveLayer()
+        # The files are saved, if the user has chosen to write something in the "save as .csv" section
         if dataName == 'Meteorological Observations':
             if self.file_name_obs.text() == '':
                 pass
@@ -893,10 +875,10 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             else:
                 station_table.to_csv(self.file_name_oce.text() + '.csv', index=False)
                 self.file_name_oce.clear()
-# URL call radar data
+        # URL call radar data
         if dataName == 'Radar Data':
             root = QgsProject.instance().layerTreeRoot()
-            layer_group = root.insertGroup(0, 'Radar' + datetime)
+            layer_group = root.insertGroup(0, 'Radar ' + datetime)
             temp = "temp-folder"
             url = 'https://dmigw.govcloud.dk/v1/' + data_type + '/collections/' + data_type2 + '/items'
             params = {'api-key' : api_key,
@@ -947,29 +929,31 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     time_range = QgsDateTimeRange(start_time, end_time)
                     layer.temporalProperties().setFixedTemporalRange(time_range)
                     layer.temporalProperties().setIsActive(True)
-# This removes all values below 1 and above 254, since this only consists of white and black fields.
+                    # This removes all values below 1 and above 254, since this only consists of white and black fields.
                     layer.setContrastEnhancement(algorithm=QgsContrastEnhancement.ClipToMinimumMaximum,
                                                      limits=QgsRasterMinMaxOrigin.MinMax)
                     layer.renderer().contrastEnhancement().setMinimumValue(1)
                     layer.renderer().contrastEnhancement().setMaximumValue(254)
-                    if data_type2 == 'composite':
-                        layer.setName(data_type2 +  '' + params['scanType'] + '' +  d)
+                    if data_type2 == 'composite' and self.both_types.isChecked() == False:
+                        layer.setName(data_type2 +  ' ' + params['scanType'] + ' ' +  d)
+                    elif self.both_types.isChecked() == True:
+                        layer.setName(data_type2 + ' both types ' + d)
                     elif data_type2 == 'pseudoCappi':
-                        layer.setName(data_type2 + '' + radar_stations_it[0] + '' + d)
+                        layer.setName(data_type2 + ' ' + radar_stations_it[0] + ' ' + d)
                     project = QgsProject.instance()
                     project.addMapLayer(layer, addToLegend=False)
                     layer_group.insertLayer(-1, layer)
 
-# Lightning data URL creation
+        # Lightning data URL creation
         if dataName == 'Lightning Data':
             url = 'https://dmigw.govcloud.dk/v2/' + data_type + '/collections/' + data_type2 + '/items'
             params = {'api-key' : api_key,
                     'datetime' : datetime,
                       'limit' : '300000'}
-# Did the user choose the BBOX?
+            # Did the user choose the BBOX?
             if self.bbox_lightning.text() != '':
                 params.update({'bbox': self.bbox_lig.text()})
-# Did the user choose any specific lightning type?
+            # Did the user choose any specific lightning type?
             if self.cloud_to_g_pos.isChecked():
                 params.update({'type': '1'})
                 name = 'Lightning cloud to ground (positive)'
@@ -981,7 +965,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 name = 'Lightning cloud to cloud'
             else:
                 name = 'Lightning'
-# URL creation
+            # URL creation
             r = requests.get(url, params=params)
             print(r.url)
             json = r.json()
@@ -997,7 +981,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 QMessageBox.warning(self, self.tr("DMI Open Data"),
                                     self.tr('No lightnings observed. Change time or parameter.'))
             elif observations_count > 0:
-# QGIS geometry
+                # QGIS geometry
                 df = df.drop(['id','type','geometry.type','properties.created'], axis=1)
                 vl = QgsVectorLayer("Point",name , "memory")
                 for row in df.itertuples():
@@ -1015,13 +999,13 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     vl.updateExtents()
                 vl.commitChanges()
                 QgsProject.instance().addMapLayer(vl)
-# Does the user want to save as csv?
+                # Does the user want to save as csv?
                 if self.file_name_lig.text() == '':
                     pass
                 else:
                     df.to_csv(self.file_name_lig.text() + '.csv', index=False)
                     self.file_name_lig.clear()
-# Forecast data
+        # Forecast data
         if dataName == 'Forecast Data':
             root = QgsProject.instance().layerTreeRoot()
             layer_group = root.insertGroup(0, 'Forecast' + datetime)
@@ -1048,97 +1032,93 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                         for chunk in downloaddata.iter_content():
                             fd.write(chunk)
                 layer = QgsRasterLayer(tempfile)
-                if self.all_para_wam.isChecked() == False or self.all_para_dkss.isChecked() == False:
-                    if data_type2 == 'wam':
-                        band_par = para_fore_dict_wam[parameters[0]]
-                    elif data_type2 == 'dkss':
-                        print(parameters)
-                        print(depth_para_dkss)
-                        if parameters[0] in depth_para_dkss:
-                            if fore_area == 'nsbs':
-                                depth = int(self.depth_box_nsbs.currentText())
-                                if parameters[0] == 'salinity_':
-                                    band_par = salinity_nsbs[depth]
-                                elif parameters[0] == 'water_temp_':
-                                    band_par = water_temp_nsbs[depth]
-                                elif parameters[0] == 'v_comp_curr':
-                                    band_par = u_current_nsbs[depth]
-                                elif parameters[0] == 'u_comp_cur_':
-                                    band_par = v_current_nsbs[depth]
-                            elif fore_area == 'idw':
-                                depth = int(self.depth_box_idw.currentText())
-                                if parameters[0] == 'salinity_':
-                                    band_par = salinity_idw[depth]
-                                elif parameters[0] == 'water_temp_':
-                                    band_par = water_temp_idw[depth]
-                                elif parameters[0] == 'v_comp_curr':
-                                    band_par = u_current_idw[depth]
-                                elif parameters[0] == 'u_comp_cur_':
-                                    band_par = v_current_idw[depth]
-                            elif fore_area == 'ws':
-                                depth = int(self.depth_box_ws.currentText())
-                                if parameters[0] == 'salinity_':
-                                    band_par = salinity_ws[depth]
-                                elif parameters[0] == 'water_temp_':
-                                    band_par = water_temp_ws[depth]
-                                elif parameters[0] == 'v_comp_curr':
-                                    band_par = u_current_ws[depth]
-                                elif parameters[0] == 'u_comp_cur_':
-                                    band_par = v_current_ws[depth]
-                            elif fore_area == 'if':
-                                depth = int(self.depth_box_if.currentText())
-                                if parameters[0] == 'salinity_':
-                                    band_par = salinity_if[depth]
-                                elif parameters[0] == 'water_temp_':
-                                    band_par = water_temp_if[depth]
-                                elif parameters[0] == 'v_comp_curr':
-                                    band_par = u_current_if[depth]
-                                elif parameters[0] == 'u_comp_cur_':
-                                    band_par = v_current_if[depth]
-                            elif fore_area == 'lf':
-                                depth = int(self.depth_box_lf.currentText())
-                                if parameters[0] == 'salinity_':
-                                    band_par = salinity_lf[depth]
-                                elif parameters[0] == 'water_temp_':
-                                    band_par = water_temp_lf[depth]
-                                elif parameters[0] == 'v_comp_curr':
-                                    band_par = u_current_lf[depth]
-                                elif parameters[0] == 'u_comp_cur_':
-                                    band_par = v_current_lf[depth]
-                            elif fore_area == 'lb':
-                                depth = int(self.depth_box_lb.currentText())
-                                if parameters[0] == 'salinity_':
-                                    band_par = salinity_lb[depth]
-                                elif parameters[0] == 'water_temp_':
-                                    band_par = water_temp_lb[depth]
-                                elif parameters[0] == 'v_comp_curr':
-                                    band_par = u_current_lb[depth]
-                                elif parameters[0] == 'u_comp_cur_':
-                                    band_par = v_current_lb[depth]
-                        elif parameters[0] not in depth_para_dkss:
-                            band_par = para_fore_dict_nsbs[parameters[0]]
-                    # THIS COULD BE USED IF WE WANT ONLY ONE PARAMETER AVAILABLE! DELETE OTHERWISE
-                    #g_d_param = {'INPUT_A': layer, 'BAND_A': band_par, 'OUTPUT': QgsProcessing.TEMPORARY_OUTPUT}
-                    #processing.runAndLoadResults('gdal:rastercalculator', g_d_param, feedback=QgsProcessingFeedback())
-                    # Provides the statistics for the layer. Used to find min and max
-                    stats = layer.dataProvider().bandStatistics(band_par, QgsRasterBandStats.All)
-                    # The layer will be mapped in a Gray symbology
-                    renderer = QgsSingleBandGrayRenderer(layer.dataProvider(), band_par)
-                    # Sets the color scale for the layer
-                    myType = renderer.dataType(1)
-                    myEnhancement = QgsContrastEnhancement(myType)
-                    contrast_enhancement = QgsContrastEnhancement.StretchToMinimumMaximum
-                    myEnhancement.setContrastEnhancementAlgorithm(contrast_enhancement, True)
-                    myEnhancement.setMinimumValue(stats.minimumValue)
-                    myEnhancement.setMaximumValue(stats.maximumValue)
-                    d = feature['properties']['datetime']
-                    start_time = QDateTime.fromString(d, 'yyyy-MM-ddThh:mm:ssZ')
-                    end_time = start_time.addSecs(3600)
-                    time_range = QgsDateTimeRange(start_time, end_time)
-                    layer.temporalProperties().setFixedTemporalRange(time_range)
-                    layer.temporalProperties().setIsActive(True)
-                    layer.setRenderer(renderer)
-                    layer.renderer().setContrastEnhancement(myEnhancement)
+                #if self.all_para_wam.isChecked() == False or self.all_para_dkss.isChecked() == False:
+                if data_type2 == 'wam':
+                    band_par = para_fore_dict_wam[parameters[0]]
+                    print(band_par)
+                elif data_type2 == 'dkss':
+                    if parameters[0] in depth_para_dkss:
+                        if fore_area == 'nsbs':
+                            depth = int(self.depth_box_nsbs.currentText())
+                            if parameters[0] == 'salinity_':
+                                band_par = salinity_nsbs[depth]
+                            elif parameters[0] == 'water_temp_':
+                                band_par = water_temp_nsbs[depth]
+                            elif parameters[0] == 'v_comp_cur_':
+                                band_par = u_current_nsbs[depth]
+                            elif parameters[0] == 'u_comp_cur_':
+                                band_par = v_current_nsbs[depth]
+                        elif fore_area == 'idw':
+                            depth = int(self.depth_box_idw.currentText())
+                            if parameters[0] == 'salinity_':
+                                band_par = salinity_idw[depth]
+                            elif parameters[0] == 'water_temp_':
+                                band_par = water_temp_idw[depth]
+                            elif parameters[0] == 'v_comp_cur_':
+                                band_par = u_current_idw[depth]
+                            elif parameters[0] == 'u_comp_cur_':
+                                band_par = v_current_idw[depth]
+                        elif fore_area == 'ws':
+                            depth = int(self.depth_box_ws.currentText())
+                            if parameters[0] == 'salinity_':
+                                band_par = salinity_ws[depth]
+                            elif parameters[0] == 'water_temp_':
+                                band_par = water_temp_ws[depth]
+                            elif parameters[0] == 'v_comp_cur_':
+                                band_par = u_current_ws[depth]
+                            elif parameters[0] == 'u_comp_cur_':
+                                band_par = v_current_ws[depth]
+                        elif fore_area == 'if':
+                            depth = int(self.depth_box_if.currentText())
+                            if parameters[0] == 'salinity_':
+                                band_par = salinity_if[depth]
+                            elif parameters[0] == 'water_temp_':
+                                band_par = water_temp_if[depth]
+                            elif parameters[0] == 'v_comp_cur_':
+                                band_par = u_current_if[depth]
+                            elif parameters[0] == 'u_comp_cur_':
+                                band_par = v_current_if[depth]
+                        elif fore_area == 'lf':
+                            depth = int(self.depth_box_lf.currentText())
+                            if parameters[0] == 'salinity_':
+                                band_par = salinity_lf[depth]
+                            elif parameters[0] == 'water_temp_':
+                                band_par = water_temp_lf[depth]
+                            elif parameters[0] == 'v_comp_cur_':
+                                band_par = u_current_lf[depth]
+                            elif parameters[0] == 'u_comp_cur_':
+                                band_par = v_current_lf[depth]
+                        elif fore_area == 'lb':
+                            depth = int(self.depth_box_lb.currentText())
+                            if parameters[0] == 'salinity_':
+                                band_par = salinity_lb[depth]
+                            elif parameters[0] == 'water_temp_':
+                                band_par = water_temp_lb[depth]
+                            elif parameters[0] == 'v_comp_cur_':
+                                band_par = u_current_lb[depth]
+                            elif parameters[0] == 'u_comp_cur_':
+                                band_par = v_current_lb[depth]
+                    elif parameters[0] not in depth_para_dkss:
+                        band_par = para_fore_dict_nsbs[parameters[0]]
+                # Provides the statistics for the layer. Used to find min and max
+                stats = layer.dataProvider().bandStatistics(band_par, QgsRasterBandStats.All)
+                # The layer will be mapped in a Gray symbology
+                renderer = QgsSingleBandGrayRenderer(layer.dataProvider(), band_par)
+                # Sets the color scale for the layer
+                myType = renderer.dataType(1)
+                myEnhancement = QgsContrastEnhancement(myType)
+                contrast_enhancement = QgsContrastEnhancement.StretchToMinimumMaximum
+                myEnhancement.setContrastEnhancementAlgorithm(contrast_enhancement, True)
+                myEnhancement.setMinimumValue(stats.minimumValue)
+                myEnhancement.setMaximumValue(stats.maximumValue)
+                d = feature['properties']['datetime']
+                start_time = QDateTime.fromString(d, 'yyyy-MM-ddThh:mm:ssZ')
+                end_time = start_time.addSecs(3600)
+                time_range = QgsDateTimeRange(start_time, end_time)
+                layer.temporalProperties().setFixedTemporalRange(time_range)
+                layer.temporalProperties().setIsActive(True)
+                layer.setRenderer(renderer)
+                layer.renderer().setContrastEnhancement(myEnhancement)
 
 
                 # Changes the name
@@ -1155,7 +1135,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 project = QgsProject.instance()
                 project.addMapLayer(layer, addToLegend=False)
                 layer_group.insertLayer(-1, layer)
-# Information about stations and parameters
+        # Information about stations and parameters
         if dataName == 'Stations and Parameters':
             if self.met_stat_info.isChecked():
                 data_type = 'climateData'
@@ -1167,7 +1147,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 data_type2 = 'station'
             url = 'https://dmigw.govcloud.dk/v2/' + data_type + '/collections/' + data_type2 +'/items'
             params = {'api-key': api_key}
-# metObs info
+            # metObs info
             if self.met_stat_info.isChecked():
                 if self.radioButton_11.isChecked() and self.radioButton.isChecked():
                     params.update({'datetime': datetime,
@@ -1178,7 +1158,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     params.update({'status': 'Active'})
                 elif self.radioButton_9.isChecked() and self.radioButton_11.isChecked():
                     params.update({'datetime': datetime})
-# ocean info
+            # ocean info
             if self.tide_info.isChecked():
                 if self.radioButton_20.isChecked() and self.radioButton_22.isChecked():
                     params.update({'datetime': datetime,
@@ -1198,7 +1178,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                                  self.tr('API Key is not valid or is expired / revoked.'))
             else:
                 df = json_normalize(json['features'])
-    # Name and sort the data based on users preferences
+                # Name and sort the data based on users preferences
                 if self.met_stat_info.isChecked():
                     if self.radioButton_2.isChecked():
                         df = df.loc[df['properties.country'] == 'DNK']
@@ -1217,7 +1197,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     elif self.radioButton_13.isChecked():
                         df = df.loc[df['properties.owner'] == 'Kystdirektoratet / Coastal Authority']
                         name_stations_met = 'Coastal Authority'
-    # Names the layer as the station type and parameter if parameter is chosen.
+                # Names the layer as the station type and parameter if parameter is chosen.
                 if len(parameters) != 0:
                     df = df[pd.DataFrame(df['properties.parameterId'].tolist()).isin(parameters).any(1).values]
                     name_stations_met = name_stations_met + ' ' + parameters[0]
@@ -1225,7 +1205,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     QMessageBox.warning(self, self.tr("DMI Open Data"),
                                     self.tr('No stations meets this requirement.'))
                 elif len(df) > 0:
-    # QGIS geometry
+                    # QGIS geometry
                     vl = QgsVectorLayer("Point", name_stations_met, "memory")
                     for row in df.itertuples():
                         pr = vl.dataProvider()
@@ -1251,4 +1231,4 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 iface.zoomToActiveLayer()
         if len(error_stats) != 0:
             QMessageBox.warning(self, self.tr("DMI Open Data"),
-                                self.tr('Following stations does not produce data.' + '\n' + 'Change parameters, time and/or resolution.' + '\n' + '\n' + '\n'.join(set(error_stats))))
+                                self.tr('Following stations does not produce all the desired data.' + '\n' + 'Change parameters, time and/or resolution.' + '\n' + '\n' + '\n'.join(set(error_stats))))

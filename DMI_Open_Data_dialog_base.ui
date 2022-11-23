@@ -1104,7 +1104,7 @@
        <item>
         <widget class="QStackedWidget" name="para_stacked">
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="wam_page">
           <layout class="QVBoxLayout" name="verticalLayout_61">
@@ -1132,18 +1132,11 @@
                     <rect>
                      <x>0</x>
                      <y>0</y>
-                     <width>284</width>
-                     <height>372</height>
+                     <width>604</width>
+                     <height>348</height>
                     </rect>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_60">
-                    <item>
-                     <widget class="QRadioButton" name="all_para_wam">
-                      <property name="text">
-                       <string>All parameters </string>
-                      </property>
-                     </widget>
-                    </item>
                     <item>
                      <widget class="QRadioButton" name="wind_speed_10">
                       <property name="text">
@@ -1335,18 +1328,11 @@
                     <rect>
                      <x>0</x>
                      <y>0</y>
-                     <width>604</width>
-                     <height>348</height>
+                     <width>251</width>
+                     <height>324</height>
                     </rect>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_64">
-                    <item>
-                     <widget class="QRadioButton" name="all_para_dkss">
-                      <property name="text">
-                       <string>All parameters</string>
-                      </property>
-                     </widget>
-                    </item>
                     <item>
                      <widget class="QRadioButton" name="dev_sea_mean">
                       <property name="text">
@@ -1509,7 +1495,7 @@
                 <item>
                  <widget class="QStackedWidget" name="stackedWidget_4">
                   <property name="currentIndex">
-                   <number>5</number>
+                   <number>1</number>
                   </property>
                   <widget class="QWidget" name="nsbs_depth">
                    <layout class="QVBoxLayout" name="verticalLayout_53">
@@ -1537,17 +1523,7 @@
                       </item>
                       <item>
                        <property name="text">
-                        <string>14</string>
-                       </property>
-                      </item>
-                      <item>
-                       <property name="text">
                         <string>15</string>
-                       </property>
-                      </item>
-                      <item>
-                       <property name="text">
-                        <string>16</string>
                        </property>
                       </item>
                       <item>
@@ -1955,22 +1931,12 @@
                       </item>
                       <item>
                        <property name="text">
-                        <string>40</string>
-                       </property>
-                      </item>
-                      <item>
-                       <property name="text">
                         <string>41</string>
                        </property>
                       </item>
                       <item>
                        <property name="text">
                         <string>43</string>
-                       </property>
-                      </item>
-                      <item>
-                       <property name="text">
-                        <string>44</string>
                        </property>
                       </item>
                       <item>
