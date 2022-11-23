@@ -691,6 +691,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             else:
                 QMessageBox.warning(self, self.tr("DMI Open Data"),
                                  self.tr('Start time is after end time.'))
+                return
 
         # A list that holds all stations that are doesnt meet the requirement set by the user.
         error_stats = []
