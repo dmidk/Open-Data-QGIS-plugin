@@ -768,12 +768,6 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 if observations_count > 0:
                     df = json_normalize(json['features'])
                     new_param_table = pd.DataFrame({para: df['properties.value']})
-                    if stat1 == 'stationId':
-                        new_param_table[stat1] = df['properties.stationId']
-                    elif stat1 == 'cellId':
-                        new_param_table[stat1] = df['properties.cellId']
-                    elif stat1 == 'municipalityId':
-                        new_param_table[stat1] = df['properties.municipalityId']
                     if data_type2 == 'observation':
                         new_param_table['observed'] = df['properties.observed']
                         merge_column = ['observed']
@@ -781,10 +775,19 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                         new_param_table['from'] = df['properties.from']
                         new_param_table['to'] = df['properties.to']
                         merge_column = ['from', 'to']
+                    if stat1 == 'stationId':
+                        merge_column += [stat1]
+                        new_param_table[stat1] = df['properties.stationId']
+                    elif stat1 == 'cellId':
+                        merge_column += [stat1]
+                        new_param_table[stat1] = df['properties.cellId']
+                    elif stat1 == 'municipalityId':
+                        merge_column += [stat1]
+                        new_param_table[stat1] = df['properties.municipalityId']
                     if station_param_table.empty:
                         station_param_table = new_param_table
                     else:
-                        station_param_table = station_param_table.merge(new_param_table, how='outer', on=merge_column+[stat1])
+                        station_param_table = station_param_table.merge(new_param_table, how='outer', on=merge_column)
 # If the API is correct but the chosen parameter is not measured by the station.
                 elif observations_count == 0 and r_code != 403:
                     error_stats.append(stat)
