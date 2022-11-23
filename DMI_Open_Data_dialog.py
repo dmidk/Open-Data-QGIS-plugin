@@ -792,12 +792,6 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
 # If the API is correct but the chosen parameter is not measured by the station.
                 elif observations_count == 0 and r_code != 403:
                     error_stats.append(stat)
-# It is only possible to choose 7 parameters.
-                elif len(parameters) > 7:
-                    observations_count = 0
-                    QMessageBox.warning(self, self.tr("DMI Open Data"),
-                                        self.tr('Maximum amount of parameters allowed is 7. Please change amount of parameters.'))
-                    parameters.remove(para)
 # If num > 0 then the program will stop.
             if station_total_observations > 0:
 # Changes the name of the header and adds it to the new dataframe
@@ -839,20 +833,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
 # Cliamte data has 2 datetimes where metObs only has 1 which explains the following if statement.
                 if dataName == 'Climate Data' and data_type2 != 'countryValue':
                     for row in station_param_table.itertuples():
-                        if len(station_param_table.columns) == 4:
-                            listee = [row[1],row[2],row[3],row[4]]
-                        elif len(station_param_table.columns) == 5:
-                            listee = [row[1],row[2],row[3],row[4],row[5]]
-                        elif len(station_param_table.columns) == 6:
-                            listee = [row[1],row[2],row[3],row[4],row[5],row[6]]
-                        elif len(station_param_table.columns) == 7:
-                            listee = [row[1],row[2],row[3],row[4],row[5],row[6],row[7]]
-                        elif len(station_param_table.columns) == 8:
-                            listee = [row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8]]
-                        elif len(station_param_table.columns) == 9:
-                            listee = [row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9]]
-                        elif len(station_param_table.columns) == 10:
-                            listee = [row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9],row[10]]
+                        listee = list(row[1:len(station_param_table.columns) + 1])
                         if stat1 == 'cellId':
                             koordi = [QgsPointXY(coordinates[0][0][0], coordinates[0][0][1]),
                                       QgsPointXY(coordinates[0][1][0], coordinates[0][1][1]), \
@@ -866,20 +847,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                         vl.addFeature(f)
                 elif data_type2 == 'observation' or data_type2 == 'countryValue':
                     for row in station_param_table.itertuples():
-                        if len(station_param_table.columns) == 3:
-                            listee = [row[1],row[2],row[3]]
-                        elif len(station_param_table.columns) == 4:
-                            listee = [row[1],row[2],row[3],row[4]]
-                        elif len(station_param_table.columns) == 5:
-                            listee = [row[1],row[2],row[3],row[4],row[5]]
-                        elif len(station_param_table.columns) == 6:
-                            listee = [row[1],row[2],row[3],row[4],row[5],row[6]]
-                        elif len(station_param_table) == 7:
-                            listee = [row[1],row[2],row[3],row[4],row[5],row[6],row[7]]
-                        elif len(station_param_table.columns) == 8:
-                            listee = [row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8]]
-                        elif len(station_param_table.columns) == 9:
-                            listee = [row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9]]
+                        listee = list(row[1:len(station_param_table.columns)+1])
                         f.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(coordinates[0], coordinates[1])))
                         f.setAttributes(listee)
                         vl.addFeature(f)
