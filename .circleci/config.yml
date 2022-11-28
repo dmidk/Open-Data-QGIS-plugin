@@ -111,7 +111,7 @@ jobs:
           at: zip_build
       - run:
           name: Upload Plugin
-          command: python plugin_upload.py --username "@QGIS_USERNAME" --password "$QGIS_PASSWORD" "$PARAM_PLUGIN_FILE"
+          command: python plugin_upload.py --username "$QGIS_USERNAME" --password "$QGIS_PASSWORD" "$PARAM_PLUGIN_FILE"
           environment:
             PARAM_PLUGIN_FILE: <<parameters.plugin_file>>
 
