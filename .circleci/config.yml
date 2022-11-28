@@ -28,6 +28,10 @@ jobs:
           command: |
             pbt validate
       - run:
+          name: Remove all git files # Git files not allowed in plugins published to the official QGIS plugin repository
+          command: |
+            rm -r settings/qgissettingmanager/.git*
+      - run:
           name: Build project
           command: |
             pbt zip
