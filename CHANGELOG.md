@@ -1,3 +1,9 @@
+## Version: 1.0.0 - Official release
+
+- Forecast tab added, forecast series can be downloaded and integrates with the Temporal Control Panel
+- Guide for usage of the plugin
+- Various bug fixes
+
 ## Version: 0.1.2 - Minor bugfix for lightning data
 
 ### Changes

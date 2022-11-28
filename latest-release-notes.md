@@ -2,6 +2,7 @@
 
  - Forecast tab added, forecast series can be downloaded and integrates with the Temporal Control Panel
  - Guide for usage of the plugin
+ - Various bug fixes
 
 ## Installation
 
