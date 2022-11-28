@@ -38,6 +38,7 @@ def main(parameters, arguments):
     server = xmlrpc.client.ServerProxy(address, verbose=VERBOSE)
 
     try:
+        print("Uploading plugin zip file: %s" % arguments[0])
         with open(arguments[0], 'rb') as handle:
             plugin_id, version_id = server.plugin.upload(
                 xmlrpc.client.Binary(handle.read()))
@@ -49,10 +50,12 @@ def main(parameters, arguments):
         print("HTTP/HTTPS headers: %s" % err.headers)
         print("Error code: %d" % err.errcode)
         print("Error message: %s" % err.errmsg)
+        raise err
     except xmlrpc.client.Fault as err:
         print("A fault occurred")
         print("Fault code: %d" % err.faultCode)
         print("Fault string: %s" % err.faultString)
+        raise err
 
 
 def hide_password(url, start=6):
