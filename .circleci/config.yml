@@ -146,7 +146,7 @@ workflows:
       - upload:
           plugin_file: /home/circleci/project/zip_build/DMI_Open_Data.zip
           requires:
-            - release
+            - build-and-test
           # Only on releases
           filters:
             branches:
