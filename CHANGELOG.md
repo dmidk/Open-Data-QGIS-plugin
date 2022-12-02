@@ -1,4 +1,8 @@
-## Version: 1.0.0 - Fix for publishing
+## Version: 1.0.3 - Set experimental flag to false
+
+- Set experimental flag to false
+
+## Version: 1.0.2 - Fix for publishing
 
  - Fix metadata for publishing
 

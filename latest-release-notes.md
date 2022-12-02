@@ -1,6 +1,6 @@
 ## Changes
 
- - Fix metadata for publishing
+ - Set experimental flag to false
 
 ## Installation
 
