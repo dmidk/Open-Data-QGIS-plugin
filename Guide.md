@@ -6,7 +6,7 @@
 
 DMI gathers large numbers of weather- and oceanographic data every minute that are used in forecasts, warnings, climate data and climate models. DMIs Open Data allow the user to freely download and use all this data. Documentation and more information about DMI Open Data can be found [here](https://confluence.govcloud.dk/display/FDAPI/Danish+Meteorological+Institute+-+Open+Data). 
 This guide will only describe the actions behind the plugin that is available in QGIS, how to use it and the outputs. 
-The plugin allows the user to easily import data from DMIs Open Data from Meteorological Observations (metObs), Climate Data (climateData), Lightning Data (lightningData), Radar Data (radarData) and Oceanographic Observations (oceanObs). At each tab must be used in order to get data. An API-key can freely be created [here](https://confluence.govcloud.dk/display/FDAPI/User+Creation). 
+The plugin allows the user to easily import data from DMIs Open Data from Meteorological Observations (metObs), Climate Data (climateData), Lightning Data (lightningData), Radar Data (radarData), Oceanographic Observations (oceanObs) and Forecast Data (forecastData). An API-key can freely be created [here](https://confluence.govcloud.dk/display/FDAPI/User+Creation). 
 
 ## Installation
 
@@ -27,7 +27,7 @@ A new tab will open that will allow you to insert your API keys.
 Meteorological observations are observations made by meteorological stations and are not quality controlled. Read more about the data [here](https://confluence.govcloud.dk/display/FDAPI/Meteorological+Observation). 
  - Usage
 
-The plugin lets you import up to 7 parameters, for as many stations as wanted. Furthermore, it is possible to limit the data based on a time interval, and to save data as Comma Separated Values (csv).
+The plugin lets you import as many parameters and stations as wanted. Furthermore, it is possible to limit the data based on a time interval, and to save data as Comma Separated Values (csv).
 It is not possible to only pick a stationId and not a parameter, or only picking a parameter and no stationId. Not all stations measure all parameters. Be sure to check which stations measure what parameter in the “Stations and parameters” tab or read about it [here](https://confluence.govcloud.dk/pages/viewpage.action?pageId=53086560). 
  - Output
 
@@ -43,10 +43,10 @@ Climate data is data that has been quality checked by Danish Meteorological Inst
 Since climate data has 5 different types of data, it is possible to exchange between these by clicking on the radio buttons. Temporal resolution is also available in climate data. It is possible to switch between hour, day, month, and year. Not all parameters are available in all temporal resolutions. Read about which parameters are measured in which temporal resolutions [here](https://confluence.govcloud.dk/pages/viewpage.action?pageId=41717444).
  - Station
 
-The output is the same as in meteorological observations except that there is one more field in the attribute table. This is because climate data is measured on a time interval, and not on an observed time. Therefor the fields include value, time from, time to and stationId.  
+The output is the same as in meteorological observations except that there is one more field in the attribute table. The fields include value, time from, time to and stationId.  
  - 10x10km resolution and 20x20km resolution
 
-The output is a polygon shapefile. The division of cellIds are made from the national grid. 10x10 and 20x20km cell values are calculated by DMI, based on surrounding stations. Read more about it [here](https://confluence.govcloud.dk/pages/viewpage.action?pageId=41718900). The cell division can be found [here](https://confluence.govcloud.dk/pages/viewpage.action?pageId=41718900). 
+The output is a polygon shapefile. The division of cellIds are based on the national grid. 10x10 and 20x20km cell values are calculated by DMI, based on surrounding stations. Read more about it [here](https://confluence.govcloud.dk/pages/viewpage.action?pageId=41718900). The cell division can be found [here](https://confluence.govcloud.dk/pages/viewpage.action?pageId=41718900). 
  - Municipality 
 
 The output is a point shapefile, that is available for each municipality. The values for the municipalities are calculated like the 10x10 and 20x20km grids. Each municipality has an ID, which can be found [here](https://danmarksadresser.dk/adressedata/kodelister/kommunekodeliste).
@@ -62,7 +62,7 @@ Lightning Data is lightnings observed by DMIs lightning sensors. DMI has 6 senso
  - Usage
 
 Lightning data has three ways to sort data: BBOX, lightning type and datetime. 
-BBOX allows the user to find lightning observed within a square of coordinates. BBOX must be written as a CSV file, as in the following example: 7.76,54.51,15.23,57.82. An easy way to find a BBOX can found [here](https://boundingbox.klokantech.com/). 
+BBOX allows the user to find lightning observed within a square of coordinates. BBOX must be written as a CSV file, as in the following example: 7.76,54.51,15.23,57.82. An easy way to find BBOX coordinates can found [here](https://boundingbox.klokantech.com/). 
  - Output 
 
 The output is a point shapefile that has a time of observation, a lightning type and an amplitude.
@@ -74,7 +74,7 @@ The output is a point shapefile that has a time of observation, a lightning type
 Radar Data from the plugin is a full range composite image that shows the volume measured by DMIs 5 radars. Radar data is not a direct measurement of e.g., precipitation. Radar data only goes 6 months back from the current date. Read more about radar data [here](https://confluence.govcloud.dk/display/FDAPI/Radar+Data).
  - Usage
 
-It is possible to sort radar data in a time interval. 
+It is possible to sort radar data on a time interval, station or scan type. Read more about scan type and stations [here](https://confluence.govcloud.dk/pages/viewpage.action?pageId=41719032). 
  - Output
 
 The output is one raster layer for each radar image. Each raster cell has one value. The cell size of each raster cell is 500 meter. 
@@ -99,7 +99,7 @@ The output is also the same as Meteorological Observations and the fields includ
 
  - About
 
-Forecast data allows the user to import data from DMIs Forecast models. 4 models will be made available: Weather Model (Harmonie), Wave Model (WAM), Storm Surge Model (DKSS) and Arctic Sea Ice Model (HYCOM-CICE). In version 0.1 of the plugin, only WAM and DKSS is available. When the two remaining models are released, they will also be included in the plugin. 
+Forecast data allows the user to import data from two of DMIs Forecast models: Wave Model (WAM) and Storm Surge Model (DKSS).
  - Usage
 
 To choose between the different models, use the radio button. Each page has different parameters, areas and specifications. It is not possible to choose more than one parameter, as the output is all parameters in one layer. Read more about forecast data [here](https://confluence.govcloud.dk/display/FDAPI/Forecast+Data). 
