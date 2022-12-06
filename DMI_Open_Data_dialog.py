@@ -6,6 +6,7 @@ import requests
 import pandas as pd
 from pandas.io.json import json_normalize
 import warnings
+from tempfile import mkdtemp
 from qgis.core import QgsVectorLayer, QgsProcessing, QgsProcessingFeedback, QgsRasterLayer, QgsContrastEnhancement, QgsRasterMinMaxOrigin, QgsFeature, QgsGeometry, QgsField, QgsPointXY, QgsProject, QgsRasterLayerTemporalProperties, QgsDateTimeRange, QgsColorRampShader, QgsRasterShader, QgsSingleBandPseudoColorRenderer, QgsSingleBandGrayRenderer, QgsRasterBandStats
 from qgis.PyQt.QtGui import (
     QColor)
@@ -879,7 +880,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         if dataName == 'Radar Data':
             root = QgsProject.instance().layerTreeRoot()
             layer_group = root.insertGroup(0, 'Radar ' + datetime)
-            temp = "temp-folder"
+            temp = mkdtemp(suffix='_radar-files')
             url = 'https://dmigw.govcloud.dk/v1/' + data_type + '/collections/' + data_type2 + '/items'
             params = {'api-key' : api_key,
                     'datetime' : datetime
@@ -909,9 +910,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     downloadurl = feature['asset']['data']['href']
                     downloaddata = requests.get(downloadurl)
                     id = feature['id']
-                    #if "0.500" not in id:
-                     #   continue
-                    tempfile = temp + id
+                    tempfile = os.path.join(temp, id)
                     if not os.path.isfile(tempfile):
                         with open(tempfile, 'wb') as fd:
                             for chunk in downloaddata.iter_content(chunk_size=128):
@@ -1009,7 +1008,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         if dataName == 'Forecast Data':
             root = QgsProject.instance().layerTreeRoot()
             layer_group = root.insertGroup(0, 'Forecast' + datetime)
-            temp = 'temp'
+            temp = mkdtemp(suffix='_forecast-files')
             url = 'https://dmigw.govcloud.dk/v1/' + data_type + '/collections/' + data_type2 + '_' + fore_area + '/items'
             params = {'api-key': api_key,
                     'datetime': datetime,
@@ -1026,7 +1025,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 downloaddata = requests.get(downloadurl)
                 id = feature['id']
                 print(id)
-                tempfile = temp + id
+                tempfile = os.path.join(temp, id)
                 if not os.path.isfile(tempfile):
                     with open(tempfile, 'wb') as fd:
                         for chunk in downloaddata.iter_content():
