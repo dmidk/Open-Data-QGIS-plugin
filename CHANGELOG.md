@@ -1,3 +1,7 @@
+## Version: 1.0.3 - Fix radar and forecast file storage
+
+- Fix radar and forecast file storage
+
 ## Version: 1.0.3 - Set experimental flag to false
 
 - Set experimental flag to false

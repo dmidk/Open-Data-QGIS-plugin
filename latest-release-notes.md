@@ -1,6 +1,6 @@
 ## Changes
 
- - Set experimental flag to false
+ - Fix radar and forecast file storage
 
 ## Installation
 
