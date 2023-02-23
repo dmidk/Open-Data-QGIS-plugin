@@ -824,9 +824,9 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 for head in station_param_table:
                     if head in ['observed', 'from', 'to']:
                         pr.addAttributes([QgsField(head, QVariant.DateTime)])
-                    if head == para:
+                    elif head in parameters:
                         pr.addAttributes([QgsField(head, QVariant.Double)])
-                    elif head != 'observed':
+                    else:
                         pr.addAttributes([QgsField(head, QVariant.String)])
                 vl.updateFields()
                 f = QgsFeature()
