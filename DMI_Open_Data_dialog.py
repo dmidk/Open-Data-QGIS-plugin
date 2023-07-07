@@ -89,12 +89,12 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.danish_waters.setChecked(True)
         #self.all_para_dkss.setChecked(True)
         #self.all_para_wam.setChecked(True)
-        self.dev_sea_mean.setChecked(True)
-        self.wind_speed_10.setChecked(True)
         self.composite.setChecked(True)
         self.full_range.setChecked(True)
         self._60960.setChecked(True)
         self.all_lightning_types.setChecked(True)
+        self.harm_fore.setChecked(True)
+        self.nea_sf_area.setChecked(True)
 
 
         # Datetime default today and yesterday
@@ -140,11 +140,22 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.stackedWidget_2.setCurrentWidget(self.stat_para)
         self.stackedWidget_3.setCurrentWidget(self.met_stat_page)
         self.met_stat_info.clicked.connect(self.infoStat)
-        self.para_stacked.setCurrentWidget(self.wam_page)
-        self.stackedWidget_4.setCurrentWidget(self.nsbs_depth)
+        self.para_stacked.setCurrentWidget(self.harmonie_page)
         self.wam_fore.clicked.connect(self.wamTab)
         self.dkss_fore.clicked.connect(self.dkssTab)
+        self.harm_fore.clicked.connect(self.harmonieTab)
         self.tide_info.clicked.connect(self.infoTide)
+
+        self.nea_sf_area.clicked.connect(self.neaSfTab)
+        self.nea_pl_area.clicked.connect(self.neaPlTab)
+        self.igb_sf_area.clicked.connect(self.igbSfTab)
+        self.igb_pl_area.clicked.connect(self.igbPlTab)
+
+        self.coordi_harm.clicked.connect(self.enableCoordi)
+# Mangler her !!!!!
+        self.bbox_harm.setChecked(True)
+
+
         self.radioButton_10.clicked.connect(self.disable_time)
         self.radioButton_11.clicked.connect(self.enable_time)
         self.radioButton_21.clicked.connect(self.disable_time_oce)
@@ -155,19 +166,6 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.isefjord.clicked.connect(self.if_depth_tab)
         self.limfjord.clicked.connect(self.lf_depth_tab)
         self.little_belt.clicked.connect(self.lb_depth_tab)
-        self.dev_sea_mean.clicked.connect(self.depth_tab_dis)
-        self.u_comp_wind.clicked.connect(self.depth_tab_dis)
-        self.v_comp_wind.clicked.connect(self.depth_tab_dis)
-        self.u_comp_cur.clicked.connect(self.depth_tab_dis)
-        self.v_comp_cur.clicked.connect(self.depth_tab_dis)
-        self.water_temp.clicked.connect(self.depth_tab_dis)
-        self.salinity.clicked.connect(self.depth_tab_dis)
-        self.ice_thick.clicked.connect(self.depth_tab_dis)
-        self.ice_conc.clicked.connect(self.depth_tab_dis)
-        self.u_comp_cur_.clicked.connect(self.depth_tab_enabled)
-        self.v_comp_cur_.clicked.connect(self.depth_tab_enabled)
-        self.water_temp_.clicked.connect(self.depth_tab_enabled)
-        self.salinity_.clicked.connect(self.depth_tab_enabled)
         self.composite.clicked.connect(self.comp)
         self.pseudo.clicked.connect(self.pseud)
 
@@ -176,8 +174,6 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.groupBox_26.setEnabled(False)
         self.dateTimeEdit_3.setEnabled(False)
         self.dateTimeEdit_4.setEnabled(False)
-
-        self.groupBox_14.setEnabled(False)
 
         self.stat_radar.setEnabled(False)
 
@@ -342,10 +338,24 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.para_stacked.setCurrentWidget(self.wam_page)
     def dkssTab(self):
         self.para_stacked.setCurrentWidget(self.dkss_page)
+    def harmonieTab(self):
+        self.para_stacked.setCurrentWidget(self.harmonie_page)
     def depth_tab_dis(self):
         self.groupBox_14.setEnabled(False)
     def depth_tab_enabled(self):
         self.groupBox_14.setEnabled(True)
+
+    def neaSfTab(self):
+        self.harm_para_stacked.setCurrentWidget(self.harm_nea_sf_para)
+    def neaPlTab(self):
+        self.harm_para_stacked.setCurrentWidget(self.harm_nea_pl_para)
+    def igbSfTab(self):
+        self.harm_para_stacked.setCurrentWidget(self.harm_igb_sf_para)
+    def igbPlTab(self):
+        self.harm_para_stacked.setCurrentWidget(self.harm_igb_pl_para)
+
+
+
     def infoStat(self):
         self.stackedWidget_3.setCurrentWidget(self.met_stat_page)
     def infoGrid10(self):
@@ -477,6 +487,8 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 data_type2 = 'wam'
             elif self.dkss_fore.isChecked():
                 data_type2 = 'dkss'
+            elif self.harm_fore.isChecked():
+                data_type2 = 'harmonie'
 
 
         # Based on data_type2 the stationId, municipalityId or cellId will be assigned.
