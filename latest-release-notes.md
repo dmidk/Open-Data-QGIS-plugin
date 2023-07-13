@@ -1,6 +1,6 @@
 ## Changes
 
- - Fix radar and forecast file storage
+ - Fix plugin for new QGIS version (3.28)
 
 ## Installation
 

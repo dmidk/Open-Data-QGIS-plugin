@@ -6,7 +6,7 @@
 name=DMI Open Data
 qgisMinimumVersion=3.0
 description=This plugin lets you import data from DMIs Open Data
-version=1.0.4
+version=1.0.5
 author=Danish Meteorological Institute
 email=Use the contact form at https://www.dmi.dk/kontakt/frie-data/
 

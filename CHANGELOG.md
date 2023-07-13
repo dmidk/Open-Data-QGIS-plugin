@@ -1,4 +1,8 @@
-## Version: 1.0.3 - Fix radar and forecast file storage
+## Version: 1.0.5 - Fix plugin for new version of QGIS (3.28)
+
+- Fix plugin for new QGIS version (3.28)
+
+## Version: 1.0.4 - Fix radar and forecast file storage
 
 - Fix radar and forecast file storage
 
