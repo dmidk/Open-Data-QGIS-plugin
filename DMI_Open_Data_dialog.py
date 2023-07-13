@@ -4,7 +4,7 @@ from typing import Tuple, Dict, Set
 from qgis.PyQt import QtWidgets, uic
 import requests
 import pandas as pd
-from pandas.io.json import json_normalize
+from pandas import json_normalize
 import warnings
 from tempfile import mkdtemp
 from qgis.core import QgsVectorLayer, QgsProcessing, QgsProcessingFeedback, QgsRasterLayer, QgsContrastEnhancement, QgsRasterMinMaxOrigin, QgsFeature, QgsGeometry, QgsField, QgsPointXY, QgsProject, QgsRasterLayerTemporalProperties, QgsDateTimeRange, QgsColorRampShader, QgsRasterShader, QgsSingleBandPseudoColorRenderer, QgsSingleBandGrayRenderer, QgsRasterBandStats
@@ -15,8 +15,6 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from qgis.PyQt.QtCore import QVariant
 import webbrowser
-from .forecast_para import depth_para_dkss, salinity_nsbs, salinity_idw, salinity_if, salinity_lb, salinity_lf, salinity_ws, water_temp_nsbs, water_temp_if, water_temp_lb, water_temp_lf, water_temp_ws, water_temp_idw, v_current_nsbs, v_current_idw, v_current_if, v_current_lb, v_current_lf, v_current_ws, u_current_nsbs, u_current_idw, u_current_if,u_current_lb, u_current_lf, u_current_ws
-import processing
 from .api.station import get_stations, StationApi, StationId, Station, Parameter
 from .settings import DMISettingsManager, DMISettingKeys
 warnings.simplefilter(action='ignore', category=FutureWarning)
@@ -25,6 +23,7 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 # Stations are not part of this list, as stations are more dynamicly added and removed.
 # Stations are therefore imported from DMI Open Data via. the internet, each time QGIS is started.
 from .para_munic_grid import para_grid, grid10, grid20, munic
+from .forecast_para import paraHarmPl, paraHarmSf, paraHarmIgbSf, paraHarmIgbPl, paraWam, paraNsbs
 
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 # Ignore this, we no longer use the static ui files, look at pluginui_test.py instead
@@ -128,6 +127,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.browse_cli.clicked.connect(self.browse_files_cli)
         self.browse_lig.clicked.connect(self.browse_files_lig)
         self.browse_oce.clicked.connect(self.browse_files_oce)
+        self.browse_fore.clicked.connect(self.browse_files_fore)
         self.stat_type.clicked.connect(self.stat_typeR)
         self.grid10_type.clicked.connect(self.grid10_typeR)
         self.grid20_type.clicked.connect(self.grid20_typeR)
@@ -139,6 +139,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.stackedWidget.setCurrentWidget(self.stat_clima)
         self.stackedWidget_2.setCurrentWidget(self.stat_para)
         self.stackedWidget_3.setCurrentWidget(self.met_stat_page)
+        self.harm_para_stacked.setCurrentWidget(self.harm_nea_sf_para)
         self.met_stat_info.clicked.connect(self.infoStat)
         self.para_stacked.setCurrentWidget(self.harmonie_page)
         self.wam_fore.clicked.connect(self.wamTab)
@@ -152,7 +153,8 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.igb_pl_area.clicked.connect(self.igbPlTab)
 
         self.coordi_harm.clicked.connect(self.enableCoordi)
-# Mangler her !!!!!
+        self.bbox_harm.clicked.connect(self.enableBBox)
+        self.coordi_line.setEnabled(False)
         self.bbox_harm.setChecked(True)
 
 
@@ -160,12 +162,6 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.radioButton_11.clicked.connect(self.enable_time)
         self.radioButton_21.clicked.connect(self.disable_time_oce)
         self.radioButton_22.clicked.connect(self.enable_time_oce)
-        self.north_sea_baltic_sea.clicked.connect(self.nsbs_depth_tab)
-        self.inner_danish_waters.clicked.connect(self.idw_depth_tab)
-        self.wadden_sea.clicked.connect(self.ws_depth_tab)
-        self.isefjord.clicked.connect(self.if_depth_tab)
-        self.limfjord.clicked.connect(self.lf_depth_tab)
-        self.little_belt.clicked.connect(self.lb_depth_tab)
         self.composite.clicked.connect(self.comp)
         self.pseudo.clicked.connect(self.pseud)
 
@@ -314,6 +310,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             parameter_layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(settings_key))
         return checkboxes
 
+
     def comp(self):
         self.stat_radar.setEnabled(False)
         self.scan_type.setEnabled(True)
@@ -354,7 +351,12 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
     def igbPlTab(self):
         self.harm_para_stacked.setCurrentWidget(self.harm_igb_pl_para)
 
-
+    def enableCoordi(self):
+        self.coordi_line.setEnabled(True)
+        self.bbox_line.setEnabled(False)
+    def enableBBox(self):
+        self.coordi_line.setEnabled(False)
+        self.bbox_line.setEnabled(True)
 
     def infoStat(self):
         self.stackedWidget_3.setCurrentWidget(self.met_stat_page)
@@ -370,18 +372,6 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.stackedWidget_3.setCurrentWidget(self.light_page)
     def infoTide(self):
         self.stackedWidget_3.setCurrentWidget(self.tide_page)
-    def nsbs_depth_tab(self):
-        self.stackedWidget_4.setCurrentWidget(self.nsbs_depth)
-    def idw_depth_tab(self):
-        self.stackedWidget_4.setCurrentWidget(self.idw_depth)
-    def ws_depth_tab(self):
-        self.stackedWidget_4.setCurrentWidget(self.ws_depth)
-    def if_depth_tab(self):
-        self.stackedWidget_4.setCurrentWidget(self.if_depth)
-    def lf_depth_tab(self):
-        self.stackedWidget_4.setCurrentWidget(self.lf_depth)
-    def lb_depth_tab(self):
-        self.stackedWidget_4.setCurrentWidget(self.lb_depth)
 
 
 
@@ -402,6 +392,10 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
     def browse_files_oce(self):
         fname = QFileDialog.getSaveFileName(self, 'Open File', 'C:')
         self.file_name_oce.setText(fname[0])
+    def browse_files_fore(self):
+        fname = QFileDialog.getSaveFileName(self, 'Open File', 'C')
+        self.file_name_fore.setText(fname[0])
+
 # Changing pages in Climate Data
     def stat_typeR(self):
         self.stackedWidget.setCurrentWidget(self.stat_clima)
@@ -524,6 +518,15 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 fore_area = 'lf'
             elif self.little_belt.isChecked():
                 fore_area = 'lb'
+        elif data_type2 == 'harmonie':
+            if self.nea_sf_area.isChecked():
+                fore_area = 'nea_sf'
+            elif self.nea_pl_area.isChecked():
+                fore_area = 'nea_pl'
+            elif self.igb_sf_area.isChecked():
+                fore_area = 'igb_sf'
+            elif self.igb_pl_area.isChecked():
+                fore_area = 'igb_pl'
 
         # Oceanographic parameters
         if dataName == 'Oceanographic Observations':
@@ -613,30 +616,41 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     qt_checkbox_widget.setChecked(False)
 
         if data_type2 == 'wam':
-            wam_para = ['wind_speed_10', 'wind_direction_10', 'sig_wave_height', 'dom_wave_period', 'mean_wave_period',
-                        'mean_zero_wave_period', 'mean_wave_dir', 'sig_height_wind_waves_sea', 'mean_period_wind_wave_sea',
-                        'mean_dir_wind_wave_sea', 'sig_height_swell', 'mean_period_swell', 'mean_dir_swell',
-                        'benjamin_index']
-            wam_para_band = list(range(1, 15))
-            para_fore_dict_wam = dict(zip(wam_para, wam_para_band))
-            for fore_para in para_fore_dict_wam:
-                qt_checkbox_widget = getattr(self, fore_para)
+            for para in paraWam:
+                qt_checkbox_widget = getattr(self, para)
                 if qt_checkbox_widget.isChecked():
-                    parameters.append(fore_para)
+                    para = para[:-2]
+                    para = para.replace('_', '-')
+                    parameters.append(para)
                     qt_checkbox_widget.setChecked(False)
 
         if data_type2 == 'dkss':
-            nsbs_para = ['dev_sea_mean', 'u_comp_wind', 'v_comp_wind', 'u_comp_cur', 'v_comp_cur',
-                         'water_temp', 'salinity', 'ice_thick', 'ice_conc', 'u_comp_cur_',
-                         'v_comp_cur_', 'water_temp_', 'salinity_']
-            nsbs_para_band = list(range(1, 10))
-            para_fore_dict_nsbs = dict(zip(nsbs_para[0:9], nsbs_para_band))
-            for fore_para in nsbs_para:
-               qt_checkbox_widget = getattr(self, fore_para)
-               if qt_checkbox_widget.isChecked():
-                   parameters.append(fore_para)
-                   qt_checkbox_widget.setChecked(False)
-                    
+            for para in paraNsbs:
+                qt_checkbox_widget = getattr(self, para)
+                if qt_checkbox_widget.isChecked():
+                    para = para.replace('_', '-')
+                    parameters.append(para)
+                    qt_checkbox_widget.setChecked(False)
+
+        if data_type2 == 'harmonie':
+            if fore_area == 'nea_sf':
+                parameterListForecast = paraHarmSf
+            elif fore_area == 'nea_pl':
+                parameterListForecast = paraHarmPl
+            elif fore_area == 'igb_sf':
+                parameterListForecast = paraHarmIgbSf
+            elif fore_area == 'igb_pl':
+                parameterListForecast = paraHarmIgbPl
+            for para in parameterListForecast:
+                qt_checkbox_widget = getattr(self, para)
+                if qt_checkbox_widget.isChecked():
+                    para = para.replace('_','-')
+                    if fore_area == 'igb_pl' or fore_area == 'igb_sf':
+                        para = para[:-2]
+                    parameters.append(para)
+                    qt_checkbox_widget.setChecked(False)
+
+
         # Information for stations. The list of stations is based on climateData and NOT metObs
         if dataName == 'Stations and Parameters' and data_type2 == 'climateData':
             for parameter in self.climatedata_parameters:
@@ -1016,136 +1030,79 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 else:
                     df.to_csv(self.file_name_lig.text() + '.csv', index=False)
                     self.file_name_lig.clear()
+
         # Forecast data
         if dataName == 'Forecast Data':
-            root = QgsProject.instance().layerTreeRoot()
-            layer_group = root.insertGroup(0, 'Forecast' + datetime)
-            temp = mkdtemp(suffix='_forecast-files')
-            url = 'https://dmigw.govcloud.dk/v1/' + data_type + '/collections/' + data_type2 + '_' + fore_area + '/items'
+            if self.bbox_harm.isChecked():
+                position_res = 'cube'
+            elif self.coordi_harm.isChecked():
+                position_res = 'position'
+            url = 'https://dmigw.govcloud.dk/v1/forecastedr/collections/' + data_type2 + '_' + fore_area + '/' + position_res + '?'
             params = {'api-key': api_key,
                     'datetime': datetime,
-                    'limit': '300000'}
-            if self.bbox_fore.text() != '':
-                params.update({'bbox': self.bbox_fore.text()})
-            r = requests.get(url, params=params)
-            print(r, r.url)
-            json = r.json()
-            latest_model_run = sorted(json['features'], key=lambda feature: feature['properties']['modelRun'])[-1]['properties']['modelRun']
-            print(latest_model_run)
-            for feature in filter(lambda feature: feature['properties']['modelRun'] == latest_model_run, json['features']):
-                downloadurl = feature['asset']['data']['href']
-                downloaddata = requests.get(downloadurl)
-                id = feature['id']
-                print(id)
-                tempfile = os.path.join(temp, id)
-                if not os.path.isfile(tempfile):
-                    with open(tempfile, 'wb') as fd:
-                        for chunk in downloaddata.iter_content():
-                            fd.write(chunk)
-                layer = QgsRasterLayer(tempfile)
-                #if self.all_para_wam.isChecked() == False or self.all_para_dkss.isChecked() == False:
-                if data_type2 == 'wam':
-                    band_par = para_fore_dict_wam[parameters[0]]
-                    print(band_par)
-                elif data_type2 == 'dkss':
-                    if parameters[0] in depth_para_dkss:
-                        if fore_area == 'nsbs':
-                            depth = int(self.depth_box_nsbs.currentText())
-                            if parameters[0] == 'salinity_':
-                                band_par = salinity_nsbs[depth]
-                            elif parameters[0] == 'water_temp_':
-                                band_par = water_temp_nsbs[depth]
-                            elif parameters[0] == 'v_comp_cur_':
-                                band_par = u_current_nsbs[depth]
-                            elif parameters[0] == 'u_comp_cur_':
-                                band_par = v_current_nsbs[depth]
-                        elif fore_area == 'idw':
-                            depth = int(self.depth_box_idw.currentText())
-                            if parameters[0] == 'salinity_':
-                                band_par = salinity_idw[depth]
-                            elif parameters[0] == 'water_temp_':
-                                band_par = water_temp_idw[depth]
-                            elif parameters[0] == 'v_comp_cur_':
-                                band_par = u_current_idw[depth]
-                            elif parameters[0] == 'u_comp_cur_':
-                                band_par = v_current_idw[depth]
-                        elif fore_area == 'ws':
-                            depth = int(self.depth_box_ws.currentText())
-                            if parameters[0] == 'salinity_':
-                                band_par = salinity_ws[depth]
-                            elif parameters[0] == 'water_temp_':
-                                band_par = water_temp_ws[depth]
-                            elif parameters[0] == 'v_comp_cur_':
-                                band_par = u_current_ws[depth]
-                            elif parameters[0] == 'u_comp_cur_':
-                                band_par = v_current_ws[depth]
-                        elif fore_area == 'if':
-                            depth = int(self.depth_box_if.currentText())
-                            if parameters[0] == 'salinity_':
-                                band_par = salinity_if[depth]
-                            elif parameters[0] == 'water_temp_':
-                                band_par = water_temp_if[depth]
-                            elif parameters[0] == 'v_comp_cur_':
-                                band_par = u_current_if[depth]
-                            elif parameters[0] == 'u_comp_cur_':
-                                band_par = v_current_if[depth]
-                        elif fore_area == 'lf':
-                            depth = int(self.depth_box_lf.currentText())
-                            if parameters[0] == 'salinity_':
-                                band_par = salinity_lf[depth]
-                            elif parameters[0] == 'water_temp_':
-                                band_par = water_temp_lf[depth]
-                            elif parameters[0] == 'v_comp_cur_':
-                                band_par = u_current_lf[depth]
-                            elif parameters[0] == 'u_comp_cur_':
-                                band_par = v_current_lf[depth]
-                        elif fore_area == 'lb':
-                            depth = int(self.depth_box_lb.currentText())
-                            if parameters[0] == 'salinity_':
-                                band_par = salinity_lb[depth]
-                            elif parameters[0] == 'water_temp_':
-                                band_par = water_temp_lb[depth]
-                            elif parameters[0] == 'v_comp_cur_':
-                                band_par = u_current_lb[depth]
-                            elif parameters[0] == 'u_comp_cur_':
-                                band_par = v_current_lb[depth]
-                    elif parameters[0] not in depth_para_dkss:
-                        band_par = para_fore_dict_nsbs[parameters[0]]
-                # Provides the statistics for the layer. Used to find min and max
-                stats = layer.dataProvider().bandStatistics(band_par, QgsRasterBandStats.All)
-                # The layer will be mapped in a Gray symbology
-                renderer = QgsSingleBandGrayRenderer(layer.dataProvider(), band_par)
-                # Sets the color scale for the layer
-                myType = renderer.dataType(1)
-                myEnhancement = QgsContrastEnhancement(myType)
-                contrast_enhancement = QgsContrastEnhancement.StretchToMinimumMaximum
-                myEnhancement.setContrastEnhancementAlgorithm(contrast_enhancement, True)
-                myEnhancement.setMinimumValue(stats.minimumValue)
-                myEnhancement.setMaximumValue(stats.maximumValue)
-                d = feature['properties']['datetime']
-                start_time = QDateTime.fromString(d, 'yyyy-MM-ddThh:mm:ssZ')
-                end_time = start_time.addSecs(3600)
-                time_range = QgsDateTimeRange(start_time, end_time)
-                layer.temporalProperties().setFixedTemporalRange(time_range)
-                layer.temporalProperties().setIsActive(True)
-                layer.setRenderer(renderer)
-                layer.renderer().setContrastEnhancement(myEnhancement)
+                    'limit': '300000',
+                    'f': 'GeoJSON'}
 
 
-                # Changes the name
-                if len(parameters) > 0:
-                    if self.wam_fore.isChecked():
-                        layer.setName(data_type2 + ' ' + fore_area + ' ' + parameters[0] + ' ' + feature['properties']['datetime'])
-                    elif self.dkss_fore.isChecked() and parameters[0] in depth_para_dkss:
-                        layer.setName(data_type2 + ' ' + fore_area + ' ' + parameters[0] + ' ' + str(depth) + 'm ' + feature['properties']['datetime'])
-                    elif self.dkss_fore.isChecked() and parameters[0] not in depth_para_dkss:
-                        layer.setName(data_type2 + ' ' + fore_area + ' ' + parameters[0] + ' ' + feature['properties']['datetime'])
-                elif len(parameters) == 0:
-                    layer.setName(data_type2 + ' ' + fore_area + ' ' + 'All parameters ' + feature['properties']['datetime'])
-                # Adds the layer to the map
-                project = QgsProject.instance()
-                project.addMapLayer(layer, addToLegend=False)
-                layer_group.insertLayer(-1, layer)
+            if self.bbox_harm.isChecked():
+                returned_data = '1'
+                if ',' in self.bbox_line.text():
+                    QMessageBox.warning(self, self.tr("DMI Open Data"),
+                                        self.tr('Please use space as coordinates seperator and not comma.' \
+                                                + '\n' + '\n' + 'E.g. change 10.52,57.13,11.20,57.40 to 10.52 57.13 11.20 57.40'))
+                    returned_data = '0'
+                bbox_cordi = self.bbox_line.text()
+                bbox_cordi = bbox_cordi.replace(' ', ',')
+                params.update({'bbox': bbox_cordi})
+
+            elif self.coordi_harm.isChecked():
+                returned_data = '1'
+                if ',' in self.coordi_line.text():
+                    QMessageBox.warning(self, self.tr("DMI Open Data"),
+                                        self.tr('Please use space as coordinates seperator and not comma.' \
+                                                + '\n' + '\n' + 'E.g. change 10.52,57.13 to 10.52 57.13'))
+                    returned_data = '0'
+                params.update({'coords': 'POINT(' + self.coordi_line.text() + ')'})
+
+            if len(parameters) > 0 and returned_data != '0':
+                params.update({'parameter-name': parameters})
+                returned_data = '1'
+            elif len(parameters) == 0:
+                QMessageBox.warning(self, self.tr("DMI Open Data"),
+                                    self.tr('Please select a parameter.'))
+                returned_data = '0'
+
+            if returned_data != '0':
+                r = requests.get(url, params=params)
+                print(r, r.url)
+                json = r.json()
+                df = json_normalize(json['features'])
+                df = df.drop(['type', 'geometry.type'], axis=1)
+                vl = QgsVectorLayer("Point", data_type2 + ' ' + fore_area, "memory")
+                pd.set_option('display.max_columns', None)
+                print(df.head())
+                pr = vl.dataProvider()
+                vl.startEditing()
+                for head in df:
+                    if head == 'properties.step':
+                        pr.addAttributes([QgsField(head, QVariant.DateTime)])
+                    if head != 'geometry.coordinates':
+                        pr.addAttributes([QgsField(head, QVariant.Double)])
+                for row in df.itertuples():
+                    f = QgsFeature()
+                    f.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(row[1][0], row[1][1])))
+                    vl.updateFields()
+                    params_list_to_feat = list(row[2:len(df.columns)+1])
+                    f.setAttributes(params_list_to_feat)
+                    vl.addFeature(f)
+                    vl.updateExtents()
+                vl.commitChanges()
+                QgsProject.instance().addMapLayer(vl)
+                iface.zoomToActiveLayer()
+
+                if self.file_name_fore.text() != '':
+                    df.to_csv(self.file_name_fore.text() + '.csv', index=False)
+
         # Information about stations and parameters
         if dataName == 'Stations and Parameters':
             if self.met_stat_info.isChecked():

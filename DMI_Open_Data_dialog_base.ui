@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1345</width>
-    <height>528</height>
+    <height>534</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -38,7 +38,7 @@
       <bool>true</bool>
      </property>
      <property name="currentIndex">
-      <number>5</number>
+      <number>4</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>
@@ -134,7 +134,7 @@
                    <x>0</x>
                    <y>0</y>
                    <width>624</width>
-                   <height>245</height>
+                   <height>251</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_10"/>
@@ -165,7 +165,7 @@
                    <x>0</x>
                    <y>0</y>
                    <width>623</width>
-                   <height>245</height>
+                   <height>251</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_5"/>
@@ -367,8 +367,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>628</width>
-                  <height>204</height>
+                  <width>63</width>
+                  <height>18</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_14"/>
@@ -390,7 +390,7 @@
                   <x>0</x>
                   <y>0</y>
                   <width>628</width>
-                  <height>204</height>
+                  <height>210</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_32"/>
@@ -422,7 +422,7 @@
                   <x>0</x>
                   <y>0</y>
                   <width>627</width>
-                  <height>204</height>
+                  <height>210</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36"/>
@@ -443,8 +443,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>98</width>
-                  <height>28</height>
+                  <width>63</width>
+                  <height>18</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_40"/>
@@ -465,8 +465,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>98</width>
-                  <height>28</height>
+                  <width>63</width>
+                  <height>18</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34"/>
@@ -487,8 +487,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>98</width>
-                  <height>28</height>
+                  <width>63</width>
+                  <height>18</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_38"/>
@@ -990,7 +990,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>625</width>
-                 <height>247</height>
+                 <height>253</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_100"/>
@@ -1031,7 +1031,7 @@
       <attribute name="title">
        <string>Forecast Data</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_59">
+      <layout class="QVBoxLayout" name="verticalLayout_70">
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_29">
          <item>
@@ -1111,409 +1111,1553 @@
        <item>
         <widget class="QStackedWidget" name="para_stacked">
          <property name="currentIndex">
-          <number>0</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="harmonie_page">
-          <layout class="QVBoxLayout" name="verticalLayout_85">
+          <layout class="QVBoxLayout" name="verticalLayout_8">
            <item>
-            <layout class="QVBoxLayout" name="verticalLayout_84">
+            <layout class="QHBoxLayout" name="horizontalLayout_34">
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_34">
-               <item>
-                <widget class="QGroupBox" name="groupBox_30">
-                 <property name="title">
-                  <string>Parameters</string>
-                 </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_64">
-                  <item>
-                   <widget class="QStackedWidget" name="harm_para_stacked">
-                    <property name="currentIndex">
-                     <number>0</number>
-                    </property>
-                    <widget class="QWidget" name="harm_nea_sf_para">
-                     <layout class="QVBoxLayout" name="verticalLayout_44">
-                      <item>
-                       <widget class="QScrollArea" name="scrollArea_12">
-                        <property name="widgetResizable">
-                         <bool>true</bool>
-                        </property>
-                        <widget class="QWidget" name="scrollAreaWidgetContents_12">
-                         <property name="geometry">
-                          <rect>
-                           <x>0</x>
-                           <y>0</y>
-                           <width>581</width>
-                           <height>380</height>
-                          </rect>
-                         </property>
-                         <layout class="QVBoxLayout" name="verticalLayout_53">
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_36">
-                            <property name="text">
-                             <string>Pressure at sea level</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_34">
-                            <property name="text">
-                             <string>Total column vertically-integrated water vapour</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_35">
-                            <property name="text">
-                             <string>Cloudcover</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_32">
-                            <property name="text">
-                             <string>Global radiation</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_37">
-                            <property name="text">
-                             <string>U component of wind</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_41">
-                            <property name="text">
-                             <string>V component of wind</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_33">
-                            <property name="text">
-                             <string>The speed of horizontal air movement in metres per second </string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_29">
-                            <property name="text">
-                             <string>Wind direction</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_38">
-                            <property name="text">
-                             <string>Temperature</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_30">
-                            <property name="text">
-                             <string>Presure at surface level</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_39">
-                            <property name="text">
-                             <string>The potential energy of a unit mass relative to sea level.</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_43">
-                            <property name="text">
-                             <string>Dew temperature</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_28">
-                            <property name="text">
-                             <string>Relative humidity</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_42">
-                            <property name="text">
-                             <string>Land percent</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_31">
-                            <property name="text">
-                             <string>Specific humidity</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_40">
-                            <property name="text">
-                             <string>Canopy Water (bladfugt)</string>
-                            </property>
-                           </widget>
-                          </item>
-                         </layout>
-                        </widget>
-                       </widget>
-                      </item>
-                     </layout>
-                    </widget>
-                    <widget class="QWidget" name="harm_nea_pl_para">
-                     <layout class="QVBoxLayout" name="verticalLayout_54">
-                      <item>
-                       <widget class="QScrollArea" name="scrollArea_14">
-                        <property name="widgetResizable">
-                         <bool>true</bool>
-                        </property>
-                        <widget class="QWidget" name="scrollAreaWidgetContents_14">
-                         <property name="geometry">
-                          <rect>
-                           <x>0</x>
-                           <y>0</y>
-                           <width>598</width>
-                           <height>129</height>
-                          </rect>
-                         </property>
-                         <layout class="QVBoxLayout" name="verticalLayout_55">
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_47">
-                            <property name="text">
-                             <string>Temperature</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_48">
-                            <property name="text">
-                             <string>U component of wind</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_46">
-                            <property name="text">
-                             <string>V component of wind</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_44">
-                            <property name="text">
-                             <string>Wind direction</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_45">
-                            <property name="text">
-                             <string>Wind speed</string>
-                            </property>
-                           </widget>
-                          </item>
-                         </layout>
-                        </widget>
-                       </widget>
-                      </item>
-                     </layout>
-                    </widget>
-                    <widget class="QWidget" name="harm_igb_pl_para">
-                     <layout class="QVBoxLayout" name="verticalLayout_56">
-                      <item>
-                       <widget class="QScrollArea" name="scrollArea_15">
-                        <property name="widgetResizable">
-                         <bool>true</bool>
-                        </property>
-                        <widget class="QWidget" name="scrollAreaWidgetContents_15">
-                         <property name="geometry">
-                          <rect>
-                           <x>0</x>
-                           <y>0</y>
-                           <width>142</width>
-                           <height>127</height>
-                          </rect>
-                         </property>
-                         <layout class="QVBoxLayout" name="verticalLayout_57">
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_52">
-                            <property name="text">
-                             <string>Temperature</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_50">
-                            <property name="text">
-                             <string>U component of wind</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_53">
-                            <property name="text">
-                             <string>V component of wind</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_49">
-                            <property name="text">
-                             <string>Wind direction</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_51">
-                            <property name="text">
-                             <string>Wind speed</string>
-                            </property>
-                           </widget>
-                          </item>
-                         </layout>
-                        </widget>
-                       </widget>
-                      </item>
-                     </layout>
-                    </widget>
-                    <widget class="QWidget" name="harm_igb_sf_para">
-                     <layout class="QVBoxLayout" name="verticalLayout_58">
-                      <item>
-                       <widget class="QScrollArea" name="scrollArea_16">
-                        <property name="widgetResizable">
-                         <bool>true</bool>
-                        </property>
-                        <widget class="QWidget" name="scrollAreaWidgetContents_16">
-                         <property name="geometry">
-                          <rect>
-                           <x>0</x>
-                           <y>0</y>
-                           <width>598</width>
-                           <height>129</height>
-                          </rect>
-                         </property>
-                         <layout class="QVBoxLayout" name="verticalLayout_78">
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_54">
-                            <property name="text">
-                             <string>Presure at sea level</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QCheckBox" name="checkBox_55">
-                            <property name="text">
-                             <string>Total column vertically-integrated water vapour</string>
-                            </property>
-                           </widget>
-                          </item>
-                         </layout>
-                        </widget>
-                       </widget>
-                      </item>
-                     </layout>
-                    </widget>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-               <item>
-                <widget class="QGroupBox" name="groupBox_32">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="title">
-                  <string>Areas</string>
-                 </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_86">
-                  <item>
-                   <widget class="QRadioButton" name="nea_sf_area">
-                    <property name="text">
-                     <string>Northwestern Europe Surface (NEA SF)</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QRadioButton" name="nea_pl_area">
-                    <property name="text">
-                     <string>Northwestern Europe Pressure Level (NEA PL)</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QRadioButton" name="igb_sf_area">
-                    <property name="text">
-                     <string>Iceland Greenland Surface (IGB SF)</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QRadioButton" name="igb_pl_area">
-                    <property name="text">
-                     <string>Iceland Greenland Pressure Level (IGB PL)</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-              </layout>
+              <widget class="QGroupBox" name="groupBox_30">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="title">
+                <string>Parameters</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_64">
+                <item>
+                 <widget class="QStackedWidget" name="harm_para_stacked">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="currentIndex">
+                   <number>2</number>
+                  </property>
+                  <widget class="QWidget" name="harm_nea_sf_para">
+                   <layout class="QVBoxLayout" name="verticalLayout_53">
+                    <item>
+                     <widget class="QScrollArea" name="scrollArea_12">
+                      <property name="widgetResizable">
+                       <bool>true</bool>
+                      </property>
+                      <widget class="QWidget" name="scrollAreaWidgetContents_12">
+                       <property name="geometry">
+                        <rect>
+                         <x>0</x>
+                         <y>0</y>
+                         <width>582</width>
+                         <height>817</height>
+                        </rect>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_44">
+                        <item>
+                         <widget class="QCheckBox" name="pressure_sealevel">
+                          <property name="text">
+                           <string>Pressure at sea level</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="total_column_vertically_integrated_water_vapour">
+                          <property name="text">
+                           <string>Total column vertically-integrated water vapour</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="cloudcover">
+                          <property name="text">
+                           <string>Cloudcover</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="global_radiation">
+                          <property name="text">
+                           <string>Global radiation</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_50m_u">
+                          <property name="text">
+                           <string>Wind 50m. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_50m_v">
+                          <property name="text">
+                           <string>Wind 50m. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_50m">
+                          <property name="text">
+                           <string>Wind direction 50m. </string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_50m">
+                          <property name="text">
+                           <string>Wind speed 50m. </string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_100m_u">
+                          <property name="text">
+                           <string>Wind 100m. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_100m_v">
+                          <property name="text">
+                           <string>Wind 100m. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_100m">
+                          <property name="text">
+                           <string>Wind direction 100m.</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_100m">
+                          <property name="text">
+                           <string>Wind speed 100m.</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_150m_u">
+                          <property name="text">
+                           <string>Wind 150m. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_150m_v">
+                          <property name="text">
+                           <string>Wind 150m. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_150m">
+                          <property name="text">
+                           <string>Wind direction 150m. </string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_150m">
+                          <property name="text">
+                           <string>Wind speed 150m.</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_250m_u">
+                          <property name="text">
+                           <string>Wind 250m. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_250m_v">
+                          <property name="text">
+                           <string>Wind 250m. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_250m">
+                          <property name="text">
+                           <string>Wind direction 250m. </string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_250m">
+                          <property name="text">
+                           <string>Wind speed 250m.</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_50m">
+                          <property name="text">
+                           <string>Temperature 50 m.</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_100m">
+                          <property name="text">
+                           <string>Temperature 100m.</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_150m">
+                          <property name="text">
+                           <string>Temperature 150m. </string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_250m">
+                          <property name="text">
+                           <string>Temperature 250m. </string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="pressure_surface">
+                          <property name="text">
+                           <string>Preasure at surface level</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="geopotential">
+                          <property name="text">
+                           <string>Geopotential</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_2m">
+                          <property name="text">
+                           <string>Temperature 2m.</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_0m">
+                          <property name="text">
+                           <string>Temperature 0m.</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="dew_temperature">
+                          <property name="text">
+                           <string>Dew temperature</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="relative_humidity">
+                          <property name="text">
+                           <string>Relative humidity</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="land_percent">
+                          <property name="text">
+                           <string>Land percent</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir">
+                          <property name="text">
+                           <string>Wind direction</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed">
+                          <property name="text">
+                           <string>Wind speed</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="specific_humidity">
+                          <property name="text">
+                           <string>Specific humidity</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="canopy_water">
+                          <property name="text">
+                           <string>Canopy water</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="harm_nea_pl_para">
+                   <layout class="QVBoxLayout" name="verticalLayout_55">
+                    <item>
+                     <widget class="QScrollArea" name="scrollArea_14">
+                      <property name="widgetResizable">
+                       <bool>true</bool>
+                      </property>
+                      <widget class="QWidget" name="scrollAreaWidgetContents_14">
+                       <property name="geometry">
+                        <rect>
+                         <x>0</x>
+                         <y>0</y>
+                         <width>582</width>
+                         <height>1852</height>
+                        </rect>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_54">
+                        <item>
+                         <widget class="QCheckBox" name="temperature_50hPa">
+                          <property name="text">
+                           <string>Temperature 50 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_50hPa_u">
+                          <property name="text">
+                           <string>Wind 50 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_50hPa_v">
+                          <property name="text">
+                           <string>Wind 50 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_50hPa">
+                          <property name="text">
+                           <string>Wind direction 50 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_50hPa">
+                          <property name="text">
+                           <string>Wind speed 50 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_100hPa">
+                          <property name="text">
+                           <string>Temperature 100 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_100hPa_u">
+                          <property name="text">
+                           <string>Wind 100 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_100hPa_v">
+                          <property name="text">
+                           <string>Wind 100 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_100hPa">
+                          <property name="text">
+                           <string>Wind direction 100 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_100hPa">
+                          <property name="text">
+                           <string>Wind speed 100 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_150hPa">
+                          <property name="text">
+                           <string>Temperature 150 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_150hPa_u">
+                          <property name="text">
+                           <string>Wind 150 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_150hPa_v">
+                          <property name="text">
+                           <string>Wind 150 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_150hPa">
+                          <property name="text">
+                           <string>Wind direction 150 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_150hPa">
+                          <property name="text">
+                           <string>Wind speed 150 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_200hPa">
+                          <property name="text">
+                           <string>Temperature 200 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_200hPa_u">
+                          <property name="text">
+                           <string>Wind 200 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_200hPa_v">
+                          <property name="text">
+                           <string>Wind 200 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_200hPa">
+                          <property name="text">
+                           <string>Wind direction 200 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_200hPa">
+                          <property name="text">
+                           <string>Wind speed 200 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_250hPa">
+                          <property name="text">
+                           <string>Temperature 250 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_250hPa_u">
+                          <property name="text">
+                           <string>Wind 250 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_250hPa_v">
+                          <property name="text">
+                           <string>Wind 250 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_250hPa">
+                          <property name="text">
+                           <string>Wind direction 250 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_250hPa">
+                          <property name="text">
+                           <string>Wind speed 250 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_300hPa">
+                          <property name="text">
+                           <string>Temperature 300 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_300hPa_u">
+                          <property name="text">
+                           <string>Wind 300 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_300hPa_v">
+                          <property name="text">
+                           <string>Wind 300 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_300hPa">
+                          <property name="text">
+                           <string>Wind direction 300 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_300hPa">
+                          <property name="text">
+                           <string>Wind speed 300 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_400hPa">
+                          <property name="text">
+                           <string>Temperature 400 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_400hPa_u">
+                          <property name="text">
+                           <string>Wind 400 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_400hPa_v">
+                          <property name="text">
+                           <string>Wind 400 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_400hPa">
+                          <property name="text">
+                           <string>Wind direction 400 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_400hPa">
+                          <property name="text">
+                           <string>Wind speed 400 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_500hPa">
+                          <property name="text">
+                           <string>Temperature 500 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_500hPa_u">
+                          <property name="text">
+                           <string>Wind 500 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_500hPa_v">
+                          <property name="text">
+                           <string>Wind 500 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_500hPa">
+                          <property name="text">
+                           <string>Wind direction 500 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_500hPa">
+                          <property name="text">
+                           <string>Wind speed 500 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_600hPa">
+                          <property name="text">
+                           <string>Temperature 600 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_600hPa_u">
+                          <property name="text">
+                           <string>Wind 600 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_600hPa_v">
+                          <property name="text">
+                           <string>Wind 600 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_600hPa">
+                          <property name="text">
+                           <string>Wind direction 600 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_600hPa">
+                          <property name="text">
+                           <string>Wind speed 600 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_700hPa">
+                          <property name="text">
+                           <string>Temperature 700 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_700hPa_u">
+                          <property name="text">
+                           <string>Wind 700 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_700hPa_v">
+                          <property name="text">
+                           <string>Wind 700 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_700hPa">
+                          <property name="text">
+                           <string>Wind direction 700 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_700hPa">
+                          <property name="text">
+                           <string>Wind speed 700 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_800hPa">
+                          <property name="text">
+                           <string>Temperature 800 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_800hPa_u">
+                          <property name="text">
+                           <string>Wind 800 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_800hPa_v">
+                          <property name="text">
+                           <string>Wind 800 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_800hPa">
+                          <property name="text">
+                           <string>Wind direction 800 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_800hPa">
+                          <property name="text">
+                           <string>Wind speed 800 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_850hPa">
+                          <property name="text">
+                           <string>Temperature 850 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_850hPa_u">
+                          <property name="text">
+                           <string>Wind 850 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_850hPa_v">
+                          <property name="text">
+                           <string>Wind 850 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_850hPa">
+                          <property name="text">
+                           <string>Wind direction 850 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_850hPa">
+                          <property name="text">
+                           <string>Wind speed 850 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_900hPa">
+                          <property name="text">
+                           <string>Temperature 900 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_900hPa_u">
+                          <property name="text">
+                           <string>Wind 900 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_900hPa_v">
+                          <property name="text">
+                           <string>Wind 900 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_900hPa">
+                          <property name="text">
+                           <string>Wind direction 900 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_900hPa">
+                          <property name="text">
+                           <string>Wind speed 900 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_925hPa">
+                          <property name="text">
+                           <string>Temperature 925 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_925hPa_u">
+                          <property name="text">
+                           <string>Wind 925 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_925hPa_v">
+                          <property name="text">
+                           <string>Wind 925 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_925hPa">
+                          <property name="text">
+                           <string>Wind direction 925 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_925hPa">
+                          <property name="text">
+                           <string>Wind speed 925 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_950hPa">
+                          <property name="text">
+                           <string>Temperature 950 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_950hPa_u">
+                          <property name="text">
+                           <string>Wind 950 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_950hPa_v">
+                          <property name="text">
+                           <string>Wind 950 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_950hPa">
+                          <property name="text">
+                           <string>Wind direction 950 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_950hPa">
+                          <property name="text">
+                           <string>Wind speed 950 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_1000hPa">
+                          <property name="text">
+                           <string>Temperature 1000 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_1000hPa_u">
+                          <property name="text">
+                           <string>Wind 1000 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_1000hPa_v">
+                          <property name="text">
+                           <string>Wind 1000 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_1000hPa">
+                          <property name="text">
+                           <string>Wind direction 1000 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_1000hPa">
+                          <property name="text">
+                           <string>Wind speed 1000 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="harm_igb_pl_para">
+                   <layout class="QVBoxLayout" name="verticalLayout_57">
+                    <item>
+                     <widget class="QScrollArea" name="scrollArea_15">
+                      <property name="widgetResizable">
+                       <bool>true</bool>
+                      </property>
+                      <widget class="QWidget" name="scrollAreaWidgetContents_15">
+                       <property name="geometry">
+                        <rect>
+                         <x>0</x>
+                         <y>0</y>
+                         <width>582</width>
+                         <height>1852</height>
+                        </rect>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_56">
+                        <item>
+                         <widget class="QCheckBox" name="temperature_50hPa_2">
+                          <property name="text">
+                           <string>Temperature 50 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_50hPa_u_2">
+                          <property name="text">
+                           <string>Wind 50 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_50hPa_v_2">
+                          <property name="text">
+                           <string>Wind 50 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_50hPa_2">
+                          <property name="text">
+                           <string>Wind direction 50 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_50hPa_2">
+                          <property name="text">
+                           <string>Wind speed 50 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_100hPa_2">
+                          <property name="text">
+                           <string>Temperature 100 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_100hPa_u_2">
+                          <property name="text">
+                           <string>Wind 100 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_100hPa_v_2">
+                          <property name="text">
+                           <string>Wind 100 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_100hPa_2">
+                          <property name="text">
+                           <string>Wind direction 100 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_100hPa_2">
+                          <property name="text">
+                           <string>Wind speed 100 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_150hPa_2">
+                          <property name="text">
+                           <string>Temperature 150 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_150hPa_u_2">
+                          <property name="text">
+                           <string>Wind 150 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_150hPa_v_2">
+                          <property name="text">
+                           <string>Wind 150 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_150hPa_2">
+                          <property name="text">
+                           <string>Wind direction 150 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_150hPa_2">
+                          <property name="text">
+                           <string>Wind speed 150 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_200hPa_2">
+                          <property name="text">
+                           <string>Temperature 200 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_200hPa_u_2">
+                          <property name="text">
+                           <string>Wind 200 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_200hPa_v_2">
+                          <property name="text">
+                           <string>Wind 200 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_200hPa_2">
+                          <property name="text">
+                           <string>Wind direction 200 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_200hPa_2">
+                          <property name="text">
+                           <string>Wind speed 200 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_250hPa_2">
+                          <property name="text">
+                           <string>Temperature 250 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_250hPa_u_2">
+                          <property name="text">
+                           <string>Wind 250 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_250hPa_v_2">
+                          <property name="text">
+                           <string>Wind 250 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_250hPa_2">
+                          <property name="text">
+                           <string>Wind direction 250 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_250hPa_2">
+                          <property name="text">
+                           <string>Wind speed 250 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_300hPa_2">
+                          <property name="text">
+                           <string>Temperature 300 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_300hPa_u_2">
+                          <property name="text">
+                           <string>Wind 300 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_300hPa_v_2">
+                          <property name="text">
+                           <string>Wind 300 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_300hPa_2">
+                          <property name="text">
+                           <string>Wind direction 300 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_300hPa_2">
+                          <property name="text">
+                           <string>Wind speed 300 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_400hPa_2">
+                          <property name="text">
+                           <string>Temperature 400 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_400hPa_u_2">
+                          <property name="text">
+                           <string>Wind 400 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_400hPa_v_2">
+                          <property name="text">
+                           <string>Wind 400 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_400hPa_2">
+                          <property name="text">
+                           <string>Wind direction 400 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_400hPa_2">
+                          <property name="text">
+                           <string>Wind speed 400 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_500hPa_2">
+                          <property name="text">
+                           <string>Temperature 500 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_500hPa_u_2">
+                          <property name="text">
+                           <string>Wind 500 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_500hPa_v_2">
+                          <property name="text">
+                           <string>Wind 500 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_500hPa_2">
+                          <property name="text">
+                           <string>Wind direction 500 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_500hPa_2">
+                          <property name="text">
+                           <string>Wind speed 500 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_600hPa_2">
+                          <property name="text">
+                           <string>Temperature 600 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_600hPa_u_2">
+                          <property name="text">
+                           <string>Wind 600 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_600hPa_v_2">
+                          <property name="text">
+                           <string>Wind 600 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_600hPa_2">
+                          <property name="text">
+                           <string>Wind direction 600 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_600hPa_2">
+                          <property name="text">
+                           <string>Wind speed 600 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_700hPa_2">
+                          <property name="text">
+                           <string>Temperature 700 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_700hPa_u_2">
+                          <property name="text">
+                           <string>Wind 700 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_700hPa_v_2">
+                          <property name="text">
+                           <string>Wind 700 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_700hPa_2">
+                          <property name="text">
+                           <string>Wind direction 700 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_700hPa_2">
+                          <property name="text">
+                           <string>Wind speed 700 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_800hPa_2">
+                          <property name="text">
+                           <string>Temperature 800 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_800hPa_u_2">
+                          <property name="text">
+                           <string>Wind 800 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_800hPa_v_2">
+                          <property name="text">
+                           <string>Wind 800 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_800hPa_2">
+                          <property name="text">
+                           <string>Wind direction 800 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_800hPa_2">
+                          <property name="text">
+                           <string>Wind speed 800 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_850hPa_2">
+                          <property name="text">
+                           <string>Temperature 850 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_850hPa_u_2">
+                          <property name="text">
+                           <string>Wind 850 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_850hPa_v_2">
+                          <property name="text">
+                           <string>Wind 850 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_850hPa_2">
+                          <property name="text">
+                           <string>Wind direction 850 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_850hPa_2">
+                          <property name="text">
+                           <string>Wind speed 850 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_900hPa_2">
+                          <property name="text">
+                           <string>Temperature 900 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_900hPa_u_2">
+                          <property name="text">
+                           <string>Wind 900 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_900hPa_v_2">
+                          <property name="text">
+                           <string>Wind 900 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_900hPa_2">
+                          <property name="text">
+                           <string>Wind direction 900 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_900hPa_2">
+                          <property name="text">
+                           <string>Wind speed 900 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_925hPa_2">
+                          <property name="text">
+                           <string>Temperature 925 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_925hPa_u_2">
+                          <property name="text">
+                           <string>Wind 925 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_925hPa_v_2">
+                          <property name="text">
+                           <string>Wind 925 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_925hPa_2">
+                          <property name="text">
+                           <string>Wind direction 925 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_925hPa_2">
+                          <property name="text">
+                           <string>Wind speed 925 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_950hPa_2">
+                          <property name="text">
+                           <string>Temperature 950 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_950hPa_u_2">
+                          <property name="text">
+                           <string>Wind 950 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_950hPa_v_2">
+                          <property name="text">
+                           <string>Wind 950 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_950hPa_2">
+                          <property name="text">
+                           <string>Wind direction 950 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_950hPa_2">
+                          <property name="text">
+                           <string>Wind speed 950 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="temperature_1000hPa_2">
+                          <property name="text">
+                           <string>Temperature 1000 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_1000hPa_u_2">
+                          <property name="text">
+                           <string>Wind 1000 hPa. U component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_1000hPa_v_2">
+                          <property name="text">
+                           <string>Wind 1000 hPa. V component</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_dir_1000hPa_2">
+                          <property name="text">
+                           <string>Wind direction 1000 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="wind_speed_1000hPa_2">
+                          <property name="text">
+                           <string>Wind speed 1000 hPa</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="harm_igb_sf_para">
+                   <layout class="QVBoxLayout" name="verticalLayout_58">
+                    <item>
+                     <widget class="QScrollArea" name="scrollArea_16">
+                      <property name="widgetResizable">
+                       <bool>true</bool>
+                      </property>
+                      <widget class="QWidget" name="scrollAreaWidgetContents_16">
+                       <property name="geometry">
+                        <rect>
+                         <x>0</x>
+                         <y>0</y>
+                         <width>599</width>
+                         <height>139</height>
+                        </rect>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_78">
+                        <item>
+                         <widget class="QCheckBox" name="pressure_sealevel_2">
+                          <property name="text">
+                           <string>Presure at sea level</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="total_column_vertically_integrated_water_vapour_2">
+                          <property name="text">
+                           <string>Total column vertically-integrated water vapour</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_33">
-               <item>
-                <widget class="QGroupBox" name="groupBox_34">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="title">
-                  <string>Coordinate or BBox</string>
-                 </property>
-                 <layout class="QHBoxLayout" name="horizontalLayout_37">
-                  <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_76">
-                    <item>
-                     <widget class="QRadioButton" name="bbox_harm">
-                      <property name="text">
-                       <string>BBox</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLineEdit" name="lineEdit_4"/>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_77">
-                    <item>
-                     <widget class="QRadioButton" name="coordi_harm">
-                      <property name="text">
-                       <string>Coordinate</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLineEdit" name="coordi_line"/>
-                    </item>
-                   </layout>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-              </layout>
+              <widget class="QGroupBox" name="groupBox_32">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="title">
+                <string>Areas</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_86">
+                <item>
+                 <widget class="QRadioButton" name="nea_sf_area">
+                  <property name="text">
+                   <string>Northwestern Europe Surface (NEA SF)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="nea_pl_area">
+                  <property name="text">
+                   <string>Northwestern Europe Pressure Level (NEA PL)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="igb_sf_area">
+                  <property name="text">
+                   <string>Iceland Greenland Surface (IGB SF)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="igb_pl_area">
+                  <property name="text">
+                   <string>Iceland Greenland Pressure Level (IGB PL)</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
              </item>
             </layout>
            </item>
@@ -1544,107 +2688,107 @@
                    <property name="geometry">
                     <rect>
                      <x>0</x>
-                     <y>0</y>
+                     <y>-101</y>
                      <width>600</width>
                      <height>334</height>
                     </rect>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_43">
                     <item>
-                     <widget class="QCheckBox" name="checkBox_2">
+                     <widget class="QCheckBox" name="wind_speed_2">
                       <property name="text">
                        <string>Wind speed</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QCheckBox" name="checkBox">
+                     <widget class="QCheckBox" name="wind_dir_2">
                       <property name="text">
                        <string>Wind Direction</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QCheckBox" name="checkBox_3">
+                     <widget class="QCheckBox" name="significant_wave_height">
                       <property name="text">
                        <string>Significant wave height</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QCheckBox" name="checkBox_4">
+                     <widget class="QCheckBox" name="dominant_wave_period">
                       <property name="text">
                        <string>Dominant wave period</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QCheckBox" name="checkBox_5">
+                     <widget class="QCheckBox" name="mean_wave_period">
                       <property name="text">
                        <string>Mean wave period </string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QCheckBox" name="checkBox_6">
+                     <widget class="QCheckBox" name="mean_zerocrossing_period">
                       <property name="text">
                        <string>Mean zerocrossing wave period</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QCheckBox" name="checkBox_7">
+                     <widget class="QCheckBox" name="mean_wave_dir">
                       <property name="text">
                        <string>Mean wave direction</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QCheckBox" name="checkBox_8">
+                     <widget class="QCheckBox" name="significant_windwave_height">
                       <property name="text">
                        <string>Significant height of wind waves</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QCheckBox" name="checkBox_9">
+                     <widget class="QCheckBox" name="mean_windwave_period">
                       <property name="text">
                        <string>Mean period of wind waves</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QCheckBox" name="checkBox_10">
+                     <widget class="QCheckBox" name="mean_windwave_dir">
                       <property name="text">
                        <string>Mean direction of wind waves</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QCheckBox" name="checkBox_14">
+                     <widget class="QCheckBox" name="significant_totalswell_height">
                       <property name="text">
                        <string>Significant height of total swell</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QCheckBox" name="checkBox_13">
+                     <widget class="QCheckBox" name="mean_totalswell_dir">
+                      <property name="text">
+                       <string>Mean direction of total swell</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QCheckBox" name="mean_totalswell_period">
                       <property name="text">
                        <string>Mean period of total swell</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QCheckBox" name="checkBox_12">
+                     <widget class="QCheckBox" name="benjamin_feir_index">
                       <property name="text">
                        <string>Benjamin-Feir index</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QCheckBox" name="checkBox_11">
-                      <property name="text">
-                       <string>CheckBox</string>
                       </property>
                      </widget>
                     </item>
@@ -1688,160 +2832,113 @@
             </layout>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_8">
-             <item>
-              <widget class="QGroupBox" name="groupBox_3">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="title">
-                <string>BBox</string>
-               </property>
-               <layout class="QVBoxLayout" name="verticalLayout_8">
-                <item>
-                 <widget class="QLineEdit" name="lineEdit">
-                  <property name="placeholderText">
-                   <string>E.g. 8.0786,54.5576,15.1712,57.7664</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-            </layout>
+            <layout class="QHBoxLayout" name="horizontalLayout_8"/>
            </item>
           </layout>
          </widget>
          <widget class="QWidget" name="dkss_page">
-          <layout class="QVBoxLayout" name="verticalLayout_70">
+          <layout class="QVBoxLayout" name="verticalLayout_65">
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_30">
              <item>
               <widget class="QGroupBox" name="groupBox_18">
                <property name="title">
-                <string>Parameters</string>
+                <string>Parameters (forecasts below 1 meter is not available)</string>
                </property>
-               <layout class="QGridLayout" name="gridLayout">
-                <item row="0" column="0">
-                 <widget class="QScrollArea" name="scrollArea_13">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="widgetResizable">
-                   <bool>true</bool>
-                  </property>
-                  <widget class="QWidget" name="scrollAreaWidgetContents_13">
-                   <property name="geometry">
-                    <rect>
-                     <x>0</x>
-                     <y>0</y>
-                     <width>600</width>
-                     <height>311</height>
-                    </rect>
-                   </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_60">
-                    <item>
-                     <widget class="QCheckBox" name="checkBox_16">
-                      <property name="text">
-                       <string>Deviation of sea level from mean</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QCheckBox" name="checkBox_17">
-                      <property name="text">
-                       <string>U component of wind</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QCheckBox" name="checkBox_18">
-                      <property name="text">
-                       <string>V component of wind</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QCheckBox" name="checkBox_19">
-                      <property name="text">
-                       <string>U component of current </string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QCheckBox" name="checkBox_15">
-                      <property name="text">
-                       <string>V component of current</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QCheckBox" name="checkBox_20">
-                      <property name="text">
-                       <string>Water temperature</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QCheckBox" name="checkBox_21">
-                      <property name="text">
-                       <string>Salinity</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QCheckBox" name="checkBox_22">
-                      <property name="text">
-                       <string>Ice thickness</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QCheckBox" name="checkBox_23">
-                      <property name="text">
-                       <string>Ice concentration</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QCheckBox" name="checkBox_24">
-                      <property name="text">
-                       <string>U component of current (&gt;1 meter depth)</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QCheckBox" name="checkBox_25">
-                      <property name="text">
-                       <string>V component of current (&gt;1 meter depth)</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QCheckBox" name="checkBox_26">
-                      <property name="text">
-                       <string>Water temperature (&gt;1 meter depth)</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QCheckBox" name="checkBox_27">
-                      <property name="text">
-                       <string>Salinity (&gt;1 meter depth)</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </widget>
-                 </widget>
-                </item>
-               </layout>
+               <widget class="QScrollArea" name="scrollArea_13">
+                <property name="geometry">
+                 <rect>
+                  <x>10</x>
+                  <y>23</y>
+                  <width>619</width>
+                  <height>145</height>
+                 </rect>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="widgetResizable">
+                 <bool>true</bool>
+                </property>
+                <widget class="QWidget" name="scrollAreaWidgetContents_13">
+                 <property name="geometry">
+                  <rect>
+                   <x>0</x>
+                   <y>0</y>
+                   <width>600</width>
+                   <height>219</height>
+                  </rect>
+                 </property>
+                 <layout class="QVBoxLayout" name="verticalLayout_60">
+                  <item>
+                   <widget class="QCheckBox" name="sea_mean_deviation">
+                    <property name="text">
+                     <string>Deviation of sea level from mean</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="wind_u">
+                    <property name="text">
+                     <string>U component of wind</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="wind_v">
+                    <property name="text">
+                     <string>V component of wind</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="current_u">
+                    <property name="text">
+                     <string>U component of current </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="current_v">
+                    <property name="text">
+                     <string>V component of current</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="water_temperature">
+                    <property name="text">
+                     <string>Water temperature</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="salinity">
+                    <property name="text">
+                     <string>Salinity</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="ice_thickness">
+                    <property name="text">
+                     <string>Ice thickness</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="ice_concentration">
+                    <property name="text">
+                     <string>Ice concentration</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </widget>
               </widget>
              </item>
              <item>
@@ -1897,31 +2994,81 @@
              </item>
             </layout>
            </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_28">
-             <item>
-              <widget class="QGroupBox" name="groupBox_19">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="title">
-                <string>BBox</string>
-               </property>
-               <layout class="QVBoxLayout" name="verticalLayout_65">
-                <item>
-                 <widget class="QLineEdit" name="bbox_fore"/>
-                </item>
-               </layout>
-              </widget>
-             </item>
-            </layout>
-           </item>
           </layout>
          </widget>
         </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_33">
+         <item>
+          <widget class="QGroupBox" name="groupBox_14">
+           <property name="title">
+            <string>Coordinate or BBox (Please remember to seperate the coordinates with spaces and not with comma)</string>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_35">
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_76">
+              <item>
+               <widget class="QRadioButton" name="bbox_harm">
+                <property name="text">
+                 <string>BBox</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="bbox_line">
+                <property name="placeholderText">
+                 <string>E.g. 8.07 54.55 15.17 57.76</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_77">
+              <item>
+               <widget class="QRadioButton" name="coordi_harm">
+                <property name="text">
+                 <string>Coordinate</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="coordi_line">
+                <property name="placeholderText">
+                 <string>E.g. 13.58 55.06</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="out_6">
+           <property name="title">
+            <string>Save as .csv file also (Optional)</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_59">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_28">
+              <item>
+               <widget class="QLineEdit" name="file_name_fore"/>
+              </item>
+              <item>
+               <widget class="QPushButton" name="browse_fore">
+                <property name="text">
+                 <string>Browse</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>
@@ -2015,8 +3162,8 @@
                     <rect>
                      <x>0</x>
                      <y>0</y>
-                     <width>98</width>
-                     <height>28</height>
+                     <width>18</width>
+                     <height>18</height>
                     </rect>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout"/>
@@ -2296,8 +3443,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;How to use this plugin&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;In order to get data, an API Key must be configured in QGIS settings menu. To configure API keys, please go to Settings -&amp;gt; Options -&amp;gt; DMI Open Data. Note that each type of data requires one specific API Key corresponding to that UI. &lt;br /&gt;After the API Key has been configured in settings, stations and parameters will be accessible, and the plugin will work as intended. &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Things to note when using the plugin: &lt;/span&gt;&lt;/p&gt;
-&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Maximum amount of parameters available is 7.&lt;/li&gt;
-&lt;li style=&quot; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Internet is neccessary in order to open the plugin and get data.&lt;/li&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Internet is neccessary in order to open the plugin and get data.&lt;/li&gt;
 &lt;li style=&quot; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Sort the data in a manner that your QGIS can handle. Otherwise there is a risk of crashing.&lt;/li&gt;
 &lt;li style=&quot; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Be sure to read about the stations and parameters, as not all stations measure all parameters. A list of meteorological stations and their associated parameters can also be found &lt;a href=&quot;https://confluence.govcloud.dk/pages/viewpage.action?pageId=53086560&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;.&lt;/li&gt;&lt;/ul&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;If you have any questions about the plugin or DMI Open Data then please contact us. &lt;/span&gt;&lt;/p&gt;
