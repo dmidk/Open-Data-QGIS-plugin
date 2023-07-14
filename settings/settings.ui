@@ -45,8 +45,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>511</width>
-        <height>334</height>
+        <width>491</width>
+        <height>421</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -157,7 +157,7 @@
           <item>
            <widget class="QGroupBox" name="groupBox_5">
             <property name="title">
-             <string>API Key forecastData</string>
+             <string>API Key forecastedrData</string>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_7">
              <item>

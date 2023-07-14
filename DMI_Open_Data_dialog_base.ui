@@ -38,7 +38,7 @@
       <bool>true</bool>
      </property>
      <property name="currentIndex">
-      <number>4</number>
+      <number>5</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>
@@ -367,8 +367,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>63</width>
-                  <height>18</height>
+                  <width>98</width>
+                  <height>28</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_14"/>
@@ -443,8 +443,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>63</width>
-                  <height>18</height>
+                  <width>98</width>
+                  <height>28</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_40"/>
@@ -465,8 +465,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>63</width>
-                  <height>18</height>
+                  <width>98</width>
+                  <height>28</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34"/>
@@ -487,8 +487,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>63</width>
-                  <height>18</height>
+                  <width>98</width>
+                  <height>28</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_38"/>
@@ -1029,7 +1029,7 @@
      </widget>
      <widget class="QWidget" name="tab_4">
       <attribute name="title">
-       <string>Forecast Data</string>
+       <string>ForecastEDR Data</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_70">
        <item>
@@ -1152,7 +1152,7 @@
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>582</width>
+                         <width>269</width>
                          <height>817</height>
                         </rect>
                        </property>
@@ -1420,7 +1420,7 @@
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>582</width>
+                         <width>183</width>
                          <height>1852</height>
                         </rect>
                        </property>
@@ -2003,7 +2003,7 @@
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>582</width>
+                         <width>183</width>
                          <height>1852</height>
                         </rect>
                        </property>
@@ -2586,8 +2586,8 @@
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>599</width>
-                         <height>139</height>
+                         <width>269</width>
+                         <height>58</height>
                         </rect>
                        </property>
                        <layout class="QVBoxLayout" name="verticalLayout_78">
@@ -2688,8 +2688,8 @@
                    <property name="geometry">
                     <rect>
                      <x>0</x>
-                     <y>-101</y>
-                     <width>600</width>
+                     <y>0</y>
+                     <width>195</width>
                      <height>334</height>
                     </rect>
                    </property>
@@ -3162,8 +3162,8 @@
                     <rect>
                      <x>0</x>
                      <y>0</y>
-                     <width>18</width>
-                     <height>18</height>
+                     <width>98</width>
+                     <height>28</height>
                     </rect>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout"/>

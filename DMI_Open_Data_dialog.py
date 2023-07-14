@@ -441,7 +441,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         elif dataName == 'Lightning Data':
             data_type = 'lightningdata'
             api_key = self.settings_manager.value(DMISettingKeys.LIGHTNINGDATA_API_KEY.value)
-        elif dataName == 'Forecast Data':
+        elif dataName == 'ForecastEDR Data':
             data_type = 'forecastdata'
             api_key = self.settings_manager.value(DMISettingKeys.FORECASTDATA_API_KEY.value)
         elif dataName == 'Stations and Parameters' and self.met_stat_info.isChecked():
@@ -619,7 +619,8 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             for para in paraWam:
                 qt_checkbox_widget = getattr(self, para)
                 if qt_checkbox_widget.isChecked():
-                    para = para[:-2]
+                    if '_2' in para:
+                        para = para[:-2]
                     para = para.replace('_', '-')
                     parameters.append(para)
                     qt_checkbox_widget.setChecked(False)
@@ -697,7 +698,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             start_datetime = self.start_date5.dateTime().toString(Qt.ISODate) + 'Z'
             end_datetime = self.end_date5.dateTime().toString(Qt.ISODate) + 'Z'
 
-        elif dataName == 'Forecast Data':
+        elif dataName == 'ForecastEDR Data':
             start_datetime = self.datetime_fore_start.dateTime().toString(Qt.ISODate) + 'Z'
             end_datetime = self.datetime_fore_end.dateTime().toString(Qt.ISODate) + 'Z'
 
@@ -1031,8 +1032,8 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     df.to_csv(self.file_name_lig.text() + '.csv', index=False)
                     self.file_name_lig.clear()
 
-        # Forecast data
-        if dataName == 'Forecast Data':
+        # ForecastEDR data
+        if dataName == 'ForecastEDR Data':
             if self.bbox_harm.isChecked():
                 position_res = 'cube'
             elif self.coordi_harm.isChecked():
@@ -1043,8 +1044,9 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     'limit': '300000',
                     'f': 'GeoJSON'}
 
-
             if self.bbox_harm.isChecked():
+                # This variable is used to decide wheter or not QGIS should try to add data.
+                # returned_data = 1 then it proceeds, returned_data = 0 it stops.
                 returned_data = '1'
                 if ',' in self.bbox_line.text():
                     QMessageBox.warning(self, self.tr("DMI Open Data"),
@@ -1052,11 +1054,13 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                                                 + '\n' + '\n' + 'E.g. change 10.52,57.13,11.20,57.40 to 10.52 57.13 11.20 57.40'))
                     returned_data = '0'
                 bbox_cordi = self.bbox_line.text()
+                # comma is added as it is used in BBOX to seperate coordinates. Not used in coordinates.
                 bbox_cordi = bbox_cordi.replace(' ', ',')
                 params.update({'bbox': bbox_cordi})
 
             elif self.coordi_harm.isChecked():
                 returned_data = '1'
+                # commas not allowed, as the API does not accept it.
                 if ',' in self.coordi_line.text():
                     QMessageBox.warning(self, self.tr("DMI Open Data"),
                                         self.tr('Please use space as coordinates seperator and not comma.' \
@@ -1064,6 +1068,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     returned_data = '0'
                 params.update({'coords': 'POINT(' + self.coordi_line.text() + ')'})
 
+            # A parameter must be given. Otherwise QGIS will try to import all parameters, which is rarely needed.
             if len(parameters) > 0 and returned_data != '0':
                 params.update({'parameter-name': parameters})
                 returned_data = '1'
@@ -1077,8 +1082,10 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 print(r, r.url)
                 json = r.json()
                 df = json_normalize(json['features'])
+                # Remove collumns that are not needed.
                 df = df.drop(['type', 'geometry.type'], axis=1)
                 vl = QgsVectorLayer("Point", data_type2 + ' ' + fore_area, "memory")
+                # If the user wants an overview of the data, the df.head is printed with all columns visible.
                 pd.set_option('display.max_columns', None)
                 print(df.head())
                 pr = vl.dataProvider()
