@@ -4,7 +4,7 @@ from typing import Tuple, Dict, Set
 from qgis.PyQt import QtWidgets, uic
 import requests
 import pandas as pd
-from pandas.io.json import json_normalize
+from pandas import json_normalize
 import warnings
 from tempfile import mkdtemp
 from qgis.core import QgsVectorLayer, QgsProcessing, QgsProcessingFeedback, QgsRasterLayer, QgsContrastEnhancement, QgsRasterMinMaxOrigin, QgsFeature, QgsGeometry, QgsField, QgsPointXY, QgsProject, QgsRasterLayerTemporalProperties, QgsDateTimeRange, QgsColorRampShader, QgsRasterShader, QgsSingleBandPseudoColorRenderer, QgsSingleBandGrayRenderer, QgsRasterBandStats
