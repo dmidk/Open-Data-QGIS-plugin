@@ -824,9 +824,9 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 for head in station_param_table:
                     if head in ['observed', 'from', 'to']:
                         pr.addAttributes([QgsField(head, QVariant.DateTime)])
-                    if head == para:
+                    elif head in parameters:
                         pr.addAttributes([QgsField(head, QVariant.Double)])
-                    elif head != 'observed':
+                    else:
                         pr.addAttributes([QgsField(head, QVariant.String)])
                 vl.updateFields()
                 f = QgsFeature()
@@ -917,15 +917,10 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                                 fd.write(chunk)
                     layer = QgsRasterLayer(tempfile)
                     # Set layer tempral properties
-                    if self.both_types.isChecked():
-                        time_dif = 300
-                    else:
-                        time_dif = 600
                     layer.temporalProperties().setMode(QgsRasterLayerTemporalProperties.ModeFixedTemporalRange)
                     d = feature['properties']['datetime']
                     start_time = QDateTime.fromString(d, "yyyy-MM-ddThh:mm:ssZ")
-                    end_time = start_time.addSecs(time_dif)
-                    time_range = QgsDateTimeRange(start_time, end_time)
+                    time_range = QgsDateTimeRange(start_time, start_time)
                     layer.temporalProperties().setFixedTemporalRange(time_range)
                     layer.temporalProperties().setIsActive(True)
                     # This removes all values below 1 and above 254, since this only consists of white and black fields.
@@ -990,7 +985,11 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     f = QgsFeature()
                     f.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(row[1][0], row[1][1])))
                     for head in df:
-                        if head != 'geometry.coordinates':
+                        if head == 'properties.observed':
+                            pr.addAttributes([QgsField(head, QVariant.DateTime)])
+                        elif head == 'properties.amp' or head == 'properties.strokes':
+                            pr.addAttributes([QgsField(head, QVariant.Double)])
+                        elif head != 'geometry.coordinates':
                             pr.addAttributes([QgsField(head, QVariant.String)])
                     vl.updateFields()
                     f.setAttributes([row[2],row[3],row[4],row[5],row[6]])
