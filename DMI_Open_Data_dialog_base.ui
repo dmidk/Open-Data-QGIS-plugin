@@ -38,7 +38,7 @@
       <bool>true</bool>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>5</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>
@@ -1580,13 +1580,13 @@
          <item>
           <widget class="QGroupBox" name="groupBox_14">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
            <property name="title">
-            <string>Coordinate or BBox (Please remember to seperate the coordinates with spaces and not with comma)</string>
+            <string>Coordinate or BBox</string>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_35">
             <item>
@@ -1601,7 +1601,7 @@
               <item>
                <widget class="QLineEdit" name="bbox_line">
                 <property name="placeholderText">
-                 <string>E.g. 8.07 54.55 15.17 57.76</string>
+                 <string>E.g. 8.07,54.55,15.17,57.76</string>
                 </property>
                </widget>
               </item>
@@ -1619,7 +1619,7 @@
               <item>
                <widget class="QLineEdit" name="coordi_line">
                 <property name="placeholderText">
-                 <string>E.g. 13.58 55.06</string>
+                 <string>E.g. 13.58,55.06</string>
                 </property>
                </widget>
               </item>

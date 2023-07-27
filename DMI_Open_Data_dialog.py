@@ -597,10 +597,10 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         elif dataName == 'Lightning Data':
             data_type = 'lightningdata'
             api_key = self.settings_manager.value(DMISettingKeys.LIGHTNINGDATA_API_KEY.value)
-        elif dataName == 'ForecastEDR Data':
+        elif dataName == 'Forecast Data (Vector)':
             data_type = 'forecastdata'
             api_key = self.settings_manager.value(DMISettingKeys.FORECASTDATA_EDR_API_KEY.value)
-        elif dataName == 'Forecast Data (GRIB)':
+        elif dataName == 'Forecast Data (Raster)':
             data_type = 'forecastdata'
             api_key = self.settings_manager.value(DMISettingKeys.FORECASTDATA_GRIB_API_KEY.value)
         elif dataName == 'Stations and Parameters' and self.met_stat_info.isChecked():
@@ -635,12 +635,12 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             data_type2 = 'climateData'
         elif data_type == 'ocean_para_info':
             data_type2 = 'oceanObs'
-        elif dataName == 'Forecast Data (GRIB)':
+        elif dataName == 'Forecast Data (Raster)':
             if self.wam_fore_grib.isChecked():
                 data_type2 = 'wam'
             elif self.dkss_fore_grib.isChecked():
                 data_type2 = 'dkss'
-        elif dataName == 'ForecastEDR Data':
+        elif dataName == 'Forecast Data (Vector)':
             if self.harm_fore.isChecked():
                 data_type2 = 'harmonie'
             elif self.wam_fore.isChecked():
@@ -779,7 +779,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     qt_checkbox_widget.setChecked(False)
 
         # Forecast WAM parameters (GRIB)
-        if data_type2 == 'wam' and dataName == 'Forecast Data (GRIB)':
+        if data_type2 == 'wam' and dataName == 'Forecast Data (Raster)':
                 wam_para = ['wind_speed_10', 'wind_direction_10', 'sig_wave_height', 'dom_wave_period',
                             'mean_wave_period_2',
                             'mean_zero_wave_period', 'mean_wave_dir_2', 'sig_height_wind_waves_sea',
@@ -795,8 +795,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                         qt_checkbox_widget.setChecked(False)
 
         # Forecast DKSS parameters (GRIB)
-        if data_type2 == 'dkss' and dataName == 'Forecast Data (GRIB)':
-            print('asd')
+        if data_type2 == 'dkss' and dataName == 'Forecast Data (Raster)':
             nsbs_para = ['dev_sea_mean', 'u_comp_wind', 'v_comp_wind', 'u_comp_cur', 'v_comp_cur',
                          'water_temp', 'salinity_2', 'ice_thick', 'ice_conc', 'u_comp_cur_',
                          'v_comp_cur_', 'water_temp_', 'salinity_']
@@ -806,7 +805,6 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 qt_checkbox_widget = getattr(self, fore_para)
                 if qt_checkbox_widget.isChecked():
                     parameters.append(fore_para)
-                    print(parameters)
                     qt_checkbox_widget.setChecked(False)
 
         # Forecast HARMONIE, DKSS and WAM (EDR)
@@ -852,16 +850,15 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 listCheckBoxForecast = self.listCheckBox_para_dkss_ws_edr
 
             elif data_type2 == 'wam':
-                print("her")
                 parameterListForecast = self.wam_forecast_parameters
                 listCheckBoxForecast = self.listCheckBox_para_wam_edr
 
-        for para in parameterListForecast:
-                qt_checkbox_widget = listCheckBoxForecast[para]
-                if qt_checkbox_widget.isChecked():
-                    para = para.replace('_','-')
-                    parameters.append(para)
-                    qt_checkbox_widget.setChecked(False)
+            for para in parameterListForecast:
+                    qt_checkbox_widget = listCheckBoxForecast[para]
+                    if qt_checkbox_widget.isChecked():
+                        para = para.replace('_','-')
+                        parameters.append(para)
+                        qt_checkbox_widget.setChecked(False)
 
         # Information for stations. The list of stations is based on climateData and NOT metObs
         if dataName == 'Stations and Parameters' and data_type2 == 'climateData':
@@ -910,11 +907,11 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             start_datetime = self.start_date5.dateTime().toString(Qt.ISODate) + 'Z'
             end_datetime = self.end_date5.dateTime().toString(Qt.ISODate) + 'Z'
 
-        elif dataName == 'ForecastEDR Data':
+        elif dataName == 'Forecast Data (Vector)':
             start_datetime = self.datetime_fore_start.dateTime().toString(Qt.ISODate) + 'Z'
             end_datetime = self.datetime_fore_end.dateTime().toString(Qt.ISODate) + 'Z'
 
-        elif dataName == 'Forecast Data (GRIB)':
+        elif dataName == 'Forecast Data (Raster)':
             start_datetime = self.datetime_fore_start.dateTime().toString(Qt.ISODate) + 'Z'
             end_datetime = self.datetime_fore_end.dateTime().toString(Qt.ISODate) + 'Z'
 
@@ -985,17 +982,16 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     stat_and_res = {stat1 : stat,
                                     'timeResolution': res}
                     params.update(stat_and_res)
-# No stations for country values.
+                # No stations for country values.
                 elif dataName == 'Climate Data' and data_type2 == 'countryValue':
                     res_country = {'timeResolution': res}
                     params.update(res_country)
                 else:
                     observed_w_stat = {stat1 : stat}
                     params.update(observed_w_stat)
-                r = requests.get(url, params=params)  
-                print(r.url)
+                r = requests.get(url, params=params)
+                print(r, r.url)
                 json = r.json()
-                #df = json_normalize(json['features'])
                 # Makes sure that data gets a return. If no numbers returned then shows a warning box.
                 # r_code represents the status code.
                 r_code = r.status_code
@@ -1136,7 +1132,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             elif self.pseudo.isChecked():
                 params.update({'stationId': radar_stations_it})
             r = requests.get(url, params=params)
-            print(r.url)
+            print(r, r.url)
             r_code = r.status_code
             json = r.json()
             if r_code == 403:
@@ -1209,7 +1205,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 name = 'Lightning'
             # URL creation
             r = requests.get(url, params=params)
-            print(r.url)
+            print(r, r.url)
             json = r.json()
             r_code = r.status_code
             if r_code == 403:
@@ -1249,7 +1245,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     self.file_name_lig.clear()
 
         # ForecastEDR data
-        if dataName == 'ForecastEDR Data':
+        if dataName == 'Forecast Data (Vector)':
             if self.bbox_harm.isChecked():
                 position_res = 'cube'
             elif self.coordi_harm.isChecked():
@@ -1261,28 +1257,32 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     'f': 'GeoJSON',}
 
             if self.bbox_harm.isChecked():
-                # This variable is used to decide wheter or not QGIS should try to add data.
+                # This variable is used to decide whether or not QGIS should try to add data.
                 # returned_data = 1 then it proceeds, returned_data = 0 it stops.
                 returned_data = '1'
-                if ',' in self.bbox_line.text():
-                    QMessageBox.warning(self, self.tr("DMI Open Data"),
-                                        self.tr('Please use space as coordinates seperator and not comma.' \
-                                                + '\n' + '\n' + 'E.g. change 10.52,57.13,11.20,57.40 to 10.52 57.13 11.20 57.40'))
-                    returned_data = '0'
                 bbox_cordi = self.bbox_line.text()
-                # comma is added as it is used in BBOX to seperate coordinates. Not used in coordinates.
-                bbox_cordi = bbox_cordi.replace(' ', ',')
+                if ' ' in bbox_cordi:
+                    bbox_cordi = bbox_cordi.replace(' ', '')
                 params.update({'bbox': bbox_cordi})
+                if bbox_cordi == '':
+                    QMessageBox.warning(self, self.tr("DMI Open Data"),
+                                        self.tr('Please fill out the BBox.'))
+                    returned_data = '0'
+
 
             elif self.coordi_harm.isChecked():
                 returned_data = '1'
-                # commas not allowed, as the API does not accept it.
-                if ',' in self.coordi_line.text():
+                point_coordi = self.coordi_line.text()
+                if ' ' in point_coordi:
+                    point_coordi = point_coordi.replace(' ', '')
+                # The API does not accept comma sepperation, which is why the comma is changed to a space. 
+                point_coordi = point_coordi.replace(',',' ')
+                params.update({'coords': 'POINT(' + point_coordi + ')'})
+                if point_coordi == '':
                     QMessageBox.warning(self, self.tr("DMI Open Data"),
-                                        self.tr('Please use space as coordinates seperator and not comma.' \
-                                                + '\n' + '\n' + 'E.g. change 10.52,57.13 to 10.52 57.13'))
+                                        self.tr('Please fill out the Coordinates.'))
                     returned_data = '0'
-                params.update({'coords': 'POINT(' + self.coordi_line.text() + ')'})
+
 
             # A parameter must be given. Otherwise QGIS will try to import all parameters, which is rarely needed.
             if len(parameters) > 0 and returned_data != '0':
@@ -1295,6 +1295,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
 
             if returned_data != '0':
                 r = requests.get(url, params=params)
+                if r.status_code == 200:
                 print(r, r.url)
                 json = r.json()
                 df = json_normalize(json['features'])
@@ -1303,7 +1304,6 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 vl = QgsVectorLayer("Point", data_type2 + ' ' + fore_area, "memory")
                 # If the user wants an overview of the data, the df.head is printed with all columns visible.
                 pd.set_option('display.max_columns', None)
-                print(df.head())
                 pr = vl.dataProvider()
                 vl.startEditing()
                 for head in df:
@@ -1327,7 +1327,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     df.to_csv(self.file_name_fore.text() + '.csv', index=False)
 
         # Forecast Data (GRIB)
-        if dataName == 'Forecast Data (GRIB)':
+        if dataName == 'Forecast Data (Raster)':
             root = QgsProject.instance().layerTreeRoot()
             layer_group = root.insertGroup(0, 'Forecast' + datetime)
             temp = mkdtemp(suffix='_forecast-files')
@@ -1341,13 +1341,11 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             latest_model_run = \
             sorted(json['features'], key=lambda feature: feature['properties']['modelRun'])[-1]['properties'][
                 'modelRun']
-            print(latest_model_run)
             for feature in filter(lambda feature: feature['properties']['modelRun'] == latest_model_run,
                                   json['features']):
                 downloadurl = feature['asset']['data']['href']
                 downloaddata = requests.get(downloadurl)
                 id = feature['id']
-                print(id)
                 tempfile = os.path.join(temp, id)
                 if not os.path.isfile(tempfile):
                     with open(tempfile, 'wb') as fd:
@@ -1495,7 +1493,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 elif self.radioButton_19.isChecked() and self.radioButton_22.isChecked():
                     params.update({'datetime': datetime})
             r = requests.get(url, params=params)
-            print(r.url)
+            print(r, r.url)
             json = r.json()
             r_code = r.status_code
             if r_code == 403:
