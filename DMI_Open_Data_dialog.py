@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
-from typing import Tuple, Dict, Set
+from typing import Tuple, Dict, Set, List
 from qgis.PyQt import QtWidgets, uic
 import requests
 import pandas as pd
@@ -8,29 +8,27 @@ from pandas import json_normalize
 import warnings
 from tempfile import mkdtemp
 from qgis.core import QgsVectorLayer, QgsProcessing, QgsProcessingFeedback, QgsRasterLayer, QgsContrastEnhancement, QgsRasterMinMaxOrigin, QgsFeature, QgsGeometry, QgsField, QgsPointXY, QgsProject, QgsRasterLayerTemporalProperties, QgsDateTimeRange, QgsColorRampShader, QgsRasterShader, QgsSingleBandPseudoColorRenderer, QgsSingleBandGrayRenderer, QgsRasterBandStats
-from qgis.PyQt.QtGui import (
-    QColor)
 from qgis.utils import iface
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from qgis.PyQt.QtCore import QVariant
 import webbrowser
+
+from .api.edr_parameters import get_forecast_parameters, EDRForecastCollection
 from .api.station import get_stations, StationApi, StationId, Station, Parameter
 from .settings import DMISettingsManager, DMISettingKeys
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 # The lists that will be used for parameters, stations, municipalities, 10 and 20km grids in the API calls.
 # Stations are not part of this list, as stations are more dynamicly added and removed.
-# Stations are therefore imported from DMI Open Data via. the internet, each time QGIS is started.
-from .para_munic_grid import para_grid, grid10, grid20, munic
-from .forecast_para import paraHarmPl, paraHarmSf, paraHarmIgbSf, paraHarmIgbPl, paraWam, paraNsbs
+# Stations are therefore imported from DMI Open Data via. API call, each time QGIS is started.
+from .para_munic_grid import para_grid, grid10, grid20, munic_id_name
+from .forecast_para import depth_para_dkss, salinity_nsbs, salinity_idw, salinity_if, salinity_lb, salinity_lf, salinity_ws, water_temp_nsbs, water_temp_if, water_temp_lb, water_temp_lf, water_temp_ws, water_temp_idw, v_current_nsbs, v_current_idw, v_current_if, v_current_lb, v_current_lf, v_current_ws, u_current_nsbs, u_current_idw, u_current_if,u_current_lb, u_current_lf, u_current_ws
 
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 # Ignore this, we no longer use the static ui files, look at pluginui_test.py instead
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'DMI_Open_Data_dialog_base.ui'))
-########### DELETE ##############
-
 
 # This is where you import and inherit your PY UI class
 class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
@@ -70,6 +68,29 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                                 self.tr(str(ex)))
             load_ui_options['invalid_metobs_api_key'] = True
 
+        self.harmonie_nea_sf_forecast_parameters = self.get_forecast_parameters_if_settings_allow(
+            EDRForecastCollection.HARMONIE_NEA_SF)
+        self.harmonie_nea_pl_forecast_parameters = self.get_forecast_parameters_if_settings_allow(
+            EDRForecastCollection.HARMONIE_NEA_PL)
+        self.harmonie_igb_sf_forecast_parameters = self.get_forecast_parameters_if_settings_allow(
+            EDRForecastCollection.HARMONIE_IGB_SF)
+        self.harmonie_igb_pl_forecast_parameters = self.get_forecast_parameters_if_settings_allow(
+            EDRForecastCollection.HARMONIE_IGB_PL)
+        self.dkss_nsbs_forecast_parameters = self.get_forecast_parameters_if_settings_allow(
+            EDRForecastCollection.DKSS_NSBS)
+        self.dkss_idw_forecast_parameters = self.get_forecast_parameters_if_settings_allow(
+            EDRForecastCollection.DKSS_IDW)
+        self.dkss_if_forecast_parameters = self.get_forecast_parameters_if_settings_allow(
+            EDRForecastCollection.DKSS_IF)
+        self.dkss_ws_forecast_parameters = self.get_forecast_parameters_if_settings_allow(
+            EDRForecastCollection.DKSS_WS)
+        self.dkss_lf_forecast_parameters = self.get_forecast_parameters_if_settings_allow(
+            EDRForecastCollection.DKSS_LF)
+        self.dkss_lb_forecast_parameters = self.get_forecast_parameters_if_settings_allow(
+            EDRForecastCollection.DKSS_LB)
+        self.wam_forecast_parameters = self.get_forecast_parameters_if_settings_allow(
+            EDRForecastCollection.WAM_DW)
+
         super(DMIOpenDataDialog, self).setupUi(self)
         self.load_station_and_parameter_ui(**load_ui_options)
 
@@ -84,16 +105,19 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.radioButton_19.setChecked(True)
         self.radioButton_21.setChecked(True)
         self.wam_fore.setChecked(True)
+        self.wam_fore_grib.setChecked(True)
         self.north_sea_baltic_sea.setChecked(True)
+        self.north_sea_baltic_sea_2.setChecked(True)
         self.danish_waters.setChecked(True)
-        #self.all_para_dkss.setChecked(True)
-        #self.all_para_wam.setChecked(True)
         self.composite.setChecked(True)
         self.full_range.setChecked(True)
         self._60960.setChecked(True)
         self.all_lightning_types.setChecked(True)
         self.harm_fore.setChecked(True)
         self.nea_sf_area.setChecked(True)
+        self.dev_sea_mean.setChecked(True)
+        self.wind_speed_10.setChecked(True)
+        self.danish_waters_2.setChecked(True)
 
 
         # Datetime default today and yesterday
@@ -112,6 +136,9 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.datetime_fore_start.setDateTime(QDateTime(QDate.currentDate().addDays(1), QTime(22, 00, 0)))
         self.datetime_fore_end.setDateTime(QDateTime(QDate.currentDate().addDays(2), QTime(0, 0, 0)))
 
+        self.datetime_fore_start_2.setDateTime(QDateTime(QDate.currentDate().addDays(1), QTime(22, 00, 0)))
+        self.datetime_fore_end_2.setDateTime(QDateTime(QDate.currentDate().addDays(2), QTime(0, 0, 0)))
+
         self.start_date5.setDateTime(QDateTime(QDate.currentDate().addDays(-1), QTime(0, 0, 0)))
         self.end_date5.setDateTime(QDateTime(QDate.currentDate(), QTime(0, 0, 0)))
 
@@ -123,47 +150,100 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # All the buttons that do actions
         self.run_app.clicked.connect(self.run)
+
+        #Browse folder when saving as .csv
         self.browse_obs.clicked.connect(self.browse_files_obs)
         self.browse_cli.clicked.connect(self.browse_files_cli)
         self.browse_lig.clicked.connect(self.browse_files_lig)
         self.browse_oce.clicked.connect(self.browse_files_oce)
         self.browse_fore.clicked.connect(self.browse_files_fore)
+
+        # Change parameter and station view when clicked in Climate Data.
         self.stat_type.clicked.connect(self.stat_typeR)
         self.grid10_type.clicked.connect(self.grid10_typeR)
         self.grid20_type.clicked.connect(self.grid20_typeR)
         self.munic_type.clicked.connect(self.municipality_typeR)
         self.country_type.clicked.connect(self.country_typeR)
+
+        # Opens dmi.dk
         self.dmi_open_data.clicked.connect(self.open_openData)
         self.dmi_open_data_2.clicked.connect(self.open_openData_2)
         self.dmi_dk.clicked.connect(self.open_dmi_dk)
+
+        # Sets the initial page displayed
         self.stackedWidget.setCurrentWidget(self.stat_clima)
         self.stackedWidget_2.setCurrentWidget(self.stat_para)
         self.stackedWidget_3.setCurrentWidget(self.met_stat_page)
         self.harm_para_stacked.setCurrentWidget(self.harm_nea_sf_para)
-        self.met_stat_info.clicked.connect(self.infoStat)
         self.para_stacked.setCurrentWidget(self.harmonie_page)
+        self.para_stacked_2.setCurrentWidget(self.wam_page_2)
+        self.stacked_depth.setCurrentWidget(self.nsbs_depth)
+        self.depth_group.setEnabled(False)
+
+        # Changes the page in Stations and Parameters
+        self.met_stat_info.clicked.connect(self.infoStat)
+        self.tide_info.clicked.connect(self.infoTide)
+
+        # Defines time availability in Stations and Parameters
+        self.radioButton_10.clicked.connect(self.disable_time)
+        self.radioButton_11.clicked.connect(self.enable_time)
+        self.radioButton_21.clicked.connect(self.disable_time_oce)
+        self.radioButton_22.clicked.connect(self.enable_time_oce)
+
+        # Changes the page in Forecast Data
         self.wam_fore.clicked.connect(self.wamTab)
         self.dkss_fore.clicked.connect(self.dkssTab)
         self.harm_fore.clicked.connect(self.harmonieTab)
-        self.tide_info.clicked.connect(self.infoTide)
 
+        #EDR
+        self.inner_danish_waters.clicked.connect(self.idw_tab)
+        self.north_sea_baltic_sea.clicked.connect(self.nsbs_tab)
+        self.limfjord.clicked.connect(self.lf_tab)
+        self.little_belt.clicked.connect(self.lb_tab)
+        self.wadden_sea.clicked.connect(self.ws_tab)
+        self.isefjord.clicked.connect(self.if_tab)
+
+
+        #GRIB
+        self.north_sea_baltic_sea_2.clicked.connect(self.nsbs_depth_tab)
+        self.inner_danish_waters_2.clicked.connect(self.idw_depth_tab)
+        self.wadden_sea_2.clicked.connect(self.ws_depth_tab)
+        self.isefjord_2.clicked.connect(self.if_depth_tab)
+        self.limfjord_2.clicked.connect(self.lf_depth_tab)
+        self.little_belt_2.clicked.connect(self.lb_depth_tab)
+        self.dev_sea_mean.clicked.connect(self.depth_tab_dis)
+        self.u_comp_wind.clicked.connect(self.depth_tab_dis)
+        self.v_comp_wind.clicked.connect(self.depth_tab_dis)
+        self.u_comp_cur.clicked.connect(self.depth_tab_dis)
+        self.v_comp_cur.clicked.connect(self.depth_tab_dis)
+        self.water_temp.clicked.connect(self.depth_tab_dis)
+        self.salinity_2.clicked.connect(self.depth_tab_dis)
+        self.ice_thick.clicked.connect(self.depth_tab_dis)
+        self.ice_conc.clicked.connect(self.depth_tab_dis)
+        self.u_comp_cur_.clicked.connect(self.depth_tab_enabled)
+        self.v_comp_cur_.clicked.connect(self.depth_tab_enabled)
+        self.water_temp_.clicked.connect(self.depth_tab_enabled)
+        self.salinity_.clicked.connect(self.depth_tab_enabled)
+
+        self.wam_fore_grib.clicked.connect(self.wamTab_grib)
+        self.dkss_fore_grib.clicked.connect(self.dkssTab_grib)
+
+        # Sets the correct parameter page for Forecast
         self.nea_sf_area.clicked.connect(self.neaSfTab)
         self.nea_pl_area.clicked.connect(self.neaPlTab)
         self.igb_sf_area.clicked.connect(self.igbSfTab)
         self.igb_pl_area.clicked.connect(self.igbPlTab)
 
+        # Defines coordinates or BBOX availability in forecast
         self.coordi_harm.clicked.connect(self.enableCoordi)
         self.bbox_harm.clicked.connect(self.enableBBox)
         self.coordi_line.setEnabled(False)
         self.bbox_harm.setChecked(True)
 
-
-        self.radioButton_10.clicked.connect(self.disable_time)
-        self.radioButton_11.clicked.connect(self.enable_time)
-        self.radioButton_21.clicked.connect(self.disable_time_oce)
-        self.radioButton_22.clicked.connect(self.enable_time_oce)
+        # Changes the page for radar type
         self.composite.clicked.connect(self.comp)
         self.pseudo.clicked.connect(self.pseud)
+        self.stat_radar.setEnabled(False)
 
         # Sets the time in "Stations and parameters" unavailable untill "Defined Time" has been checked
         self.groupBox_25.setEnabled(False)
@@ -171,14 +251,13 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.dateTimeEdit_3.setEnabled(False)
         self.dateTimeEdit_4.setEnabled(False)
 
-        self.stat_radar.setEnabled(False)
-
+        # Defines the objects used if API key not defined.
         self.radar_disable_if_needed()
         self.lightning_disable_if_needed()
         self.metobs_disable_if_needed()
         self.climate_disable_if_needed()
         self.ocean_disable_if_needed()
-        self.forecast_disable_if_needed()
+        self.forecast_GRIB_disable_if_needed()
         self.stat_info_disable_if_needed()
 
     # Disables data-tab if no API key has been entered
@@ -189,11 +268,18 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(DMISettingKeys.METOBS_API_KEY))
             self.tab_8.setEnabled(False)
 
-    def forecast_disable_if_needed(self):
-        api_key = self.settings_manager.value(DMISettingKeys.FORECASTDATA_API_KEY.value)
+    def forecast_GRIB_disable_if_needed(self):
+        api_key = self.settings_manager.value(DMISettingKeys.FORECASTDATA_GRIB_API_KEY.value)
+        if api_key == '':
+            layout = self.tab_7.findChildren(QtWidgets.QVBoxLayout)[0]
+            layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(DMISettingKeys.FORECASTDATA_GRIB_API_KEY))
+            self.tab_7.setEnabled(False)
+
+    def forecast_EDR_disable_if_needed(self):
+        api_key = self.settings_manager.value(DMISettingKeys.FORECASTDATA_EDR_API_KEY.value)
         if api_key == '':
             layout = self.tab_4.findChildren(QtWidgets.QVBoxLayout)[0]
-            layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(DMISettingKeys.FORECASTDATA_API_KEY))
+            layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(DMISettingKeys.FORECASTDATA_EDR_API_KEY))
             self.tab_4.setEnabled(False)
 
     def ocean_disable_if_needed(self):
@@ -240,6 +326,13 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             parameters = {parameter for station in stations.values() for parameter in station.parameters }
         return stations, parameters
 
+    def get_forecast_parameters_if_settings_allow(self, forecast_collection: EDRForecastCollection) -> List[str]: # TODO return Parameter
+        api_key = self.settings_manager.value(DMISettingKeys.FORECASTDATA_EDR_API_KEY.value)
+        parameters = []
+        if api_key:
+            parameters = [p[0] for p in get_forecast_parameters(forecast_collection, api_key)]
+        return parameters
+
     def load_station_and_parameter_ui(self, invalid_metobs_api_key=False, invalid_oceanobs_api_key=False, invalid_climate_api_key=False):
         # Creates the checkboxes for parameters in metObs
         self.listCheckBox_para_stat_metObs = \
@@ -264,13 +357,47 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             self.display_parameters(grid20, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents_4, invalid_api_key=invalid_climate_api_key)
         # Creates the checkboxes for municipalities in climateData
         self.listCheckBox_municipalityId = \
-            self.display_parameters(munic, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents_7, invalid_api_key=invalid_climate_api_key)
+            self.display_parameters(munic_id_name, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents_7, invalid_api_key=invalid_climate_api_key)
         # Creates the checkboxes for stations in oceanObs
         self.listCheckBox_stat_ocean = \
             self.display_stations(self.stations_ocean, DMISettingKeys.OCEANOBS_API_KEY, self.scrollAreaWidgetContents_10, invalid_api_key=invalid_oceanobs_api_key)
+
         self.listCheckBox_station_climate_information = \
             self.display_parameters(self.climatedata_parameters, DMISettingKeys.METOBS_API_KEY,
                                     self.scrollAreaWidgetContents_9, invalid_api_key=invalid_climate_api_key, use_radio_button=True)
+        self.listCheckBox_para_harmonie_igb_sf_edr = \
+            self.display_parameters(self.harmonie_igb_sf_forecast_parameters, DMISettingKeys.FORECASTDATA_EDR_API_KEY,
+                                    self.scrollAreaWidgetContents_16, invalid_api_key=False)
+        self.listCheckBox_para_harmonie_nea_pl_edr = \
+            self.display_parameters(self.harmonie_nea_pl_forecast_parameters, DMISettingKeys.FORECASTDATA_EDR_API_KEY,
+                                    self.scrollAreaWidgetContents_14, invalid_api_key=False)
+        self.listCheckBox_para_harmonie_igb_pl_edr = \
+            self.display_parameters(self.harmonie_igb_pl_forecast_parameters, DMISettingKeys.FORECASTDATA_EDR_API_KEY,
+                                    self.scrollAreaWidgetContents_15, invalid_api_key=False)
+        self.listCheckBox_para_harmonie_nea_sf_edr = \
+            self.display_parameters(self.harmonie_nea_sf_forecast_parameters, DMISettingKeys.FORECASTDATA_EDR_API_KEY,
+                                    self.scrollAreaWidgetContents_12, invalid_api_key=False)
+        self.listCheckBox_para_dkss_nsbs_edr = \
+            self.display_parameters(self.dkss_nsbs_forecast_parameters, DMISettingKeys.FORECASTDATA_EDR_API_KEY,
+                                    self.scrollAreaWidgetContents_13, invalid_api_key=False)
+        self.listCheckBox_para_dkss_idw_edr = \
+            self.display_parameters(self.dkss_idw_forecast_parameters, DMISettingKeys.FORECASTDATA_EDR_API_KEY,
+                                    self.scrollAreaWidgetContents_20, invalid_api_key=False)
+        self.listCheckBox_para_dkss_lf_edr = \
+            self.display_parameters(self.dkss_lf_forecast_parameters, DMISettingKeys.FORECASTDATA_EDR_API_KEY,
+                                    self.scrollAreaWidgetContents_21, invalid_api_key=False)
+        self.listCheckBox_para_dkss_lb_edr = \
+            self.display_parameters(self.dkss_lb_forecast_parameters, DMISettingKeys.FORECASTDATA_EDR_API_KEY,
+                                    self.scrollAreaWidgetContents_22, invalid_api_key=False)
+        self.listCheckBox_para_dkss_if_edr = \
+            self.display_parameters(self.dkss_if_forecast_parameters, DMISettingKeys.FORECASTDATA_EDR_API_KEY,
+                                    self.scrollAreaWidgetContents_23, invalid_api_key=False)
+        self.listCheckBox_para_dkss_ws_edr = \
+            self.display_parameters(self.dkss_ws_forecast_parameters, DMISettingKeys.FORECASTDATA_EDR_API_KEY,
+                                    self.scrollAreaWidgetContents_24, invalid_api_key=False)
+        self.listCheckBox_para_wam_edr = \
+            self.display_parameters(self.wam_forecast_parameters, DMISettingKeys.FORECASTDATA_EDR_API_KEY,
+                                    self.scrollAreaWidgetContents_11, invalid_api_key=False)
 
     @staticmethod
     def generate_no_api_key_label(settings_key: DMISettingKeys):
@@ -310,14 +437,17 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             parameter_layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(settings_key))
         return checkboxes
 
+    # The different actions that use the objects defined earlier.
 
+    # Enables or disables different radar types.
     def comp(self):
         self.stat_radar.setEnabled(False)
         self.scan_type.setEnabled(True)
     def pseud(self):
         self.stat_radar.setEnabled(True)
         self.scan_type.setEnabled(False)
-# Disables or enables time in "Stations and parameters"
+
+    # Disables or enables time in "Stations and parameters"
     def disable_time_oce(self):
         self.dateTimeEdit_3.setEnabled(False)
         self.dateTimeEdit_4.setEnabled(False)
@@ -330,18 +460,14 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
     def enable_time(self):
         self.groupBox_25.setEnabled(True)
         self.groupBox_26.setEnabled(True)
-# Changes pages when clicked
+
+    # Changes pages when clicked
     def wamTab(self):
         self.para_stacked.setCurrentWidget(self.wam_page)
     def dkssTab(self):
         self.para_stacked.setCurrentWidget(self.dkss_page)
     def harmonieTab(self):
         self.para_stacked.setCurrentWidget(self.harmonie_page)
-    def depth_tab_dis(self):
-        self.groupBox_14.setEnabled(False)
-    def depth_tab_enabled(self):
-        self.groupBox_14.setEnabled(True)
-
     def neaSfTab(self):
         self.harm_para_stacked.setCurrentWidget(self.harm_nea_sf_para)
     def neaPlTab(self):
@@ -350,14 +476,6 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.harm_para_stacked.setCurrentWidget(self.harm_igb_sf_para)
     def igbPlTab(self):
         self.harm_para_stacked.setCurrentWidget(self.harm_igb_pl_para)
-
-    def enableCoordi(self):
-        self.coordi_line.setEnabled(True)
-        self.bbox_line.setEnabled(False)
-    def enableBBox(self):
-        self.coordi_line.setEnabled(False)
-        self.bbox_line.setEnabled(True)
-
     def infoStat(self):
         self.stackedWidget_3.setCurrentWidget(self.met_stat_page)
     def infoGrid10(self):
@@ -372,31 +490,6 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         self.stackedWidget_3.setCurrentWidget(self.light_page)
     def infoTide(self):
         self.stackedWidget_3.setCurrentWidget(self.tide_page)
-
-
-
-# Actions for buttons to go to dmi.dk
-    def open_openData(self):
-        webbrowser.open('https://confluence.govcloud.dk/display/FDAPI/Danish+Meteorological+Institute+-+Open+Data')
-    def open_openData_2(self):
-        webbrowser.open('https://confluence.govcloud.dk/display/FDAPI/Danish+Meteorological+Institute+-+Open+Data')
-    def open_dmi_dk(self):
-        webbrowser.open('https://www.dmi.dk/')
-# Actions when saving as .csv
-    def browse_files_cli(self):
-        fname = QFileDialog.getSaveFileName(self, 'Open File', 'C:')
-        self.file_name_cli.setText(fname[0])
-    def browse_files_lig(self):
-        fname = QFileDialog.getSaveFileName(self, 'Open File', 'C:')
-        self.file_name_lig.setText(fname[0])
-    def browse_files_oce(self):
-        fname = QFileDialog.getSaveFileName(self, 'Open File', 'C:')
-        self.file_name_oce.setText(fname[0])
-    def browse_files_fore(self):
-        fname = QFileDialog.getSaveFileName(self, 'Open File', 'C')
-        self.file_name_fore.setText(fname[0])
-
-# Changing pages in Climate Data
     def stat_typeR(self):
         self.stackedWidget.setCurrentWidget(self.stat_clima)
         self.stackedWidget_2.setCurrentWidget(self.stat_para)
@@ -412,11 +505,74 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
     def country_typeR(self):
         self.stackedWidget.setCurrentWidget(self.country)
         self.stackedWidget_2.setCurrentWidget(self.grid_para)
+    def wamTab_grib(self):
+        self.para_stacked_2.setCurrentWidget(self.wam_page_2)
+    def dkssTab_grib(self):
+        self.para_stacked_2.setCurrentWidget(self.dkss_page_2)
+    def nsbs_depth_tab(self):
+        self.stacked_depth.setCurrentWidget(self.nsbs_depth)
+    def idw_depth_tab(self):
+        self.stacked_depth.setCurrentWidget(self.idw_depth)
+    def ws_depth_tab(self):
+        self.stacked_depth.setCurrentWidget(self.ws_depth)
+    def if_depth_tab(self):
+        self.stacked_depth.setCurrentWidget(self.if_depth)
+    def lf_depth_tab(self):
+        self.stacked_depth.setCurrentWidget(self.lf_depth)
+    def lb_depth_tab(self):
+        self.stacked_depth.setCurrentWidget(self.lb_depth)
+    def depth_tab_dis(self):
+        self.depth_group.setEnabled(False)
+    def depth_tab_enabled(self):
+        self.depth_group.setEnabled(True)
+    def idw_tab(self):
+        self.stackedWidget_4.setCurrentWidget(self.idw)
+    def nsbs_tab(self):
+        self.stackedWidget_4.setCurrentWidget(self.nsbs)
+    def lf_tab(self):
+        self.stackedWidget_4.setCurrentWidget(self.lf)
+    def lb_tab(self):
+        self.stackedWidget_4.setCurrentWidget(self.lb)
+    def ws_tab(self):
+        self.stackedWidget_4.setCurrentWidget(self.ws)
+    def if_tab(self):
+        self.stackedWidget_4.setCurrentWidget(self.isf)
+
+    # Enables coordinates or BBOX
+    def enableCoordi(self):
+        self.coordi_line.setEnabled(True)
+        self.bbox_line.setEnabled(False)
+    def enableBBox(self):
+        self.coordi_line.setEnabled(False)
+        self.bbox_line.setEnabled(True)
+
+    # Actions for buttons to go to dmi.dk
+    def open_openData(self):
+        webbrowser.open('https://confluence.govcloud.dk/display/FDAPI/Danish+Meteorological+Institute+-+Open+Data')
+    def open_openData_2(self):
+        webbrowser.open('https://confluence.govcloud.dk/display/FDAPI/Danish+Meteorological+Institute+-+Open+Data')
+    def open_dmi_dk(self):
+        webbrowser.open('https://www.dmi.dk/')
+
+    # Actions when saving as .csv
+    def browse_files_cli(self):
+        fname = QFileDialog.getSaveFileName(self, 'Open File', 'C:')
+        self.file_name_cli.setText(fname[0])
+    def browse_files_lig(self):
+        fname = QFileDialog.getSaveFileName(self, 'Open File', 'C:')
+        self.file_name_lig.setText(fname[0])
+    def browse_files_oce(self):
+        fname = QFileDialog.getSaveFileName(self, 'Open File', 'C:')
+        self.file_name_oce.setText(fname[0])
+    def browse_files_fore(self):
+        fname = QFileDialog.getSaveFileName(self, 'Open File', 'C')
+        self.file_name_fore.setText(fname[0])
     def browse_files_obs(self):
         fname = QFileDialog.getSaveFileName(self, 'Open File', 'C:')
         self.file_name_obs.setText(fname[0])
 
     def run(self):
+        # The two lists used to store the users input
         parameters = []
         stations = []
 
@@ -443,7 +599,10 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             api_key = self.settings_manager.value(DMISettingKeys.LIGHTNINGDATA_API_KEY.value)
         elif dataName == 'ForecastEDR Data':
             data_type = 'forecastdata'
-            api_key = self.settings_manager.value(DMISettingKeys.FORECASTDATA_API_KEY.value)
+            api_key = self.settings_manager.value(DMISettingKeys.FORECASTDATA_EDR_API_KEY.value)
+        elif dataName == 'Forecast Data (GRIB)':
+            data_type = 'forecastdata'
+            api_key = self.settings_manager.value(DMISettingKeys.FORECASTDATA_GRIB_API_KEY.value)
         elif dataName == 'Stations and Parameters' and self.met_stat_info.isChecked():
             data_type = 'stat_para_info'
         elif dataName == 'Stations and Parameters' and self.tide_info.isChecked():
@@ -476,14 +635,18 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             data_type2 = 'climateData'
         elif data_type == 'ocean_para_info':
             data_type2 = 'oceanObs'
-        elif data_type == 'forecastdata':
-            if self.wam_fore.isChecked():
+        elif dataName == 'Forecast Data (GRIB)':
+            if self.wam_fore_grib.isChecked():
+                data_type2 = 'wam'
+            elif self.dkss_fore_grib.isChecked():
+                data_type2 = 'dkss'
+        elif dataName == 'ForecastEDR Data':
+            if self.harm_fore.isChecked():
+                data_type2 = 'harmonie'
+            elif self.wam_fore.isChecked():
                 data_type2 = 'wam'
             elif self.dkss_fore.isChecked():
                 data_type2 = 'dkss'
-            elif self.harm_fore.isChecked():
-                data_type2 = 'harmonie'
-
 
         # Based on data_type2 the stationId, municipalityId or cellId will be assigned.
         if data_type2 == 'observation' and data_type == 'metObs':
@@ -499,24 +662,24 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         elif data_type2 == '20kmGridValue':
             stat1 = 'cellId'
         elif data_type2 == 'wam':
-            if self.danish_waters.isChecked():
+            if self.danish_waters.isChecked() or self.danish_waters_2.isChecked():
                 fore_area = 'dw'
-            elif self.north_atlantic.isChecked():
+            elif self.north_atlantic.isChecked() or self.north_atlantic_2.isChecked():
                 fore_area = 'natlant'
-            elif self.north_sea_baltic.isChecked():
+            elif self.north_sea_baltic.isChecked() or self.north_sea_baltic_2.isChecked():
                 fore_area = 'nsb'
         elif data_type2 == 'dkss':
-            if self.north_sea_baltic_sea.isChecked():
+            if self.north_sea_baltic_sea.isChecked() or self.north_sea_baltic_sea_2.isChecked():
                 fore_area = 'nsbs'
-            elif self.inner_danish_waters.isChecked():
+            elif self.inner_danish_waters.isChecked() or self.inner_danish_waters_2.isChecked():
                 fore_area = 'idw'
-            elif self.wadden_sea.isChecked():
+            elif self.wadden_sea.isChecked() or self.wadden_sea_2.isChecked():
                 fore_area = 'ws'
-            elif self.isefjord.isChecked():
+            elif self.isefjord.isChecked() or self.isefjord_2.isChecked():
                 fore_area = 'if'
-            elif self.limfjord.isChecked():
+            elif self.limfjord.isChecked() or self.limfjord_2.isChecked():
                 fore_area = 'lf'
-            elif self.little_belt.isChecked():
+            elif self.little_belt.isChecked() or self.little_belt_2.isChecked():
                 fore_area = 'lb'
         elif data_type2 == 'harmonie':
             if self.nea_sf_area.isChecked():
@@ -577,10 +740,10 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # Municipality ID
         if data_type2 == 'municipalityValue':
-            for munic_id in munic:
+            for munic_id in munic_id_name:
                 qt_checkbox_widget = self.listCheckBox_municipalityId[munic_id]
                 if qt_checkbox_widget.isChecked():
-                    stations.append(munic_id)
+                    stations.append(munic_id[-4:])
                     qt_checkbox_widget.setChecked(False)
 
         # Grid, municipality and country parameters
@@ -615,42 +778,90 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                     parameters.append(parameter)
                     qt_checkbox_widget.setChecked(False)
 
-        if data_type2 == 'wam':
-            for para in paraWam:
-                qt_checkbox_widget = getattr(self, para)
+        # Forecast WAM parameters (GRIB)
+        if data_type2 == 'wam' and dataName == 'Forecast Data (GRIB)':
+                wam_para = ['wind_speed_10', 'wind_direction_10', 'sig_wave_height', 'dom_wave_period',
+                            'mean_wave_period_2',
+                            'mean_zero_wave_period', 'mean_wave_dir_2', 'sig_height_wind_waves_sea',
+                            'mean_period_wind_wave_sea',
+                            'mean_dir_wind_wave_sea', 'sig_height_swell', 'mean_period_swell', 'mean_dir_swell',
+                            'benjamin_index']
+                wam_para_band = list(range(1, 15))
+                para_fore_dict_wam = dict(zip(wam_para, wam_para_band))
+                for fore_para in para_fore_dict_wam:
+                    qt_checkbox_widget = getattr(self, fore_para)
+                    if qt_checkbox_widget.isChecked():
+                        parameters.append(fore_para)
+                        qt_checkbox_widget.setChecked(False)
+
+        # Forecast DKSS parameters (GRIB)
+        if data_type2 == 'dkss' and dataName == 'Forecast Data (GRIB)':
+            print('asd')
+            nsbs_para = ['dev_sea_mean', 'u_comp_wind', 'v_comp_wind', 'u_comp_cur', 'v_comp_cur',
+                         'water_temp', 'salinity_2', 'ice_thick', 'ice_conc', 'u_comp_cur_',
+                         'v_comp_cur_', 'water_temp_', 'salinity_']
+            nsbs_para_band = list(range(1, 10))
+            para_fore_dict_nsbs = dict(zip(nsbs_para[0:9], nsbs_para_band))
+            for fore_para in nsbs_para:
+                qt_checkbox_widget = getattr(self, fore_para)
                 if qt_checkbox_widget.isChecked():
-                    if '_2' in para:
-                        para = para[:-2]
-                    para = para.replace('_', '-')
-                    parameters.append(para)
+                    parameters.append(fore_para)
+                    print(parameters)
                     qt_checkbox_widget.setChecked(False)
 
-        if data_type2 == 'dkss':
-            for para in paraNsbs:
-                qt_checkbox_widget = getattr(self, para)
-                if qt_checkbox_widget.isChecked():
-                    para = para.replace('_', '-')
-                    parameters.append(para)
-                    qt_checkbox_widget.setChecked(False)
-
-        if data_type2 == 'harmonie':
+        # Forecast HARMONIE, DKSS and WAM (EDR)
+        if data_type2 == 'harmonie' or data_type2 == 'dkss' or data_type2 == 'wam':
             if fore_area == 'nea_sf':
-                parameterListForecast = paraHarmSf
+                parameterListForecast = self.harmonie_nea_sf_forecast_parameters
+                listCheckBoxForecast = self.listCheckBox_para_harmonie_nea_sf_edr
+
             elif fore_area == 'nea_pl':
-                parameterListForecast = paraHarmPl
+                parameterListForecast = self.harmonie_nea_pl_forecast_parameters
+                listCheckBoxForecast = self.listCheckBox_para_harmonie_nea_pl_edr
+
             elif fore_area == 'igb_sf':
-                parameterListForecast = paraHarmIgbSf
+                parameterListForecast = self.harmonie_igb_sf_forecast_parameters
+                listCheckBoxForecast = self.listCheckBox_para_harmonie_igb_sf_edr
+
             elif fore_area == 'igb_pl':
-                parameterListForecast = paraHarmIgbPl
-            for para in parameterListForecast:
-                qt_checkbox_widget = getattr(self, para)
+                parameterListForecast = self.harmonie_igb_pl_forecast_parameters
+                listCheckBoxForecast = self.listCheckBox_para_harmonie_igb_pl_edr
+
+            elif fore_area == 'nsbs':
+                parameterListForecast = self.dkss_nsbs_forecast_parameters
+                listCheckBoxForecast = self.listCheckBox_para_dkss_nsbs_edr
+
+            elif fore_area == 'idw':
+                parameterListForecast = self.dkss_idw_forecast_parameters
+                listCheckBoxForecast = self.listCheckBox_para_dkss_idw_edr
+
+            elif fore_area == 'lf':
+                parameterListForecast = self.dkss_lf_forecast_parameters
+                listCheckBoxForecast = self.listCheckBox_para_dkss_lf_edr
+
+            elif fore_area == 'lb':
+                parameterListForecast = self.dkss_lf_forecast_parameters
+                listCheckBoxForecast = self.listCheckBox_para_dkss_lf_edr
+
+            elif fore_area == 'if':
+                parameterListForecast = self.dkss_if_forecast_parameters
+                listCheckBoxForecast = self.listCheckBox_para_dkss_if_edr
+
+            elif fore_area == 'ws':
+                parameterListForecast = self.dkss_ws_forecast_parameters
+                listCheckBoxForecast = self.listCheckBox_para_dkss_ws_edr
+
+            elif data_type2 == 'wam':
+                print("her")
+                parameterListForecast = self.wam_forecast_parameters
+                listCheckBoxForecast = self.listCheckBox_para_wam_edr
+
+        for para in parameterListForecast:
+                qt_checkbox_widget = listCheckBoxForecast[para]
                 if qt_checkbox_widget.isChecked():
                     para = para.replace('_','-')
-                    if fore_area == 'igb_pl' or fore_area == 'igb_sf':
-                        para = para[:-2]
                     parameters.append(para)
                     qt_checkbox_widget.setChecked(False)
-
 
         # Information for stations. The list of stations is based on climateData and NOT metObs
         if dataName == 'Stations and Parameters' and data_type2 == 'climateData':
@@ -659,6 +870,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 if qt_checkbox_widget.isChecked():
                     parameters.append(parameter)
                     qt_checkbox_widget.setChecked(False)
+
         if dataName == 'Stations and Parameters' and data_type2 == 'oceanObs':
             ocean_parameters = ['sea_reg_info', 'sealev_dvr_info', 'sealev_ln_info', 'tw_info']
             for oce_para in ocean_parameters:
@@ -675,7 +887,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 if qt_checkbox_widget.isChecked():
                     radar_stations_it.append(radar_stat[1:])
                     qt_checkbox_widget.setChecked(False)
-        # Datetime
+
         # Changes the format of the datetime to make it compatible for the URL calls.
         # The format by QT is yyyy:m:d h:m:s and the format needed for URL is yyyy:mm:ddThh:mm:ssZ
         if dataName == 'Meteorological Observations':
@@ -699,6 +911,10 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             end_datetime = self.end_date5.dateTime().toString(Qt.ISODate) + 'Z'
 
         elif dataName == 'ForecastEDR Data':
+            start_datetime = self.datetime_fore_start.dateTime().toString(Qt.ISODate) + 'Z'
+            end_datetime = self.datetime_fore_end.dateTime().toString(Qt.ISODate) + 'Z'
+
+        elif dataName == 'Forecast Data (GRIB)':
             start_datetime = self.datetime_fore_start.dateTime().toString(Qt.ISODate) + 'Z'
             end_datetime = self.datetime_fore_end.dateTime().toString(Qt.ISODate) + 'Z'
 
@@ -978,7 +1194,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                       'limit' : '300000'}
             # Did the user choose the BBOX?
             if self.bbox_lightning.text() != '':
-                params.update({'bbox': self.bbox_lig.text()})
+                params.update({'bbox': self.bbox_lightning.text()})
             # Did the user choose any specific lightning type?
             if self.cloud_to_g_pos.isChecked():
                 params.update({'type': '1'})
@@ -1042,7 +1258,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             params = {'api-key': api_key,
                     'datetime': datetime,
                     'limit': '300000',
-                    'f': 'GeoJSON'}
+                    'f': 'GeoJSON',}
 
             if self.bbox_harm.isChecked():
                 # This variable is used to decide wheter or not QGIS should try to add data.
@@ -1109,6 +1325,140 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
 
                 if self.file_name_fore.text() != '':
                     df.to_csv(self.file_name_fore.text() + '.csv', index=False)
+
+        # Forecast Data (GRIB)
+        if dataName == 'Forecast Data (GRIB)':
+            root = QgsProject.instance().layerTreeRoot()
+            layer_group = root.insertGroup(0, 'Forecast' + datetime)
+            temp = mkdtemp(suffix='_forecast-files')
+            url = 'https://dmigw.govcloud.dk/v1/' + data_type + '/collections/' + data_type2 + '_' + fore_area + '/items'
+            params = {'api-key': api_key,
+                      'datetime': datetime,
+                      'limit': '300000'}
+            r = requests.get(url, params=params)
+            print(r, r.url)
+            json = r.json()
+            latest_model_run = \
+            sorted(json['features'], key=lambda feature: feature['properties']['modelRun'])[-1]['properties'][
+                'modelRun']
+            print(latest_model_run)
+            for feature in filter(lambda feature: feature['properties']['modelRun'] == latest_model_run,
+                                  json['features']):
+                downloadurl = feature['asset']['data']['href']
+                downloaddata = requests.get(downloadurl)
+                id = feature['id']
+                print(id)
+                tempfile = os.path.join(temp, id)
+                if not os.path.isfile(tempfile):
+                    with open(tempfile, 'wb') as fd:
+                        for chunk in downloaddata.iter_content():
+                            fd.write(chunk)
+                layer = QgsRasterLayer(tempfile)
+                if data_type2 == 'wam':
+                    band_par = para_fore_dict_wam[parameters[0]]
+                elif data_type2 == 'dkss':
+                    # Checks if the chosen parameter is a parameter that can be viewed at different depths
+                    if parameters[0] in depth_para_dkss:
+                        if fore_area == 'nsbs':
+                            depth = int(self.depth_box_nsbs.currentText())
+                            if parameters[0] == 'salinity_':
+                                band_par = salinity_nsbs[depth]
+                            elif parameters[0] == 'water_temp_':
+                                band_par = water_temp_nsbs[depth]
+                            elif parameters[0] == 'v_comp_cur_':
+                                band_par = u_current_nsbs[depth]
+                            elif parameters[0] == 'u_comp_cur_':
+                                band_par = v_current_nsbs[depth]
+                        elif fore_area == 'idw':
+                            depth = int(self.depth_box_idw.currentText())
+                            if parameters[0] == 'salinity_':
+                                band_par = salinity_idw[depth]
+                            elif parameters[0] == 'water_temp_':
+                                band_par = water_temp_idw[depth]
+                            elif parameters[0] == 'v_comp_cur_':
+                                band_par = u_current_idw[depth]
+                            elif parameters[0] == 'u_comp_cur_':
+                                band_par = v_current_idw[depth]
+                        elif fore_area == 'ws':
+                            depth = int(self.depth_box_ws.currentText())
+                            if parameters[0] == 'salinity_':
+                                band_par = salinity_ws[depth]
+                            elif parameters[0] == 'water_temp_':
+                                band_par = water_temp_ws[depth]
+                            elif parameters[0] == 'v_comp_cur_':
+                                band_par = u_current_ws[depth]
+                            elif parameters[0] == 'u_comp_cur_':
+                                band_par = v_current_ws[depth]
+                        elif fore_area == 'if':
+                            depth = int(self.depth_box_if.currentText())
+                            if parameters[0] == 'salinity_':
+                                band_par = salinity_if[depth]
+                            elif parameters[0] == 'water_temp_':
+                                band_par = water_temp_if[depth]
+                            elif parameters[0] == 'v_comp_cur_':
+                                band_par = u_current_if[depth]
+                            elif parameters[0] == 'u_comp_cur_':
+                                band_par = v_current_if[depth]
+                        elif fore_area == 'lf':
+                            depth = int(self.depth_box_lf.currentText())
+                            if parameters[0] == 'salinity_':
+                                band_par = salinity_lf[depth]
+                            elif parameters[0] == 'water_temp_':
+                                band_par = water_temp_lf[depth]
+                            elif parameters[0] == 'v_comp_cur_':
+                                band_par = u_current_lf[depth]
+                            elif parameters[0] == 'u_comp_cur_':
+                                band_par = v_current_lf[depth]
+                        elif fore_area == 'lb':
+                            depth = int(self.depth_box_lb.currentText())
+                            if parameters[0] == 'salinity_':
+                                band_par = salinity_lb[depth]
+                            elif parameters[0] == 'water_temp_':
+                                band_par = water_temp_lb[depth]
+                            elif parameters[0] == 'v_comp_cur_':
+                                band_par = u_current_lb[depth]
+                            elif parameters[0] == 'u_comp_cur_':
+                                band_par = v_current_lb[depth]
+                    elif parameters[0] not in depth_para_dkss:
+                        band_par = para_fore_dict_nsbs[parameters[0]]
+                # Provides the statistics for the layer. Used to find min and max
+                stats = layer.dataProvider().bandStatistics(band_par, QgsRasterBandStats.All)
+                # The layer will be mapped in a Gray symbology
+                renderer = QgsSingleBandGrayRenderer(layer.dataProvider(), band_par)
+                # Sets the color scale for the layer
+                myType = renderer.dataType(1)
+                myEnhancement = QgsContrastEnhancement(myType)
+                contrast_enhancement = QgsContrastEnhancement.StretchToMinimumMaximum
+                myEnhancement.setContrastEnhancementAlgorithm(contrast_enhancement, True)
+                myEnhancement.setMinimumValue(stats.minimumValue)
+                myEnhancement.setMaximumValue(stats.maximumValue)
+                d = feature['properties']['datetime']
+                start_time = QDateTime.fromString(d, 'yyyy-MM-ddThh:mm:ssZ')
+                end_time = start_time.addSecs(3600)
+                time_range = QgsDateTimeRange(start_time, end_time)
+                layer.temporalProperties().setFixedTemporalRange(time_range)
+                layer.temporalProperties().setIsActive(True)
+                layer.setRenderer(renderer)
+                layer.renderer().setContrastEnhancement(myEnhancement)
+
+                # Changes the name
+                if len(parameters) > 0:
+                    if self.wam_fore_grib.isChecked():
+                        layer.setName(
+                            data_type2 + ' ' + fore_area + ' ' + parameters[0] + ' ' + feature['properties'][
+                                'datetime'])
+                    elif self.dkss_fore.isChecked() and parameters[0] in depth_para_dkss:
+                        layer.setName(data_type2 + ' ' + fore_area + ' ' + parameters[0] + ' ' + str(depth) + 'm ' +
+                                      feature['properties']['datetime'])
+                    elif self.dkss_fore.isChecked() and parameters[0] not in depth_para_dkss:
+                        layer.setName(
+                            data_type2 + ' ' + fore_area + ' ' + parameters[0] + ' ' + feature['properties'][
+                                'datetime'])
+                # Adds the layer to the map
+                project = QgsProject.instance()
+                project.addMapLayer(layer, addToLegend=False)
+                layer_group.insertLayer(-1, layer)
+
 
         # Information about stations and parameters
         if dataName == 'Stations and Parameters':

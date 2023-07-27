@@ -95,11 +95,25 @@ The output is also the same as Meteorological Observations and the fields includ
 
 ![Oceanographic Observations](guide%20image/ocean.png)
 
-## Forecast Data
+## Forecast Data (Vector)
 
  - About
 
-Forecast data allows the user to import data from DMIs Forecast models. 4 models will be made available: Weather Model (Harmonie), Wave Model (WAM), Storm Surge Model (DKSS) and Arctic Sea Ice Model (HYCOM-CICE). In version 0.1 of the plugin, only WAM and DKSS is available. When the two remaining models are released, they will also be included in the plugin. 
+Forecast data allows the user to import data from DMIs 3 Forecast models: HARMONIE (weather model), WAM (Wave model) and DKSS (Strom Surge model).
+ - Usage
+
+To choose between the different models, use the radio button. Each page has different parameters, areas and specifications. You can specify an area of interest, either by getting the closest point to a specified coordinate, or by defining a bounding box. Read more about forecast data [here](https://confluence.govcloud.dk/pages/viewpage.action?pageId=76155038). 
+ - Output
+The output is one or more points that contains the parameters chosen and a timestamp.
+ 
+
+![Forecast Data](guide%20image/forecast_vector.png)
+
+## Forecast Data (Raster)
+
+ - About
+
+Forecast data allows the user to import data from DMIs Forecast models. 2 models are available: Wave Model (WAM) and Storm Surge Model (DKSS). In version 0.1 of the plugin, only WAM and DKSS is available. When the two remaining models are released, they will also be included in the plugin. 
  - Usage
 
 To choose between the different models, use the radio button. Each page has different parameters, areas and specifications. It is not possible to choose more than one parameter, as the output is all parameters in one layer. Read more about forecast data [here](https://confluence.govcloud.dk/display/FDAPI/Forecast+Data). 
@@ -107,7 +121,7 @@ To choose between the different models, use the radio button. Each page has diff
 
 The output is one layer with all parameters, where the chosen parameter is displayed. In the layer symbology, you can choose between all parameters and depths (depths is only available for DKSS) by clicking on another band. Each band thereby represent a parameter and a depth, that can be visualized by clicking on it. 
 
-![Forecast Data](guide%20image/forecast.png)
+![Forecast Data](guide%20image/forecast_raster.png)
 
 ## Stations and Parameters
 
