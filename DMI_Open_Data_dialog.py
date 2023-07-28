@@ -1275,7 +1275,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 point_coordi = self.coordi_line.text()
                 if ' ' in point_coordi:
                     point_coordi = point_coordi.replace(' ', '')
-                # The API does not accept comma sepperation, which is why the comma is changed to a space. 
+                # The API does not accept comma sepperation, which is why the comma is changed to a space.
                 point_coordi = point_coordi.replace(',',' ')
                 params.update({'coords': 'POINT(' + point_coordi + ')'})
                 if point_coordi == '':
@@ -1295,7 +1295,6 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
 
             if returned_data != '0':
                 r = requests.get(url, params=params)
-                if r.status_code == 200:
                 print(r, r.url)
                 json = r.json()
                 df = json_normalize(json['features'])
