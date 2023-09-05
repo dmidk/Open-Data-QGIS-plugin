@@ -1,3 +1,9 @@
+## Version: 1.0.6 - Minor fixes to QGIS field types
+
+ - Sets correct QGIS field types for values
+ - Radar images now have a single timestamp instead of a range
+ - Above changes makes it easier to work with lightning and radar data with the QGIS temporal controller
+
 ## Version: 1.0.5 - Fix plugin for new version of QGIS (3.28)
 
 - Fix plugin for new QGIS version (3.28)

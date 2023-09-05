@@ -1,6 +1,8 @@
 ## Changes
 
- - Fix plugin for new QGIS version (3.28)
+ - Sets correct QGIS field types for values
+ - Radar images now have a single timestamp instead of a range
+ - Above changes makes it easier to work with lightning and radar data with the QGIS temporal controller
 
 ## Installation
 
