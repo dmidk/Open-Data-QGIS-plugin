@@ -2571,7 +2571,7 @@
          <item>
           <widget class="QRadioButton" name="met_stat_info">
            <property name="text">
-            <string>Meteorological Stations</string>
+            <string>Climate Data Stations</string>
            </property>
           </widget>
          </item>

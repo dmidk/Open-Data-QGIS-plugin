@@ -1171,9 +1171,9 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             print(r.url)
             json = r.json()
             r_code = r.status_code
-            if r_code == 403:
+            if r_code == 403 or r_code == 401:
                 QMessageBox.warning(self, self.tr("DMI Open Data"),
-                                 self.tr('API Key is not valid or is expired / revoked.'))
+                                 self.tr('ClimateData or OceanObs API Key is not valid or is expired / revoked.'))
             else:
                 df = json_normalize(json['features'])
                 # Name and sort the data based on users preferences
