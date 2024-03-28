@@ -44,9 +44,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
-        <width>511</width>
-        <height>334</height>
+        <y>-95</y>
+        <width>491</width>
+        <height>480</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -155,13 +155,25 @@
            </widget>
           </item>
           <item>
-           <widget class="QGroupBox" name="groupBox_5">
+           <widget class="QGroupBox" name="groupBox_6">
             <property name="title">
              <string>API Key forecastData</string>
             </property>
+            <layout class="QVBoxLayout" name="verticalLayout_8">
+             <item>
+              <widget class="QLineEdit" name="DMI_apiKey_forecastData_GRIB"/>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_5">
+            <property name="title">
+             <string>API Key forecastEDRData</string>
+            </property>
             <layout class="QVBoxLayout" name="verticalLayout_7">
              <item>
-              <widget class="QLineEdit" name="DMI_apiKey_forecastData"/>
+              <widget class="QLineEdit" name="DMI_apiKey_forecastEDRData"/>
              </item>
             </layout>
            </widget>
