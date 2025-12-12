@@ -10,13 +10,13 @@ version=1.0.6
 author=Danish Meteorological Institute
 email=Use the contact form at https://www.dmi.dk/kontakt/frie-data/
 
-about=This plugin lets you import data from DMIs Open Data in an easy manner. The only requirements is an API-key, which you can freely create <a href="https://confluence.govcloud.dk/display/FDAPI/User+Creation">here</a>.
+about=This plugin lets you import data from DMIs Open Data in an easy manner.
 
     With this plugin you can import meteorological observations, climate data, lightning data, radar data and oceanographic observations. Furthermore it is possible to download the data as .csv files, pull multiple parameters and stations at a time and get an overview of all DMIs stations, what they measure and where they are located. 
 
     For a full guide on how to use the plugin go <a href="https://github.com/dmidk/Open-Data-QGIS-plugin/blob/master/Guide.md">here</a>.
     
-    To read more about DMIs Open Data go <a href="https://confluence.govcloud.dk/display/FDAPI/Danish+Meteorological+Institute+-+Open+Data">here.</a> 
+    To read more about DMIs Open Data go <a href="https://www.dmi.dk/frie-data">here.</a> 
     <a href="https://www.dmi.dk/">Visit DMI.</a>
     <a href="https://www.dmi.dk/kontakt/">Contact us.</a>
 
