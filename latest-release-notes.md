@@ -1,7 +1,6 @@
 ## Changes
 
- - The DMI open data API has changed url (https://www.dmi.dk/friedata/dokumentation/release-notes) and no longer requires api-key.
- - Settings page removed as api-key is no longer needed.
+ - Added license to plugin
 
 ## Installation
 

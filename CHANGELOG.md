@@ -1,3 +1,7 @@
+## Version: 1.0.8 - DMI open data API update
+
+ - Added license to plugin
+
 ## Version: 1.0.7 - DMI open data API update
 
  - The DMI open data API has changed url (https://www.dmi.dk/friedata/dokumentation/release-notes) and no longer requires api-key.
