@@ -6,7 +6,7 @@
 name=DMI Open Data
 qgisMinimumVersion=3.0
 description=This plugin lets you import data from DMIs Open Data
-version=1.0.6
+version=1.0.7
 author=Danish Meteorological Institute
 email=Use the contact form at https://www.dmi.dk/kontakt/frie-data/
 
@@ -22,7 +22,7 @@ about=This plugin lets you import data from DMIs Open Data in an easy manner.
 
     This plugin requires the pandas libary. In most cases the pandas libary will be installed alongside the plugin. However, if this is not the case please install pandas to use the plugin. A guide to pandas installation can be found <a href="https://pandas.pydata.org/docs/getting_started/install.html">here</a>
     
-    <img src="https://www.dmi.dk/fileadmin/assets/img/logoer/DMI_RGB_UK.jpg" alt="DMI" width="200" height=auto>
+    <img src="https://www.dmi.dk/fileadmin/templates/img/logo.png" alt="DMI" width="200" height=auto>
 
 tracker=https://github.com/dmidk/Open-Data-QGIS-plugin/issues
 repository=https://github.com/dmidk/Open-Data-QGIS-plugin

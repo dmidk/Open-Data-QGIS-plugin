@@ -1,8 +1,7 @@
 ## Changes
 
- - Sets correct QGIS field types for values
- - Radar images now have a single timestamp instead of a range
- - Above changes makes it easier to work with lightning and radar data with the QGIS temporal controller
+ - The DMI open data API has changed url (https://www.dmi.dk/friedata/dokumentation/release-notes) and no longer requires api-key.
+ - Settings page removed as api-key is no longer needed.
 
 ## Installation
 
