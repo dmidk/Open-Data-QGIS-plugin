@@ -6,7 +6,6 @@ from qgis.PyQt.QtWidgets import QAction
 from .resources import *
 from .DMI_Open_Data_dialog import DMIOpenDataDialog
 import os.path
-from .settings import DMISettingsManager, OptionsFactory
 
 
 class DMIOpenData(object):
@@ -24,13 +23,6 @@ class DMIOpenData(object):
         self.iface = iface
         # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
-        # Initialize settings
-        self.settings = DMISettingsManager()
-        self.settings.settings_updated.connect(self.reload_ui_on_settings_change)
-        #self.settings.settings_updated.connect(self.reloadMenu)
-        self.options_factory = OptionsFactory(self.settings)
-        self.options_factory.setTitle(self.tr("DMI Open Data"))
-        iface.registerOptionsWidgetFactory(self.options_factory)
         # initialize locale
         locale = QSettings().value('locale/userLocale')[0:2]
         locale_path = os.path.join(
@@ -178,7 +170,7 @@ class DMIOpenData(object):
         # Only create GUI ONCE in callback, so that it will only load when the plugin is started
         if self.first_start == True:
             self.first_start = False
-            self.dlg = DMIOpenDataDialog(self.settings)
+            self.dlg = DMIOpenDataDialog()
 
         # show the dialog
         self.dlg.show()

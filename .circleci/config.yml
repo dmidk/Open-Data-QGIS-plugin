@@ -14,9 +14,6 @@ jobs:
       - image: cimg/python:3.8
     steps:
       - checkout
-      - run:
-          name: Pull submodules
-          command: git submodule update --init --recursive
       - python/install-packages:
           pip-dependency-file: requirements-dev.txt
           pkg-manager: pip
@@ -27,10 +24,6 @@ jobs:
           name: Validate project
           command: |
             pbt validate
-      - run:
-          name: Remove all git files # Git files not allowed in plugins published to the official QGIS plugin repository
-          command: |
-            rm -r settings/qgissettingmanager/.git*
       - run:
           name: Build project
           command: |

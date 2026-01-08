@@ -18,7 +18,6 @@ import webbrowser
 from .forecast_para import depth_para_dkss, salinity_nsbs, salinity_idw, salinity_if, salinity_lb, salinity_lf, salinity_ws, water_temp_nsbs, water_temp_if, water_temp_lb, water_temp_lf, water_temp_ws, water_temp_idw, v_current_nsbs, v_current_idw, v_current_if, v_current_lb, v_current_lf, v_current_ws, u_current_nsbs, u_current_idw, u_current_if,u_current_lb, u_current_lf, u_current_ws
 import processing
 from .api.station import get_stations, StationApi, StationId, Station, Parameter
-from .settings import DMISettingsManager, DMISettingKeys
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 # The lists that will be used for parameters, stations, municipalities, 10 and 20km grids in the API calls.
@@ -35,41 +34,13 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 
 # This is where you import and inherit your PY UI class
 class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
-    def __init__(self, settings_manager: DMISettingsManager, parent=None):
+    def __init__(self, parent=None):
         """Constructor."""
         super(DMIOpenDataDialog, self).__init__(parent)
-        self.settings_manager = settings_manager
         load_ui_options = {}
-        try:
-            self.stations_ocean, self.oceanobs_parameters = self.get_stations_and_parameters_if_settings_allow(
-                StationApi.OCEAN_OBS,
-                DMISettingKeys.OCEANOBS_API_KEY
-            )
-        except Exception as ex:
-            self.stations_ocean, self.oceanobs_parameters = {}, {}
-            QMessageBox.warning(self, self.tr("DMI Open Data"),
-                                self.tr(str(ex)))
-            load_ui_options['invalid_oceanobs_api_key'] = True
-        try:
-            self.stations_climate, self.climatedata_parameters = self.get_stations_and_parameters_if_settings_allow(
-                StationApi.CLIMATE_STATION_VALUE,
-                DMISettingKeys.CLIMATEDATA_API_KEY
-            )
-        except Exception as ex:
-            self.stations_climate, self.climatedata_parameters = {}, {}
-            QMessageBox.warning(self, self.tr("DMI Open Data"),
-                                self.tr(str(ex)))
-            load_ui_options['invalid_climate_api_key'] = True
-        try:
-            self.stations_metobs, self.metobs_parameters = self.get_stations_and_parameters_if_settings_allow(
-                StationApi.MET_OBS,
-                DMISettingKeys.METOBS_API_KEY
-            )
-        except Exception as ex:
-            self.stations_metobs, self.metobs_parameters = {}, {}
-            QMessageBox.warning(self, self.tr("DMI Open Data"),
-                                self.tr(str(ex)))
-            load_ui_options['invalid_metobs_api_key'] = True
+        self.stations_ocean, self.oceanobs_parameters = self.get_stations_and_parameters_if_settings_allow(StationApi.OCEAN_OBS)
+        self.stations_climate, self.climatedata_parameters = self.get_stations_and_parameters_if_settings_allow(StationApi.CLIMATE_STATION_VALUE)
+        self.stations_metobs, self.metobs_parameters = self.get_stations_and_parameters_if_settings_allow(StationApi.MET_OBS)
 
         super(DMIOpenDataDialog, self).setupUi(self)
         self.load_station_and_parameter_ui(**load_ui_options)
@@ -181,141 +152,69 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
 
         self.stat_radar.setEnabled(False)
 
-        self.radar_disable_if_needed()
-        self.lightning_disable_if_needed()
-        self.metobs_disable_if_needed()
-        self.climate_disable_if_needed()
-        self.ocean_disable_if_needed()
-        self.forecast_disable_if_needed()
-        self.stat_info_disable_if_needed()
-
-    # Disables data-tab if no API key has been entered
-    def stat_info_disable_if_needed(self):
-        api_key = self.settings_manager.value(DMISettingKeys.METOBS_API_KEY.value)
-        if api_key == '':
-            layout = self.tab_8.findChildren(QtWidgets.QVBoxLayout)[0]
-            layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(DMISettingKeys.METOBS_API_KEY))
-            self.tab_8.setEnabled(False)
-
-    def forecast_disable_if_needed(self):
-        api_key = self.settings_manager.value(DMISettingKeys.FORECASTDATA_API_KEY.value)
-        if api_key == '':
-            layout = self.tab_4.findChildren(QtWidgets.QVBoxLayout)[0]
-            layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(DMISettingKeys.FORECASTDATA_API_KEY))
-            self.tab_4.setEnabled(False)
-
-    def ocean_disable_if_needed(self):
-        api_key = self.settings_manager.value(DMISettingKeys.OCEANOBS_API_KEY.value)
-        if api_key == '':
-            layout = self.tab_5.findChildren(QtWidgets.QVBoxLayout)[0]
-            layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(DMISettingKeys.OCEANOBS_API_KEY))
-            self.tab_5.setEnabled(False)
-
-    def radar_disable_if_needed(self):
-        api_key = self.settings_manager.value(DMISettingKeys.RADARDATA_API_KEY.value)
-        if api_key == '':
-            layout = self.tab_3.findChildren(QtWidgets.QVBoxLayout)[0]
-            layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(DMISettingKeys.RADARDATA_API_KEY))
-            self.tab_3.setEnabled(False)
-
-    def lightning_disable_if_needed(self):
-        api_key = self.settings_manager.value(DMISettingKeys.LIGHTNINGDATA_API_KEY.value)
-        if api_key == '':
-            layout = self.lightning_tab.findChildren(QtWidgets.QVBoxLayout)[0]
-            layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(DMISettingKeys.LIGHTNINGDATA_API_KEY))
-            self.lightning_tab.setEnabled(False)
-
-    def metobs_disable_if_needed(self):
-        api_key = self.settings_manager.value(DMISettingKeys.METOBS_API_KEY.value)
-        if api_key == '':
-            layout = self.tab.findChildren(QtWidgets.QVBoxLayout)[0]
-            layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(DMISettingKeys.METOBS_API_KEY))
-            self.tab.setEnabled(False)
-
-    def climate_disable_if_needed(self):
-        api_key = self.settings_manager.value(DMISettingKeys.CLIMATEDATA_API_KEY.value)
-        if api_key == '':
-            layout = self.tab_2.findChildren(QtWidgets.QVBoxLayout)[0]
-            layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(DMISettingKeys.CLIMATEDATA_API_KEY))
-            self.tab_2.setEnabled(False)
-
-    def get_stations_and_parameters_if_settings_allow(self, station_type: StationApi, settings_key: DMISettingKeys) -> Tuple[Dict[StationId, Station], Set[str]]:
-        api_key = self.settings_manager.value(settings_key.value)
+    def get_stations_and_parameters_if_settings_allow(self, station_type: StationApi) -> Tuple[Dict[StationId, Station], Set[str]]:
         stations = []
         parameters = {}
-        if api_key:
-            stations = get_stations(station_type, api_key)
-            parameters = {parameter for station in stations.values() for parameter in station.parameters }
+        stations = get_stations(station_type)
+        parameters = {parameter for station in stations.values() for parameter in station.parameters }
         return stations, parameters
 
     def load_station_and_parameter_ui(self, invalid_metobs_api_key=False, invalid_oceanobs_api_key=False, invalid_climate_api_key=False):
         # Creates the checkboxes for parameters in metObs
         self.listCheckBox_para_stat_metObs = \
-            self.display_parameters(self.metobs_parameters, DMISettingKeys.METOBS_API_KEY, self.scrollAreaWidgetContents_2, invalid_api_key=invalid_metobs_api_key)
+            self.display_parameters(self.metobs_parameters, "DMISettingKeys.METOBS_API_KEY", self.scrollAreaWidgetContents_2)
         # Creates checkboxes for stations in metobs
         self.listCheckBox_stat_metObs = \
-            self.display_stations(self.stations_metobs, DMISettingKeys.METOBS_API_KEY, self.scrollAreaWidgetContents_3, invalid_api_key=invalid_metobs_api_key)
+            self.display_stations(self.stations_metobs, self.scrollAreaWidgetContents_3)
         # Creates the checkboxes for parameters in climateData
         self.listCheckBox_para_stat_climate = \
-            self.display_parameters(self.climatedata_parameters, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents_6, invalid_api_key=invalid_climate_api_key)
+            self.display_parameters(self.climatedata_parameters, "DMISettingKeys.CLIMATEDATA_API_KEY", self.scrollAreaWidgetContents_6)
         # Creates the checkboxes for parameters used for grid, municipality and country
         self.listCheckBox_para_grid = \
-            self.display_parameters(para_grid, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents_8, invalid_api_key=invalid_climate_api_key)
+            self.display_parameters(para_grid, "DMISettingKeys.CLIMATEDATA_API_KEY", self.scrollAreaWidgetContents_8)
         # Creates the checkboxes for stations in climateData
         self.listCheckBox_station_climate = \
-            self.display_stations(self.stations_climate, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents_5, invalid_api_key=invalid_climate_api_key)
+            self.display_stations(self.stations_climate, self.scrollAreaWidgetContents_5)
         # Creates the checkboxes for cellIds in climateData
         self.listCheckBox_grid10 = \
-            self.display_parameters(grid10, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents, invalid_api_key=invalid_climate_api_key)
+            self.display_parameters(grid10, "DMISettingKeys.CLIMATEDATA_API_KEY", self.scrollAreaWidgetContents)
         # Creates the checkboxes for cellids in climateData
         self.listCheckBox_grid20 = \
-            self.display_parameters(grid20, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents_4, invalid_api_key=invalid_climate_api_key)
+            self.display_parameters(grid20, "DMISettingKeys.CLIMATEDATA_API_KEY", self.scrollAreaWidgetContents_4)
         # Creates the checkboxes for municipalities in climateData
         self.listCheckBox_municipalityId = \
-            self.display_parameters(munic, DMISettingKeys.CLIMATEDATA_API_KEY, self.scrollAreaWidgetContents_7, invalid_api_key=invalid_climate_api_key)
+            self.display_parameters(munic, "DMISettingKeys.CLIMATEDATA_API_KEY", self.scrollAreaWidgetContents_7)
         # Creates the checkboxes for stations in oceanObs
         self.listCheckBox_stat_ocean = \
-            self.display_stations(self.stations_ocean, DMISettingKeys.OCEANOBS_API_KEY, self.scrollAreaWidgetContents_10, invalid_api_key=invalid_oceanobs_api_key)
+            self.display_stations(self.stations_ocean, self.scrollAreaWidgetContents_10)
         self.listCheckBox_station_climate_information = \
-            self.display_parameters(self.climatedata_parameters, DMISettingKeys.METOBS_API_KEY,
-                                    self.scrollAreaWidgetContents_9, invalid_api_key=invalid_climate_api_key, use_radio_button=True)
+            self.display_parameters(self.climatedata_parameters, "DMISettingKeys.METOBS_API_KEY",
+                                    self.scrollAreaWidgetContents_9, use_radio_button=True)
 
-    @staticmethod
-    def generate_no_api_key_label(settings_key: DMISettingKeys):
-        return QtWidgets.QLabel(f'No API key configured for {settings_key.get_api_name()}\nPlease go to Settings -> Options -> DMI Open Data to configure')
-
-    def display_stations(self, stations: Dict[StationId, Station], settings_key: DMISettingKeys, checkbox_container: QtWidgets.QScrollArea, invalid_api_key=False) -> Dict[StationId, QtWidgets.QCheckBox]:
+    def display_stations(self, stations: Dict[StationId, Station], checkbox_container: QtWidgets.QScrollArea) -> Dict[StationId, QtWidgets.QCheckBox]:
         checkboxes = {}
         station_layout = checkbox_container.findChildren(QtWidgets.QVBoxLayout)[0]
-        api_key = self.settings_manager.value(settings_key.value)
-        if api_key and not invalid_api_key:
-            for station_id, station in sorted(stations.items()):
-                station_checkbox_widget = QtWidgets.QCheckBox(checkbox_container)
-                station_checkbox_widget.setObjectName(station_id)
-                station_checkbox_widget.setText(f'{station_id} {station.station_name}')
-                checkboxes[station_id] = station_checkbox_widget
-                station_layout.addWidget(station_checkbox_widget)
-        else:
-            station_layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(settings_key))
+        for station_id, station in sorted(stations.items()):
+            station_checkbox_widget = QtWidgets.QCheckBox(checkbox_container)
+            station_checkbox_widget.setObjectName(station_id)
+            station_checkbox_widget.setText(f'{station_id} {station.station_name}')
+            checkboxes[station_id] = station_checkbox_widget
+            station_layout.addWidget(station_checkbox_widget)
         return checkboxes
 
-    def display_parameters(self, parameters: Set[Parameter], settings_key: DMISettingKeys, checkbox_container: QtWidgets.QScrollArea, invalid_api_key=False, use_radio_button=False) -> Dict[Parameter, QtWidgets.QCheckBox]:
+    def display_parameters(self, parameters: Set[Parameter], settings_key: str, checkbox_container: QtWidgets.QScrollArea, use_radio_button=False) -> Dict[Parameter, QtWidgets.QCheckBox]:
         checkboxes = {}
         parameter_layout = checkbox_container.findChildren(QtWidgets.QVBoxLayout)[0]
-        api_key = self.settings_manager.value(settings_key.value)
-        if api_key and not invalid_api_key:
-            for parameter in sorted(parameters):
-                if use_radio_button:
-                    parameter_widget = QtWidgets.QRadioButton(checkbox_container)
-                else:
-                    parameter_widget = QtWidgets.QCheckBox(checkbox_container)
-                # Parameters are only unique per API, mixing in settings key to make globally unique object name
-                parameter_widget.setObjectName(f"{settings_key}-{parameter}")
-                parameter_widget.setText(parameter)
-                checkboxes[parameter] = parameter_widget
-                parameter_layout.addWidget(parameter_widget)
-        else:
-            parameter_layout.addWidget(DMIOpenDataDialog.generate_no_api_key_label(settings_key))
+        for parameter in sorted(parameters):
+            if use_radio_button:
+                parameter_widget = QtWidgets.QRadioButton(checkbox_container)
+            else:
+                parameter_widget = QtWidgets.QCheckBox(checkbox_container)
+            # Parameters are only unique per API, mixing in settings key to make globally unique object name
+            parameter_widget.setObjectName(f"{settings_key}-{parameter}")
+            parameter_widget.setText(parameter)
+            checkboxes[parameter] = parameter_widget
+            parameter_layout.addWidget(parameter_widget)
         return checkboxes
 
     def comp(self):
@@ -377,9 +276,9 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
 
 # Actions for buttons to go to dmi.dk
     def open_openData(self):
-        webbrowser.open('https://confluence.govcloud.dk/display/FDAPI/Danish+Meteorological+Institute+-+Open+Data')
+        webbrowser.open('https://www.dmi.dk/frie-data')
     def open_openData_2(self):
-        webbrowser.open('https://confluence.govcloud.dk/display/FDAPI/Danish+Meteorological+Institute+-+Open+Data')
+        webbrowser.open('https://www.dmi.dk/frie-data')
     def open_dmi_dk(self):
         webbrowser.open('https://www.dmi.dk/')
 # Actions when saving as .csv
@@ -424,27 +323,21 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         # data_type is the service name used in URL creation
         if dataName == 'Meteorological Observations':
             data_type = 'metObs'
-            api_key = self.settings_manager.value(DMISettingKeys.METOBS_API_KEY.value)
         elif dataName == 'Oceanographic Observations':
             data_type = 'oceanObs'
-            api_key = self.settings_manager.value(DMISettingKeys.OCEANOBS_API_KEY.value)
         elif dataName == 'Radar Data':
             data_type = 'radardata'
-            api_key = self.settings_manager.value(DMISettingKeys.RADARDATA_API_KEY.value)
         elif dataName == 'Climate Data':
             data_type = 'climateData'
-            api_key = self.settings_manager.value(DMISettingKeys.CLIMATEDATA_API_KEY.value)
         elif dataName == 'Lightning Data':
             data_type = 'lightningdata'
-            api_key = self.settings_manager.value(DMISettingKeys.LIGHTNINGDATA_API_KEY.value)
         elif dataName == 'Forecast Data':
             data_type = 'forecastdata'
-            api_key = self.settings_manager.value(DMISettingKeys.FORECASTDATA_API_KEY.value)
         elif dataName == 'Stations and Parameters' and self.met_stat_info.isChecked():
             data_type = 'stat_para_info'
         elif dataName == 'Stations and Parameters' and self.tide_info.isChecked():
             data_type = 'ocean_para_info'
-        
+
         # data_type and data_type2 are assigned
         # data_type2 is the type of collection and will be assigned based on the users preferences.
         # climateData has multiple types of collection
@@ -729,13 +622,12 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         # It is only possible to check stations in climateData, metObs and oceanObs. This section is therefor only for these 3.
         for stat in stations:
             station_total_observations = 0
-            url = 'https://dmigw.govcloud.dk/v2/' + data_type + '/collections/' + data_type2 + '/items'
+            url = 'https://opendataapi.dmi.dk/v2/' + data_type + '/collections/' + data_type2 + '/items'
             # Will be initialized later, when the merge column is known
             station_param_table = pd.DataFrame()
             # Iterates over all the parameters that has been checked by the user.
             for para in parameters:
-                params = {'api-key': api_key,
-                          'datetime': datetime,
+                params = {'datetime': datetime,
                           'parameterId': para,
                           'limit': '300000'}
                 if dataName == 'Climate Data' and data_type2 != 'countryValue':
@@ -881,9 +773,8 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             root = QgsProject.instance().layerTreeRoot()
             layer_group = root.insertGroup(0, 'Radar ' + datetime)
             temp = mkdtemp(suffix='_radar-files')
-            url = 'https://dmigw.govcloud.dk/v1/' + data_type + '/collections/' + data_type2 + '/items'
-            params = {'api-key' : api_key,
-                    'datetime' : datetime
+            url = 'https://opendataapi.dmi.dk/v1/' + data_type + '/collections/' + data_type2 + '/items'
+            params = {'datetime' : datetime
                     }
             if self.composite.isChecked():
                 if self.full_range.isChecked():
@@ -940,9 +831,8 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # Lightning data URL creation
         if dataName == 'Lightning Data':
-            url = 'https://dmigw.govcloud.dk/v2/' + data_type + '/collections/' + data_type2 + '/items'
-            params = {'api-key' : api_key,
-                    'datetime' : datetime,
+            url = 'https://opendataapi.dmi.dk/v2/' + data_type + '/collections/' + data_type2 + '/items'
+            params = {'datetime' : datetime,
                       'limit' : '300000'}
             # Did the user choose the BBOX?
             if self.bbox_lightning.text() != '':
@@ -1008,9 +898,8 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             root = QgsProject.instance().layerTreeRoot()
             layer_group = root.insertGroup(0, 'Forecast' + datetime)
             temp = mkdtemp(suffix='_forecast-files')
-            url = 'https://dmigw.govcloud.dk/v1/' + data_type + '/collections/' + data_type2 + '_' + fore_area + '/items'
-            params = {'api-key': api_key,
-                    'datetime': datetime,
+            url = 'https://opendataapi.dmi.dk/v1/' + data_type + '/collections/' + data_type2 + '_' + fore_area + '/items'
+            params = {'datetime': datetime,
                     'limit': '300000'}
             if self.bbox_fore.text() != '':
                 params.update({'bbox': self.bbox_fore.text()})
@@ -1137,14 +1026,12 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
         if dataName == 'Stations and Parameters':
             if self.met_stat_info.isChecked():
                 data_type = 'climateData'
-                api_key = self.settings_manager.value(DMISettingKeys.CLIMATEDATA_API_KEY.value)
                 data_type2 = 'station'
             elif self.tide_info.isChecked():
                 data_type = 'oceanObs'
-                api_key = self.settings_manager.value(DMISettingKeys.OCEANOBS_API_KEY.value)
                 data_type2 = 'station'
-            url = 'https://dmigw.govcloud.dk/v2/' + data_type + '/collections/' + data_type2 +'/items'
-            params = {'api-key': api_key}
+            url = 'https://opendataapi.dmi.dk/v2/' + data_type + '/collections/' + data_type2 +'/items'
+            params = {}
             # metObs info
             if self.met_stat_info.isChecked():
                 if self.radioButton_11.isChecked() and self.radioButton.isChecked():
@@ -1171,9 +1058,9 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
             print(r.url)
             json = r.json()
             r_code = r.status_code
-            if r_code == 403:
+            if r_code != 200:
                 QMessageBox.warning(self, self.tr("DMI Open Data"),
-                                 self.tr('API Key is not valid or is expired / revoked.'))
+                                 self.tr('API request failed, try again or check for network issues'))
             else:
                 df = json_normalize(json['features'])
                 # Name and sort the data based on users preferences
@@ -1197,7 +1084,7 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                         name_stations_met = 'Coastal Authority'
                 # Names the layer as the station type and parameter if parameter is chosen.
                 if len(parameters) != 0:
-                    df = df[pd.DataFrame(df['properties.parameterId'].tolist()).isin(parameters).any(1).values]
+                    df = df[pd.DataFrame(df['properties.parameterId'].tolist()).isin(parameters).any(axis=1).values]
                     name_stations_met = name_stations_met + ' ' + parameters[0]
                 if len(df) == 0:
                     QMessageBox.warning(self, self.tr("DMI Open Data"),
@@ -1209,19 +1096,19 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                         pr = vl.dataProvider()
                         vl.startEditing()
                         for head in df:
-                            if head != 'geometry.coordinates':
+                            if head != 'geometry.coordinates' and head != 'type':
                                 pr.addAttributes([QgsField(head, QVariant.String)])
                         vl.updateFields()
                         f = QgsFeature()
-                        f.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(row[3][0], row[3][1])))
+                        f.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(row[4][0], row[4][1])))
                         if data_type == 'climateData':
-                            f.setAttributes([row[1],row[2],row[4],row[5],row[6],row[7],\
+                            f.setAttributes([row[1],row[2],row[3],row[5],row[6],row[7],\
                                                 row[8],row[9],row[10],row[11],str(row[12]),row[13],row[14],\
                                                 row[15],row[16],row[17],row[18],row[19],row[20],row[21],row[22]])
                         elif data_type == 'oceanObs':
-                            f.setAttributes([row[1], row[2], row[4], row[5], row[6], str(row[7]), \
+                            f.setAttributes([row[1], row[2], row[3], row[5], row[6], str(row[7]), \
                                              row[8], row[9], row[10], row[11], str(row[12]), row[13], row[14], \
-                                             row[15], row[16], row[17], row[18], row[19], row[20], row[21]])
+                                             row[15], row[16], row[17], row[18], row[19], row[20]])
                         vl.addFeature(f)
                         vl.updateExtents()
                     vl.commitChanges()

@@ -21,7 +21,7 @@ Pull requests for new features, bug fixes etc. are very welcome.
 
 ### Setup
 
-Clone this repository, make sure to fetch submodules with `git submodule update --init --recursive`
+Clone this repository.
 
 In order to run a local version of the plugin, you need to install the developer tools:
 ```bash
