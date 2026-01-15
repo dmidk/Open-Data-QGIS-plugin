@@ -630,6 +630,12 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 params = {'datetime': datetime,
                           'parameterId': para,
                           'limit': '300000'}
+                if dataName == 'Climate Data' and data_type2 == 'stationValue':
+                    # If box is checked we filter on validity, if not we do NOT
+                    # filter, which means we allow both values. There is no way
+                    # of filtering only for invalid values
+                    if self.climate_station_value_validity_box.isChecked():
+                        params['validity'] = True
                 if dataName == 'Climate Data' and data_type2 != 'countryValue':
                     stat_and_res = {stat1 : stat,
                                     'timeResolution': res}
@@ -648,15 +654,10 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                 # Makes sure that data gets a return. If no numbers returned then shows a warning box.
                 # r_code represents the status code.
                 r_code = r.status_code
-                # 403 means that the api is wrong.
-                if r_code == 403:
-                    observations_count = 0
-                    QMessageBox.warning(self, self.tr("DMI Open Data"), self.tr('API Key is not valid or is expired / revoked.'))
                 # if the call has the right API, then continue. This does not mean that the call will deliver data!
                 # The station could still not be measuring the wished parameter.
-                elif r_code != 403:
-                    observations_count = json['numberReturned']
-                    station_total_observations += observations_count
+                observations_count = json['numberReturned']
+                station_total_observations += observations_count
                 if observations_count > 0:
                     df = json_normalize(json['features'])
                     new_param_table = pd.DataFrame({para: df['properties.value']})
@@ -667,6 +668,9 @@ class DMIOpenDataDialog(QtWidgets.QDialog, FORM_CLASS):
                         new_param_table['from'] = df['properties.from']
                         new_param_table['to'] = df['properties.to']
                         merge_column = ['from', 'to']
+                        if data_type2 == 'stationValue':
+                            new_param_table['validity'] = df['properties.validity']
+                            merge_column.append('validity')
                     if stat1 == 'stationId':
                         merge_column += [stat1]
                         new_param_table[stat1] = df['properties.stationId']
