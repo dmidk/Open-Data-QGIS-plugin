@@ -57,7 +57,7 @@ jobs:
     resource_class: small
     steps:
       - gh/install:
-          version: 2.1.0 # Align with orb on line 6
+          version: 2.7.2 # Align with orb on line 6
       - checkout
       - attach_workspace:
           at: zip_build
