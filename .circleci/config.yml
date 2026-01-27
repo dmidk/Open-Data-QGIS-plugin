@@ -3,7 +3,7 @@
 version: 2.1
 orbs:
   python: circleci/python@2.0.3
-  gh: circleci/github-cli@2.8
+  gh: circleci/github-cli@2.7.2
 
 
 # Define a job to be invoked later in a workflow.
