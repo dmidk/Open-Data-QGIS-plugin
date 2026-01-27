@@ -1,6 +1,6 @@
 ## Changes
 
- - Create togglable filter for climate station data validity, so invalid station values can be excluded from the dataset. This filter is toggled b default
+ - Create togglable filter for climate station data validity, so invalid station values can be excluded from the dataset. This filter is toggled b default 
 
 ## Installation
 
